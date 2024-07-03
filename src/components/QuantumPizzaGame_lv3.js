@@ -13,6 +13,7 @@ const TOPPINGS = [
   "🍍 ハワイアン",
 ];
 const COLORS = ["#FF6384", "#FFCE56", "#36A2EB", "#4BC0C0"];
+const ANSWERS_3 = [25, 25, 25, 25];
 
 const PizzaChart = ({ distribution }) => {
   const [animatedDistribution, setAnimatedDistribution] =
@@ -100,7 +101,6 @@ const QuantumCircuit = ({ circuit, addGate }) => {
 const DisplayCircuit = ({ circuits }) => {
   return (
     <div className="mt-4 w-3/6 flex flex-col items-center">
-      <h3 className="text-lg font-bold mb-2">量子回路</h3>
       <div className="flex flex-col space-y-2 w-full">
         {circuits.map((circuit, index) => (
           <div
@@ -129,6 +129,24 @@ const QuantumPizzaGame_lv3 = () => {
   const [submitAnimation, setSubmitAnimation] = useState(false);
   const [circuit1, setCircuit1] = useState([]);
   const [circuit2, setCircuit2] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  useEffect(() => {
+    // 正解条件の判定を行う
+    if (
+      distribution[0] === ANSWERS_3[0] &&
+      distribution[1] === ANSWERS_3[1] &&
+      distribution[2] === ANSWERS_3[2] &&
+      distribution[3] === ANSWERS_3[3]
+    ) {
+      // 正解時の処理：2秒後に正解画面を表示
+      setTimeout(() => {
+        setIsCorrect(true);
+      }, 2000);
+    } else {
+      setIsCorrect(false);
+    }
+  }, [distribution]);
 
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
@@ -192,28 +210,60 @@ const QuantumPizzaGame_lv3 = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <Navbar />
+      {isCorrect && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded shadow-lg text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              おめでとうございます！🎉
+            </h2>
+            <p className="text-lg">正解です！</p>
+            <Link to="/">
+              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                ホームへ戻る
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
       <div
-        className="flex flex-col items-center p-4 bg-yellow-100 min-h-screen m-2"
-        style={{ textAlign: "center" }}
+        className={`${
+          isCorrect ? "blur-sm" : ""
+        } flex flex-col items-center p-4 bg-yellow-100  min-h-screen-minus-16 `}
       >
-        <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza</h1>
-        <p className="text-lg mb-4">🍕 理想のピザの配分にしよう！</p>
-        <div className="flex items-center justify-center mb-4">
-          <PizzaChart distribution={distribution} />
-          <img className="w-56 h-56 ml-4" src="/ans2.png" alt="正解画像" />
-        </div>
-        <div className="flex flex-col items-center">
-          <QuantumCircuit circuit={circuit1} addGate={addGate1} />
-          <QuantumCircuit circuit={circuit2} addGate={addGate2} />
-        </div>
-        <button
-          className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => window.location.reload()}
-        >
-          RESET
-        </button>
-        <DisplayCircuit circuits={[circuit1, circuit2]} />
+        {!isCorrect && (
+          <>
+            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.3</h1>
+            <p className="text-lg mb-4">🍕 理想のピザの配分にしよう！</p>
+            <div className="flex items-center justify-center mb-4">
+              <PizzaChart distribution={distribution} />
+              <img
+                className="w-56 h-56 ml-4 border border-blue-500"
+                src="/ans3.png"
+                alt="正解画像"
+              />
+            </div>
+            <div className="flex flex-col items-center">
+              <QuantumCircuit circuit={circuit1} addGate={addGate1} />
+              <QuantumCircuit circuit={circuit2} addGate={addGate2} />
+            </div>
+            <button
+              className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => window.location.reload()}
+            >
+              RESET
+            </button>
+            <h3 className="text-lg font-bold mb-2">量子回路</h3>
+            <DisplayCircuit circuits={[circuit1]} />
+            <DisplayCircuit circuits={[circuit2]} />
+          </>
+        )}
       </div>
+      {/* <footer className=" w-full bg-black bg-opacity-50 text-white text-center py-2 px-4 mu-10-"> */}
+      <footer className="fixed-footer">
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} Kota Mizuno. All rights reserved.
+        </p>
+      </footer>
     </DndProvider>
   );
 };

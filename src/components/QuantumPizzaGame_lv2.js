@@ -182,12 +182,14 @@ const QuantumPizzaGame_lv2 = () => {
       {isCorrect && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-lg text-center">
-            <h1 className="text-2xl font-bold mb-4">正解！</h1>
-            <Link
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              to="/lv3"
-            >
-              次のレベルへ
+            <h2 className="text-3xl font-bold mb-4">
+              おめでとうございます！🎉
+            </h2>
+            <p className="text-lg">正解です！次のレベルに進みましょう。</p>
+            <Link to="/lv3">
+              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                次へ
+              </button>
             </Link>
           </div>
         </div>
@@ -199,11 +201,15 @@ const QuantumPizzaGame_lv2 = () => {
       >
         {!isCorrect && (
           <>
-            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza</h1>
+            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.2</h1>
             <p className="text-lg mb-4">🍕 理想のピザの配分にしよう！</p>
             <div className="flex items-center justify-center mb-4">
               <PizzaChart distribution={distribution} />
-              <img className="w-56 h-56 ml-4" src="/ans2.png" alt="正解画像" />
+              <img
+                className="w-56 h-56 ml-4 border border-blue-500"
+                src="/ans2.png"
+                alt="正解画像"
+              />
             </div>
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
