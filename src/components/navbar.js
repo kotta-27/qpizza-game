@@ -9,7 +9,7 @@ const Navbar = () => {
           <a href="./">ホーム</a>
         </li>
         <li>
-          <a href="./rule">このゲームについて</a>
+          <a href="./rule">ゲームのルール</a>
         </li>
         <li>
           <a href="./lv1">Lv.1</a>

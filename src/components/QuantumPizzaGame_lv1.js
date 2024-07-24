@@ -4,7 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "./navbar";
-import "../stylesheets/QuantumPizzaGame.css"; // こちらはTailwind用のCSSに置き換えます
+import "../stylesheets/QuantumPizzaGame.css";
 
 const TOPPINGS = [
   "🍅 マルゲリータ",
@@ -15,7 +15,7 @@ const TOPPINGS = [
 const COLORS = ["#FF6384", "#FFCE56", "#36A2EB", "#4BC0C0"];
 const ANSWERS_1 = [0, 100];
 
-const PizzaChart = ({ distribution }) => {
+const PizzaChart = ({ distribution, size }) => {
   const [animatedDistribution, setAnimatedDistribution] =
     useState(distribution);
 
@@ -23,28 +23,30 @@ const PizzaChart = ({ distribution }) => {
     setAnimatedDistribution(distribution);
   }, [distribution]);
 
-  console.log(animatedDistribution);
-
   let startAngle = 0;
 
   return (
-    <motion.svg width="220" height="220" viewBox="0 0 220 220">
-      <circle cx="110" cy="110" r="100" fill="#FFF8DC" />
+    <motion.svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#FFF8DC" />
       <AnimatePresence initial={false}>
         {animatedDistribution.map((value, index) => {
           if (value === 0) return null;
           const angle = (value / 100.0) * 359.9999;
           const endAngle = startAngle + angle;
           const largeArcFlag = angle > 180 ? 1 : 0;
-          const startX = 110 + 100 * Math.cos((Math.PI * startAngle) / 180);
-          const startY = 110 + 100 * Math.sin((Math.PI * startAngle) / 180);
-          const endX = 110 + 100 * Math.cos((Math.PI * endAngle) / 180);
-          const endY = 110 + 100 * Math.sin((Math.PI * endAngle) / 180);
+          const startX =
+            size / 2 + (size / 2.2) * Math.cos((Math.PI * startAngle) / 180);
+          const startY =
+            size / 2 + (size / 2.2) * Math.sin((Math.PI * startAngle) / 180);
+          const endX =
+            size / 2 + (size / 2.2) * Math.cos((Math.PI * endAngle) / 180);
+          const endY =
+            size / 2 + (size / 2.2) * Math.sin((Math.PI * endAngle) / 180);
 
           const pathData = [
-            `M 110 110`,
+            `M ${size / 2} ${size / 2}`,
             `L ${startX} ${startY}`,
-            `A 100 100 0 ${largeArcFlag} 1 ${endX} ${endY}`,
+            `A ${size / 2.2} ${size / 2.2} 0 ${largeArcFlag} 1 ${endX} ${endY}`,
             "Z",
           ].join(" ");
 
@@ -63,13 +65,13 @@ const PizzaChart = ({ distribution }) => {
           );
         })}
       </AnimatePresence>
-      <circle cx="110" cy="110" r="30" fill="#FFF8DC" />
+      <circle cx={size / 2} cy={size / 2} r={size / 7.33} fill="#FFF8DC" />
       <text
-        x="110"
-        y="110"
+        x={size / 2}
+        y={size / 2}
         textAnchor="middle"
         dominantBaseline="central"
-        fontSize="40"
+        fontSize={size / 5.5}
       >
         🍕
       </text>
@@ -129,11 +131,33 @@ const QuantumPizzaGame_lv1 = () => {
   const [submitAnimation, setSubmitAnimation] = useState(false);
   const [circuit1, setCircuit1] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   useEffect(() => {
-    // 正解条件の判定を行う
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const calculateSize = () => {
+    const baseSize = 220;
+    const minSize = 100;
+    const maxSize = 300;
+    const scaleFactor = Math.min(windowSize.width, windowSize.height) / 1000;
+    return Math.max(minSize, Math.min(maxSize, baseSize * scaleFactor));
+  };
+
+  useEffect(() => {
     if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
-      // 正解時の処理：2秒後に正解画面を表示
       setTimeout(() => {
         setIsCorrect(true);
       }, 2000);
@@ -176,14 +200,18 @@ const QuantumPizzaGame_lv1 = () => {
     setDistribution(newDistribution);
   }, [qstate, circuit1]);
 
+  const dynamicSize = calculateSize();
+
   return (
     <DndProvider backend={HTML5Backend}>
       <Navbar />
       {isCorrect && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-lg text-center">
-            <h2 className="text-3xl font-bold mb-4">おめでとうございます！🎉</h2>
-            <p className="text-lg">正解です！次のレベルに進みましょう。</p>
+            <h2 className="text-3xl font-bold mb-4">
+              おめでとうございます！🎉
+            </h2>
+            <p className="text-lg">正解！次のレベルに進もう！</p>
             <Link to="/lv2">
               <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 次へ
@@ -195,18 +223,19 @@ const QuantumPizzaGame_lv1 = () => {
       <div
         className={`${
           isCorrect ? "blur-sm" : ""
-        } flex flex-col items-center p-4 bg-yellow-100  min-h-screen-minus-16 `}
+        } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}
       >
         {!isCorrect && (
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.1</h1>
             <p className="text-lg mb-4">🍕 理想のピザの配分にしよう！</p>
             <div className="flex items-center justify-center mb-4">
-              <PizzaChart distribution={distribution} />
+              <PizzaChart distribution={distribution} size={dynamicSize} />
               <img
-                className="w-56 h-56 ml-4 border border-blue-500"
+                className="ml-4 border border-blue-500"
                 src="/ans1.png"
                 alt="正解画像"
+                style={{ width: dynamicSize, height: dynamicSize }}
               />
             </div>
             <div className="flex flex-col items-center">
@@ -222,7 +251,6 @@ const QuantumPizzaGame_lv1 = () => {
           </>
         )}
       </div>
-      {/* <footer className=" w-full bg-black bg-opacity-50 text-white text-center py-2 px-4 mu-10-"> */}
       <footer className="fixed-footer">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Kota Mizuno. All rights reserved.

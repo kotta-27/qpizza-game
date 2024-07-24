@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Ro
 import QuantumPizzaGame_lv1 from "./QuantumPizzaGame_lv1";
 import QuantumPizzaGame_lv2 from "./QuantumPizzaGame_lv2";
 import QuantumPizzaGame_lv3 from "./QuantumPizzaGame_lv3";
-import NextPageComponent from "./NextPageComponent";
 import WelcomePage from "./Welcome";
 import GameRule from "./GameRule";
 
