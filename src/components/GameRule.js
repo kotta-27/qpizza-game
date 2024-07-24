@@ -26,7 +26,7 @@ const GameRule = () => {
           <img
             src="./game_image.png"
             style={{
-              width: "35  @%",
+              width: "35%",
               // height: "230px",
               position: "absolute",
               right: "30px",
