@@ -11,7 +11,7 @@ const WelcomePage = () => {
             Welcome to Quantum Pizza!🍕
             <Pizza className="ml-2 text-yellow-300" />
           </h1>
-          <p className="text-lg text-white mb-8 text-center italic myRuby">
+          <p className="text-lg text-white mb-8 italic myRuby">
             <ruby>
               量<rt>りょう</rt>子<rt>し</rt>
             </ruby>

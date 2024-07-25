@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import Navbar from "./navbar";
 import "../stylesheets/QuantumPizzaGame.css";
 
@@ -136,6 +137,8 @@ const QuantumPizzaGame_lv1 = () => {
     height: window.innerHeight,
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     function handleResize() {
       setWindowSize({
@@ -156,15 +159,15 @@ const QuantumPizzaGame_lv1 = () => {
     return Math.max(minSize, Math.min(maxSize, baseSize * scaleFactor));
   };
 
-  useEffect(() => {
-    if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
-      setTimeout(() => {
-        setIsCorrect(true);
-      }, 2000);
-    } else {
-      setIsCorrect(false);
-    }
-  }, [distribution]);
+  // useEffect(() => {
+  //   if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
+  //     setTimeout(() => {
+  //       setIsCorrect(true);
+  //     }, 2000);
+  //   } else {
+  //     setIsCorrect(false);
+  //   }
+  // }, [distribution]);
 
   const addGate1 = (gate) => {
     setCircuit1([...circuit1, gate]);
@@ -199,6 +202,40 @@ const QuantumPizzaGame_lv1 = () => {
     const newDistribution = calculateDistribution(qstate);
     setDistribution(newDistribution);
   }, [qstate, circuit1]);
+
+  const handleSubmit = () => {
+    if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
+      swal({
+        title: "すばらしい！！",
+        text: "正解です！次のレベルに進みましょう！",
+        icon: "success",
+        button: "次へ",
+      }).then(() => {
+        navigate("/lv2");
+      });
+    } else {
+      swal({
+        title: "惜しい！",
+        text: "まだ正解ではありません。もう一度試してみましょう！",
+        icon: "error",
+        button: "OK",
+      });
+    }
+  };
+
+  const handleReset = () => {
+    swal({
+      title: "リセットしますか？",
+      text: "現在の進行状況が失われます。",
+      icon: "warning",
+      buttons: ["キャンセル", "リセット"],
+      dangerMode: true,
+    }).then((willReset) => {
+      if (willReset) {
+        window.location.reload();
+      }
+    });
+  };
 
   const dynamicSize = calculateSize();
 
@@ -241,12 +278,20 @@ const QuantumPizzaGame_lv1 = () => {
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
             </div>
-            <button
-              className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => window.location.reload()}
-            >
-              RESET
-            </button>
+            <div className="flex space-x-4 mt-4">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleReset}
+              >
+                RESET
+              </button>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleSubmit}
+              >
+                提出
+              </button>
+            </div>
             <DisplayCircuit circuits={[circuit1]} />
           </>
         )}
