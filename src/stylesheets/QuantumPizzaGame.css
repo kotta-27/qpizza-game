@@ -1,157 +1,203 @@
-.circuit-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+.circuit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.gate-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 20px;
+.gate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
 }
 
-.x-gate{
-    width: 60px;
-    height: 40px;
-    background-color: #f0f0f0;
-    border-radius: 10%;
-    align-items: center;
-    margin: 0px 10px 10px 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #242424;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.x-gate {
+  width: 60px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 10%;
+  align-items: center;
+  margin: 0px 10px 10px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #242424;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.x-gate:hover{
-    background-color: #14a6dfc8;
+.x-gate:hover {
+  background-color: #14a6dfc8;
 }
 
-.h-gate{
-    width: 60px;
-    height: 40px;
-    background-color: #f0f0f0;
-    border-radius: 10%;
-    align-items: center;
-    margin: 0px 10px 10px 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #242424;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.h-gate {
+  width: 60px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 10%;
+  align-items: center;
+  margin: 0px 10px 10px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #242424;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.h-gate:hover{
-    background-color: #ac14dfc8;
+.h-gate:hover {
+  background-color: #ac14dfc8;
 }
 
-.display-circuit{
-    background-color: rgba(10, 253, 253, 0.3);
-    border-radius: 3%;
-    border: 2px solid #242424;
-    width: 50%;
-    height: 20vh;
-    margin-left: auto;
-    margin-right: auto;
+.display-circuit {
+  background-color: rgba(10, 253, 253, 0.3);
+  border-radius: 3%;
+  border: 2px solid #242424;
+  width: 50%;
+  height: 20vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.circuit{
-    display: flex;
+.circuit {
+  display: flex;
 }
 
-.gate{
-    color: #f0f0f0;
-    width: 30px;
-    font-size: 30px;
-    padding: 10px;
-    border: 2px solid #242424;
-    margin: 4px 10px;
-    cursor: pointer;
-    background-color: rgba(16, 20, 253, 0.5);
-    border-radius: 10%;
+.gate {
+  color: #f0f0f0;
+  width: 30px;
+  font-size: 30px;
+  padding: 10px;
+  border: 2px solid #242424;
+  margin: 4px 10px;
+  cursor: pointer;
+  background-color: rgba(16, 20, 253, 0.5);
+  border-radius: 10%;
 }
 
-.gate:hover{
-    background-color: rgba(13, 177, 195, 0.5);
-    transition: background-color 0.3s;
+.gate:hover {
+  background-color: rgba(13, 177, 195, 0.5);
+  transition: background-color 0.3s;
 }
 
-h3{
-    margin-bottom: 0px;
+h3 {
+  margin-bottom: 0px;
 }
 
-.ans1{
-    border: 3px dotted #242424;
-    width: 220px;
-    height: 220px;
+.ans1 {
+  border: 3px dotted #242424;
+  width: 220px;
+  height: 220px;
 }
 
-.reset-button{
-    background-color: #f0f0f0;
-    border: 2px solid #242424;
-    border-radius: 10%;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.reset-button {
+  background-color: #f0f0f0;
+  border: 2px solid #242424;
+  border-radius: 10%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.reset-button:hover{
-    background-color: #df1414c8;
+.reset-button:hover {
+  background-color: #df1414c8;
 }
 
-.reset-button:active{
-    transform: translateY(2px);
+.reset-button:active {
+  transform: translateY(2px);
 }
 
 .QuantumPizzaGame {
-    text-align: center;
-  }
+  text-align: center;
+}
 
 .overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.1); /* 半透明の黒 */
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1); /* 半透明の黒 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
 .overlay-content {
-background-color: white;
-padding: 20px;
-border-radius: 10px;
-text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .blur {
-filter: blur(5px); /* コンテンツをぼかす */
+  filter: blur(5px); /* コンテンツをぼかす */
 }
 
-
-.link-to-next{
-    background-color: #f0f0f0;
-    border: 2px solid #242424;
-    border-radius: 10%;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.link-to-next {
+  background-color: #f0f0f0;
+  border: 2px solid #242424;
+  border-radius: 10%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .fixed-footer {
-    position: fixed;
-    bottom: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+
+.my-swal {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+  }
+  
+  .my-swal-title {
+    color: #4a4a4a;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .my-swal-html {
+    color: #2c3e50;
+    font-size: 16px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .my-swal-confirm-button {
+    background-color: #3498db !important;
     color: white;
-    text-align: center;
-    padding: 0.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+
+  .my-swal-confirm-button-next{
+    background-color: #10e36b !important;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-left: 40px;
+  }
+  
+  .my-swal-cancel-button {
+    background-color: #e74c3c !important;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+  
+  .my-swal-confirm-button:hover, .my-swal-cancel-button:hover {
+    opacity: 0.8;
   }

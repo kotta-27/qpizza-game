@@ -20,6 +20,9 @@ const Navbar = () => {
         <li>
           <a href="./lv3">Lv.3</a>
         </li>
+        <li>
+          <a href="./lv4">Lv.4</a>
+        </li>
       </ul>
     </nav>
   );

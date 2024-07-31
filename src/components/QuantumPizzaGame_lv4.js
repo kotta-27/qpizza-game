@@ -377,7 +377,7 @@ const QuantumPizzaGame_lv3 = () => {
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate("/lv4");
+                  navigate("/lv2");
                 }
               });
             }
@@ -442,9 +442,10 @@ const QuantumPizzaGame_lv3 = () => {
       >
         {!isCorrect && (
           <>
-            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.3</h1>
+            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.4</h1>
             <p className="tect-lg mb-4 font-bold">
-              🍕クォーターピザを作ってみよう！
+              🍕違う種類のハーフ&ハーフピザを作ってみよう！ <br></br>※
+              ベル状態を想定．開発中
             </p>
             <div className="flex items-center justify-center mb-4">
               <PizzaChart distribution={distribution} size={dynamicSize} />
