@@ -14,7 +14,8 @@ const TOPPINGS = [
   "🍍 ハワイアン",
 ];
 // const COLORS = ["#D31727", "#FFCE56", "#36A2EB", "#4BC0C0"];
-const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
+// const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
+const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
 
 const ANSWERS_2 = [50, 50];
 
@@ -65,10 +66,10 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
     );
   };
 
-  const createTopping = (cx, cy, type) => {
+  const createTopping = (cx, cy, type, angle = 0) => {
     switch (type) {
       case "tomato":
-        return <circle cx={cx} cy={cy} r={size / 25} fill="#FF6347" />;
+        return <circle cx={cx} cy={cy} r={size / 18} fill="#FF6347" />;
       case "mushroom":
         return (
           <g>
@@ -82,6 +83,20 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
               fill="none"
             />
           </g>
+        );
+      case "basil":
+        return (
+          <path
+            d={`M ${cx} ${cy - size / 20} C ${cx + size / 30} ${
+              cy - size / 30
+            }, ${cx + size / 30} ${cy + size / 30}, ${cx} ${cy + size / 20} C ${
+              cx - size / 30
+            } ${cy + size / 30}, ${cx - size / 30} ${cy - size / 30}, ${cx} ${
+              cy - size / 20
+            }`}
+            fill="#228B22"
+            transform={`rotate(${angle}, ${cx}, ${cy})`}
+          />
         );
       case "olive":
         return <circle cx={cx} cy={cy} r={size / 40} fill="#000000" />;
@@ -147,16 +162,21 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
         stroke="#E8B661"
         strokeWidth="10"
       />
-
-      {/* 固定されたトッピング
+      {/* 固定されたトッピング */}
       {createTopping(size * 0.3, size * 0.3, "tomato")}
-      {createTopping(size * 0.7, size * 0.3, "mushroom")}
-      {createTopping(size * 0.5, size * 0.5, "olive")}
-      {createTopping(size * 0.4, size * 0.7, "cheese")}
-      {createTopping(size * 0.6, size * 0.7, "tomato")}
-      {createTopping(size * 0.8, size * 0.8, "mushroom")}
+      {createTopping(size * 0.5, size * 0.8, "tomato")}
+      {createTopping(size * 0.8, size * 0.4, "tomato")}
+      {createTopping(size * 0.3, size * 0.7, "tomato")}
+      {createTopping(size * 0.6, size * 0.18, "tomato")}
+
+      {createTopping(size * 0.7, size * 0.7, "basil", 30)}
+      {createTopping(size * 0.2, size * 0.45, "basil", 0)}
+      {createTopping(size * 0.6, size * 0.3, "basil", 45)}
+      {createTopping(size * 0.4, size * 0.68, "basil", 79)}
+
+      {createTopping(size * 0.6, size * 0.7, "olive")}
       {createTopping(size * 0.2, size * 0.6, "olive")}
-      {createTopping(size * 0.8, size * 0.5, "cheese")} */}
+      {createTopping(size * 0.5, size * 0.3, "olive")}
 
       {/* ピザの中央 */}
       <circle cx={size / 2} cy={size / 2} r={size / 7.33} fill="#FFF8DC" />
@@ -172,7 +192,6 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
     </motion.svg>
   );
 };
-
 const QuantumCircuit = ({ circuit, addGate }) => {
   return (
     <div className="flex flex-col items-center">

@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Yellowtail&family=Zen+Kurenaido&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
+
+
+.congrats-title {
+font-family: "Yellowtail", cursive;
+font-size: 4rem;
+}

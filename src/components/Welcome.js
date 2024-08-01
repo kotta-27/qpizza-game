@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight, Book } from "lucide-react";
+import { motion } from "framer-motion";
 import "../stylesheets/Welcome.css";
 
 const WelcomePage = () => {
@@ -7,8 +8,8 @@ const WelcomePage = () => {
     <div className="min-h-screen w-full flex flex-col justify-center items-center bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500">
       <div className="flex-grow flex items-center justify-center p-4 w-full max-w-3xl">
         <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-full border-2 border-white border-opacity-20">
-          <h1 className="text-4xl font-bold text-white mb-6 flex items-center justify-center">
-            Welcome to Quantum Pizza!🍕
+          <h1 className="text-5xl font-bold text-white mb-6 flex items-center justify-center welcome-title">
+            Welcome to Quantum Pizza! 🍕
           </h1>
           <p className="text-lg text-white mb-8 italic myRuby text-center ">
             <ruby>
@@ -59,6 +60,7 @@ const WelcomePage = () => {
               <ArrowRight className="ml-2" />
             </a>
           </div>
+
           <div className="mt-8 text-center"></div>
         </div>
       </div>

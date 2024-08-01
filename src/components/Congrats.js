@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Award, Repeat } from "lucide-react";
 import confetti from "canvas-confetti";
+import "../stylesheets/Congrats.css";
 
 const Congrats = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -20,16 +21,16 @@ const Congrats = () => {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        transition={{ type: "spring", stiffness: 100, damping: 10 }}
         className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-xl border-2 border-white border-opacity-20"
       >
         <motion.h1
-          className="text-5xl font-bold text-white mb-6 text-center"
+          className="text-5xl font-bold text-white mb-6 text-center congrats-title"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          おめでとう！🎉
+          Congratslations！🎉
         </motion.h1>
         {showMessage && (
           <motion.div
