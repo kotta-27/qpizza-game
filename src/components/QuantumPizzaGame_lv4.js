@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Navbar from "./navbar";
 import "../stylesheets/QuantumPizzaGame.css"; // Tailwind用のCSSに置き換えます
+import { Pi, Pizza } from "lucide-react";
 
 const TOPPINGS = [
   "🍅 マルゲリータ",
@@ -13,10 +14,12 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-const COLORS = ["#D31727", "#FFCE56", "#60986C", "#f47a4d"];
+// const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
+const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
+
 const ANSWERS_4 = [50, 0, 0, 50];
 
-const PizzaChart = ({ distribution, size }) => {
+const PizzaChart = ({ distribution, size, isAnswer }) => {
   const [animatedDistribution, setAnimatedDistribution] =
     useState(distribution);
 
@@ -101,7 +104,23 @@ const PizzaChart = ({ distribution, size }) => {
   };
 
   return (
-    <motion.svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <motion.svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ marginLeft: "25px", marginRight: "25px" }}
+    >
+      {isAnswer && (
+        <rect
+          x="0"
+          y="0"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="blue"
+          strokeWidth="5"
+        />
+      )}
       {/* ピザの生地 */}
       <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#F0E68C" />
       {/* トッピング */}
@@ -188,7 +207,7 @@ const DisplayCircuit = ({ circuits }) => {
         {circuits.map((circuit, circuitIndex) => (
           <div
             key={circuitIndex}
-            className="flex space-x-2 border p-2 rounded bg-white w-full"
+            className="flex space-x-2 border p-2 rounded bg-white w-full h-14"
           >
             {circuit.map((gate, gateIndex) => {
               if (gate === "I") {
@@ -209,7 +228,7 @@ const DisplayCircuit = ({ circuits }) => {
                     {gate}
                   </div>
                 );
-              } else if (gate === "CT") {
+              } else if (gate === "CD") {
                 return (
                   <div
                     key={gateIndex}
@@ -251,23 +270,6 @@ const QuantumPizzaGame_lv4 = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // 正解条件の判定を行う
-  //   if (
-  //     distribution[0] === ANSWERS_3[0] &&
-  //     distribution[1] === ANSWERS_3[1] &&
-  //     distribution[2] === ANSWERS_3[2] &&
-  //     distribution[3] === ANSWERS_3[3]
-  //   ) {
-  //     // 正解時の処理：2秒後に正解画面を表示
-  //     setTimeout(() => {
-  //       setIsCorrect(true);
-  //     }, 2000);
-  //   } else {
-  //     setIsCorrect(false);
-  //   }
-  // }, [distribution]);
-
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
     newInputs[index] = Number(value);
@@ -285,7 +287,7 @@ const QuantumPizzaGame_lv4 = () => {
   const addGate1 = (gate) => {
     setCircuit1([...circuit1, gate]);
     if (gate === "CX") {
-      setCircuit2([...circuit2, "CT"]);
+      setCircuit2([...circuit2, "CD"]);
     } else {
       setCircuit2([...circuit2, "I"]);
     }
@@ -293,15 +295,16 @@ const QuantumPizzaGame_lv4 = () => {
 
   const addGate2 = (gate) => {
     setCircuit2([...circuit2, gate]);
-
     if (gate === "CX") {
-      setCircuit1([...circuit1, "CT"]);
+      setCircuit1([...circuit1, "CD"]);
     } else {
       setCircuit1([...circuit1, "I"]);
     }
   };
 
   const executeCircuit = (circuit1, circuit2) => {
+    console.log("Circuit1: ", circuit1);
+    console.log("Circuit2: ", circuit2);
     let newQstate = [1, 0, 0, 0];
     for (let i = 0; i < circuit1.length; i++) {
       if (circuit1[i] === "H") {
@@ -309,17 +312,14 @@ const QuantumPizzaGame_lv4 = () => {
         const new1 = (newQstate[0] - newQstate[1]) / Math.sqrt(2);
         const new2 = (newQstate[2] + newQstate[3]) / Math.sqrt(2);
         const new3 = (newQstate[2] - newQstate[3]) / Math.sqrt(2);
-
         newQstate = [new0, new1, new2, new3];
       } else if (circuit1[i] === "X") {
         newQstate = [newQstate[1], newQstate[0], newQstate[3], newQstate[2]];
       } else if (circuit1[i] === "CX") {
         newQstate = [newQstate[0], newQstate[1], newQstate[3], newQstate[2]];
-      } else if (circuit1[i] === "I") {
-        continue;
+        // newQstate = [1, 1, 1, 1];
       }
-    }
-    for (let i = 0; i < circuit2.length; i++) {
+
       if (circuit2[i] === "H") {
         const new0 = (newQstate[0] + newQstate[2]) / Math.sqrt(2);
         const new1 = (newQstate[1] + newQstate[3]) / Math.sqrt(2);
@@ -330,10 +330,10 @@ const QuantumPizzaGame_lv4 = () => {
         newQstate = [newQstate[2], newQstate[3], newQstate[0], newQstate[1]];
       } else if (circuit2[i] === "CX") {
         newQstate = [newQstate[0], newQstate[3], newQstate[2], newQstate[1]];
-      } else if (circuit2[i] === "I") {
-        continue;
+        // newQstate = [1, 1, 1, 2];
       }
     }
+
     setQstate(newQstate);
   };
 
@@ -430,7 +430,7 @@ const QuantumPizzaGame_lv4 = () => {
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate("/lv2");
+                  navigate("/congrats");
                 }
               });
             }
@@ -496,17 +496,19 @@ const QuantumPizzaGame_lv4 = () => {
         {!isCorrect && (
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.4</h1>
-            <p className="tect-lg mb-4 font-bold">
-              🍕違う種類のハーフ&ハーフピザを作ってみよう！ <br></br>※
-              ベル状態を想定．開発中
+            <p className="text-lg mb-4 font-bold">
+              🍕違う種類のハーフ&ハーフピザを作ってみよう！
             </p>
             <div className="flex items-center justify-center mb-4">
-              <PizzaChart distribution={distribution} size={dynamicSize} />
-              <img
-                className="ml-4 border border-blue-500"
-                src="/ans3.png"
-                alt="正解画像"
-                style={{ width: dynamicSize, height: dynamicSize }}
+              <PizzaChart
+                distribution={distribution}
+                size={dynamicSize}
+                isAnswer={false}
+              />
+              <PizzaChart
+                distribution={ANSWERS_4}
+                size={dynamicSize}
+                isAnswer={true}
               />
             </div>
             <div className="flex flex-col items-center">
@@ -527,8 +529,11 @@ const QuantumPizzaGame_lv4 = () => {
                 提出
               </button>
             </div>
-            <DisplayCircuit circuits={[circuit1]} />
-            <DisplayCircuit circuits={[circuit2]} />
+            <h3 className="text-lg font-bold mt-5">量子回路</h3>
+            <div className="circuit-list-container">
+              <DisplayCircuit circuits={[circuit1]} />
+              <DisplayCircuit circuits={[circuit2]} />
+            </div>
           </>
         )}
       </div>

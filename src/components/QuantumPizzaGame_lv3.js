@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Navbar from "./navbar";
 import "../stylesheets/QuantumPizzaGame.css"; // Tailwind用のCSSに置き換えます
+import { Pizza } from "lucide-react";
 
 const TOPPINGS = [
   "🍅 マルゲリータ",
@@ -13,10 +14,12 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-const COLORS = ["#D31727", "#FFCE56", "#60986C", "#f47a4d"];
+// const COLORS = ["#D31727", "#FFCE56", "#60986C", "#f47a4d"];
+const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
+
 const ANSWERS_3 = [25, 25, 25, 25];
 
-const PizzaChart = ({ distribution, size }) => {
+const PizzaChart = ({ distribution, size, isAnswer }) => {
   const [animatedDistribution, setAnimatedDistribution] =
     useState(distribution);
 
@@ -101,7 +104,23 @@ const PizzaChart = ({ distribution, size }) => {
   };
 
   return (
-    <motion.svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <motion.svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ marginLeft: "25px", marginRight: "25px" }}
+    >
+      {isAnswer && (
+        <rect
+          x="0"
+          y="0"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="blue"
+          strokeWidth="5"
+        />
+      )}
       {/* ピザの生地 */}
       <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#F0E68C" />
       {/* トッピング */}
@@ -179,19 +198,32 @@ const DisplayCircuit = ({ circuits }) => {
   return (
     <div className="mt-4 w-3/6 flex flex-col items-center">
       <div className="flex flex-col space-y-2 w-full">
-        {circuits.map((circuit, index) => (
+        {circuits.map((circuit, circuitIndex) => (
           <div
-            key={index}
-            className="flex space-x-2 border p-2 rounded bg-white w-full"
+            key={circuitIndex}
+            className="flex space-x-2 border p-2 rounded bg-white w-full h-14"
           >
-            {circuit.map((gate, index) => (
-              <div
-                key={index}
-                className="bg-gray-200 text-center py-1 px-2 rounded"
-              >
-                {gate}
-              </div>
-            ))}
+            {circuit.map((gate, gateIndex) => {
+              if (gate === "I") {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-white text-center py-1 px-2 rounded w-10"
+                  >
+                    {" "}
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-gray-200 text-center py-1 px-2 rounded border border-gray-300 w-10"
+                  >
+                    {gate}
+                  </div>
+                );
+              }
+            })}
           </div>
         ))}
       </div>
@@ -443,18 +475,22 @@ const QuantumPizzaGame_lv3 = () => {
         {!isCorrect && (
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.3</h1>
-            <p className="tect-lg mb-4 font-bold">
+            <p className="text-lg mb-4 font-bold">
               🍕クォーターピザを作ってみよう！
             </p>
             <div className="flex items-center justify-center mb-4">
-              <PizzaChart distribution={distribution} size={dynamicSize} />
-              <img
-                className="ml-4 border border-blue-500"
-                src="/ans3.png"
-                alt="正解画像"
-                style={{ width: dynamicSize, height: dynamicSize }}
+              <PizzaChart
+                distribution={distribution}
+                size={dynamicSize}
+                isAnswer={false}
+              />
+              <PizzaChart
+                distribution={ANSWERS_3}
+                size={dynamicSize}
+                isAnswer={true}
               />
             </div>
+
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
               <QuantumCircuit circuit={circuit2} addGate={addGate2} />
@@ -473,7 +509,11 @@ const QuantumPizzaGame_lv3 = () => {
                 提出
               </button>
             </div>
-            <DisplayCircuit circuits={[circuit1]} />
+            <h3 className="text-lg font-bold mt-5">量子回路</h3>
+            <div className="circuit-list-container">
+              <DisplayCircuit circuits={[circuit1]} />
+              <DisplayCircuit circuits={[circuit2]} />
+            </div>
           </>
         )}
       </div>

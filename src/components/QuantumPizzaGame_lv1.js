@@ -13,10 +13,12 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-const COLORS = ["#D31727", "#FFCE56", "#36A2EB", "#4BC0C0"];
+// const COLORS = ["#D31727", "#FFCE56", "#36A2EB", "#4BC0C0"];
+const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
+
 const ANSWERS_1 = [0, 100];
 
-const PizzaChart = ({ distribution, size }) => {
+const PizzaChart = ({ distribution, size, isAnswer }) => {
   const [animatedDistribution, setAnimatedDistribution] =
     useState(distribution);
 
@@ -101,7 +103,23 @@ const PizzaChart = ({ distribution, size }) => {
   };
 
   return (
-    <motion.svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <motion.svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ marginLeft: "25px", marginRight: "25px" }}
+    >
+      {isAnswer && (
+        <rect
+          x="0"
+          y="0"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="blue"
+          strokeWidth="5"
+        />
+      )}
       {/* ピザの生地 */}
       <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#F0E68C" />
       {/* トッピング */}
@@ -184,7 +202,7 @@ const DisplayCircuit = ({ circuits }) => {
         {circuits.map((circuit, index) => (
           <div
             key={index}
-            className="flex space-x-2 border p-2 rounded bg-white w-full"
+            className="flex space-x-2 border p-2 rounded bg-white w-full h-14"
           >
             {circuit.map((gate, index) => (
               <div
@@ -416,16 +434,19 @@ const QuantumPizzaGame_lv1 = () => {
         {!isCorrect && (
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.1</h1>
-            <p className="tect-lg mb-4 font-bold">
+            <p className="text-lg mb-4 font-bold">
               🍕ピザにチーズをトッピングしてみよう！
             </p>
-            <div className="flex items-center justify-center mb-4">
-              <PizzaChart distribution={distribution} size={dynamicSize} />
-              <img
-                className="ml-4 border border-blue-500"
-                src="/ans1.png"
-                alt="正解画像"
-                style={{ width: dynamicSize, height: dynamicSize }}
+            <div className="flex items-center justify-center mb-4 Pizza-chart-container">
+              <PizzaChart
+                distribution={distribution}
+                size={dynamicSize}
+                isAnswer={false}
+              />
+              <PizzaChart
+                distribution={ANSWERS_1}
+                size={dynamicSize}
+                isAnswer={true}
               />
             </div>
             <div className="flex flex-col items-center">
@@ -445,7 +466,9 @@ const QuantumPizzaGame_lv1 = () => {
                 提出
               </button>
             </div>
-            <DisplayCircuit circuits={[circuit1]} />
+            <div className="circuit-list-container">
+              <DisplayCircuit circuits={[circuit1]} />
+            </div>
           </>
         )}
       </div>
