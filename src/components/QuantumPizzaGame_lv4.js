@@ -14,7 +14,7 @@ const TOPPINGS = [
   "🍍 ハワイアン",
 ];
 const COLORS = ["#D31727", "#FFCE56", "#60986C", "#f47a4d"];
-const ANSWERS_3 = [25, 25, 25, 25];
+const ANSWERS_4 = [50, 0, 0, 50];
 
 const PizzaChart = ({ distribution, size }) => {
   const [animatedDistribution, setAnimatedDistribution] =
@@ -130,14 +130,14 @@ const PizzaChart = ({ distribution, size }) => {
         strokeWidth="10"
       />
       {/* 固定されたトッピング */}
-      {/* {createTopping(size * 0.3, size * 0.3, "tomato")}
+      {createTopping(size * 0.3, size * 0.3, "tomato")}
       {createTopping(size * 0.7, size * 0.3, "mushroom")}
       {createTopping(size * 0.5, size * 0.5, "olive")}
       {createTopping(size * 0.4, size * 0.7, "cheese")}
       {createTopping(size * 0.6, size * 0.7, "tomato")}
       {createTopping(size * 0.8, size * 0.8, "mushroom")}
       {createTopping(size * 0.2, size * 0.6, "olive")}
-      {createTopping(size * 0.8, size * 0.5, "cheese")} */}
+      {createTopping(size * 0.8, size * 0.5, "cheese")}
 
       {/* ピザの中央 */}
       <circle cx={size / 2} cy={size / 2} r={size / 7.33} fill="#FFF8DC" />
@@ -170,6 +170,12 @@ const QuantumCircuit = ({ circuit, addGate }) => {
         >
           X
         </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => addGate("CX")}
+        >
+          CNOT
+        </button>
       </div>
     </div>
   );
@@ -179,19 +185,50 @@ const DisplayCircuit = ({ circuits }) => {
   return (
     <div className="mt-4 w-3/6 flex flex-col items-center">
       <div className="flex flex-col space-y-2 w-full">
-        {circuits.map((circuit, index) => (
+        {circuits.map((circuit, circuitIndex) => (
           <div
-            key={index}
+            key={circuitIndex}
             className="flex space-x-2 border p-2 rounded bg-white w-full"
           >
-            {circuit.map((gate, index) => (
-              <div
-                key={index}
-                className="bg-gray-200 text-center py-1 px-2 rounded"
-              >
-                {gate}
-              </div>
-            ))}
+            {circuit.map((gate, gateIndex) => {
+              if (gate === "I") {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-white text-center py-1 px-2 rounded w-10"
+                  >
+                    {" "}
+                  </div>
+                );
+              } else if (gate === "CX") {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-blue-200 text-center py-1 px-2 rounded border border-blue-400 w-10"
+                  >
+                    {gate}
+                  </div>
+                );
+              } else if (gate === "CT") {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-blue-200 text-center py-1 px-2 rounded border border-blue-400 w-10"
+                  >
+                    {"・"}
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    key={gateIndex}
+                    className="bg-gray-200 text-center py-1 px-2 rounded border border-gray-300 w-10"
+                  >
+                    {gate}
+                  </div>
+                );
+              }
+            })}
           </div>
         ))}
       </div>
@@ -199,7 +236,7 @@ const DisplayCircuit = ({ circuits }) => {
   );
 };
 
-const QuantumPizzaGame_lv3 = () => {
+const QuantumPizzaGame_lv4 = () => {
   const [distribution, setDistribution] = useState([100, 0, 0, 0]);
   const [qstate, setQstate] = useState([1, 0, 0, 0]);
   const [inputs, setInputs] = useState([100, 0, 0, 0]);
@@ -247,10 +284,21 @@ const QuantumPizzaGame_lv3 = () => {
 
   const addGate1 = (gate) => {
     setCircuit1([...circuit1, gate]);
+    if (gate === "CX") {
+      setCircuit2([...circuit2, "CT"]);
+    } else {
+      setCircuit2([...circuit2, "I"]);
+    }
   };
 
   const addGate2 = (gate) => {
     setCircuit2([...circuit2, gate]);
+
+    if (gate === "CX") {
+      setCircuit1([...circuit1, "CT"]);
+    } else {
+      setCircuit1([...circuit1, "I"]);
+    }
   };
 
   const executeCircuit = (circuit1, circuit2) => {
@@ -265,6 +313,8 @@ const QuantumPizzaGame_lv3 = () => {
         newQstate = [new0, new1, new2, new3];
       } else if (circuit1[i] === "X") {
         newQstate = [newQstate[1], newQstate[0], newQstate[3], newQstate[2]];
+      } else if (circuit1[i] === "CX") {
+        newQstate = [newQstate[0], newQstate[1], newQstate[3], newQstate[2]];
       } else if (circuit1[i] === "I") {
         continue;
       }
@@ -278,6 +328,8 @@ const QuantumPizzaGame_lv3 = () => {
         newQstate = [new0, new1, new2, new3];
       } else if (circuit2[i] === "X") {
         newQstate = [newQstate[2], newQstate[3], newQstate[0], newQstate[1]];
+      } else if (circuit2[i] === "CX") {
+        newQstate = [newQstate[0], newQstate[3], newQstate[2], newQstate[1]];
       } else if (circuit2[i] === "I") {
         continue;
       }
@@ -296,14 +348,15 @@ const QuantumPizzaGame_lv3 = () => {
   useEffect(() => {
     const newDistribution = calculateDistribution(qstate);
     setDistribution(newDistribution);
+    console.log("Qstate: ", qstate);
   }, [qstate, circuit1, circuit2]);
 
   const handleSubmit = () => {
     if (
-      distribution[0] === ANSWERS_3[0] &&
-      distribution[1] === ANSWERS_3[1] &&
-      distribution[2] === ANSWERS_3[2] &&
-      distribution[3] === ANSWERS_3[3]
+      distribution[0] === ANSWERS_4[0] &&
+      distribution[1] === ANSWERS_4[1] &&
+      distribution[2] === ANSWERS_4[2] &&
+      distribution[3] === ANSWERS_4[3]
     ) {
       Swal.fire({
         title: "すばらしい！！🎉",
@@ -475,6 +528,7 @@ const QuantumPizzaGame_lv3 = () => {
               </button>
             </div>
             <DisplayCircuit circuits={[circuit1]} />
+            <DisplayCircuit circuits={[circuit2]} />
           </>
         )}
       </div>
@@ -487,4 +541,4 @@ const QuantumPizzaGame_lv3 = () => {
   );
 };
 
-export default QuantumPizzaGame_lv3;
+export default QuantumPizzaGame_lv4;
