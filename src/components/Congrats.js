@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Award, Repeat } from "lucide-react";
+import { Award, Repeat, House } from "lucide-react";
 import confetti from "canvas-confetti";
 import "../stylesheets/Congrats.css";
 
@@ -22,7 +22,7 @@ const Congrats = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
-        className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-xl border-2 border-white border-opacity-20"
+        className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-3xl border-2 border-white border-opacity-20"
       >
         <motion.h1
           className="text-5xl font-bold text-white mb-6 text-center congrats-title"
@@ -60,6 +60,18 @@ const Congrats = () => {
                 職人<rt>しょくにん</rt>
               </ruby>
               です！
+              <br></br> <br></br>
+              <ruby>
+                他<rt>ほか</rt>
+              </ruby>
+              にもさまざまなゲームやクイズがあるので、
+              <ruby>
+                色々<rt>いろいろ</rt>
+              </ruby>
+              <ruby>
+                体験<rt>たいけん</rt>
+              </ruby>
+              してみてね！
             </p>
             <div className="flex justify-center space-x-4">
               <motion.a
@@ -68,17 +80,8 @@ const Congrats = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
               >
-                <Repeat className="mr-2" />
-                もう一度プレイ
-              </motion.a>
-              <motion.a
-                href="/results"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
-              >
-                <Award className="mr-2" />
-                結果を見る
+                <House className="mr-2" />
+                ホームに戻る
               </motion.a>
             </div>
           </motion.div>

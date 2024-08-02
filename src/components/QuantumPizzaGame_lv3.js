@@ -367,6 +367,7 @@ const QuantumPizzaGame_lv3 = () => {
             title: "Hゲート②",
             html: `
             <div class="xgate-explanation">
+            <hr> 
               <p class="xgate-description">Lv2で，Hゲートはピザをハーフ&ハーフにすると学びました。</p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
@@ -374,6 +375,12 @@ const QuantumPizzaGame_lv3 = () => {
             </div>
 
             <style>
+            hr{
+              border: 0;  
+              border-top: 1px solid black;
+              margin-bottom: 5px;
+            }           
+
             .xgate-description {
               text-align: center;
               margin-bottom: 20px;
@@ -397,6 +404,7 @@ const QuantumPizzaGame_lv3 = () => {
                 title: "Hゲート②",
                 html: `
                 <div class="xgate-explanation">
+                  <hr >
                   <p class="xgate-description">
                     上下のどちらにもHゲートをかけることで、ピザを4等分することができます。
                   </p>
@@ -404,7 +412,13 @@ const QuantumPizzaGame_lv3 = () => {
                     <img src="/hgate_image_3.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
                 </div>
+
                 <style>
+                hr{
+                  border: 0;  
+                  border-top: 1px solid black;
+                  margin-bottom: 5px;
+                }
                 .xgate-description {
                   text-align: center;
                   margin-bottom: 20px;

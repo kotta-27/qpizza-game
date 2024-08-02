@@ -19,7 +19,7 @@ const GameRule = () => {
               </ruby>
             </span>
           </h2>
-          <p className="mb-6 leading-relaxed">
+          <p className="mb-6 leading-relaxed w-3/5">
             <ruby>
               量子<rt>りょうし</rt>
             </ruby>
@@ -65,7 +65,7 @@ const GameRule = () => {
           </h2>
 
           <img
-            src="./game_image_2.png"
+            src="./game_image_4.png"
             style={{
               width: "35%",
               position: "absolute",
@@ -145,19 +145,19 @@ const GameRule = () => {
             </span>
           </h2>
           <p className="mb-6 leading-relaxed">
-            すべてのレベルをクリアすると、
+            すべてのレベルをクリアして、
             <ruby>
-              素敵<rt>すてき</rt>
+              量子<rt>りょうし</rt>
             </ruby>
-            な
+            ピザ
             <ruby>
-              景品<rt>けいひん</rt>
+              職人<rt>しょくにん</rt>
             </ruby>
-            が
+            を
             <ruby>
-              待<rt>ま</rt>
+              目指<rt>めざ</rt>
             </ruby>
-            っているかもしれません...！
+            しましょう！👀
           </p>
 
           <div className="bg-yellow-400 text-gray-800 p-4 rounded-lg">

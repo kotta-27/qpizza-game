@@ -197,7 +197,13 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
   );
 };
 
-const QuantumCircuit = ({ circuit, addGate }) => {
+const QuantumCircuit = ({ circuit, addGate, q_index }) => {
+  var CNOT_str = "";
+  if (q_index === 0) {
+    CNOT_str = "↑";
+  } else {
+    CNOT_str = "↓";
+  }
   return (
     <div className="flex flex-col items-center">
       <div className="flex space-x-2 mb-4">
@@ -217,7 +223,7 @@ const QuantumCircuit = ({ circuit, addGate }) => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addGate("CX")}
         >
-          CNOT
+          CNOT:{CNOT_str}
         </button>
       </div>
     </div>
@@ -382,7 +388,7 @@ const QuantumPizzaGame_lv4 = () => {
     ) {
       Swal.fire({
         title: "すばらしい！！🎉",
-        text: "正解です！次のレベルに進みましょう！",
+        text: "正解です！",
         icon: "success",
         confirmButtonText: "進む",
         customClass: {
@@ -391,21 +397,33 @@ const QuantumPizzaGame_lv4 = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Xゲート",
+            title: "CNOT（CX）ゲート",
             html: `
             <div class="xgate-explanation">
-              <p class="xgate-description">Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つで、古典コンピューティングのNOTゲートに相当します。</p>
+              <hr >
+              <p class="xgate-description">
+                CNOTゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
+                CNOT：「↑」かCNOT：「↓」かで動きが変わります。<br><br>
+                CNOT：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。
+              </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
+                <img src="/bell_image_1.png" alt="Xゲート" class="xgate-image" style="width: 60%; max-width: 100%; height: auto;" />
               </div>
             </div>
 
             <style>
+              hr{
+                border: 0;  
+                border-top: 1px solid black;
+                margin-bottom: 5px;
+              }
+
             .xgate-description {
-              text-align: left;
+              text-align: center;
               margin-bottom: 20px;
               padding: 0 50px;
             }
+
             </style>
           `,
             confirmButtonText: "次へ",
@@ -421,35 +439,41 @@ const QuantumPizzaGame_lv4 = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Xゲート",
+                title: "CNOT（CX）ゲート",
                 html: `
                 <div class="xgate-explanation">
-                  <p class="xgate-description">Xゲートは、2回かけると元の状態に戻ります。</p>
+                  <hr >
+                  <p class="xgate-description">
+                    CNOT：「↓」の場合、チーズ🧀とバジル🌿を入れ替えます。
+                  </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
+                    <img src="/bell_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
                 </div>
+
                 <style>
+                hr{
+                  border: 0;  
+                  border-top: 1px solid black;
+                  margin-bottom: 5px;
+                }
+
                 .xgate-description {
                   text-align: center;
                   margin-bottom: 20px;
                 }
                 </style>
               `,
-                showCancelButton: true,
-                confirmButtonText: "次の問題へ進む",
-                cancelButtonText: "キャンセル",
+                confirmButtonText: "進む",
                 customClass: {
                   container: "my-swal",
                   popup: "my-swal-popup",
                   title: "my-swal-title",
                   htmlContainer: "my-swal-html",
                   confirmButton: "my-swal-confirm-button-next",
-                  cancelButton: "my-swal-cancel-button",
                 },
                 // buttonsStyling: false,
                 width: "70%",
-                reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
                   navigate("/congrats");
@@ -467,9 +491,65 @@ const QuantumPizzaGame_lv4 = () => {
         confirmButtonText: "OK",
         customClass: {
           container: "my-swal",
+          confirmButton: "fwb",
         },
       });
     }
+  };
+
+  const handleHint = () => {
+    Swal.fire({
+      title: "ヒント💡",
+      html: `
+      <p> 
+        新しく登場した<span class="emp">CNOTゲート</span>を使ってみましょう！<br>
+        <span class="emp">量子ゲートの順番</span>も大切です。
+      </p>
+
+      <style>
+        .emp {
+            font-weight: bold;
+        }
+      </style>  
+      `,
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "戻る",
+      confirmButtonText: "さらにヒントを見る",
+      confirmButtonColor: "#33dd33",
+      cancelButtonColor: "#3085d6",
+      reverseButtons: true,
+      customClass: {
+        cancelButton: "fwb",
+        confirmButton: "fwb",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "ヒント💡",
+          html: `
+          <p> 
+            上のCNOT:↑ゲートは，<span class="emp">ホワイトソース🥛とバジル🌿</span>、<br>
+            下のCNOT:↓ゲートは，<span class="emp">チーズ🧀とバジル🌿</span> <br>
+            を入れ替えます。
+          </p>
+    
+          <style>
+            .emp {
+                font-weight: bold;
+            }
+          </style>  
+          `,
+          icon: "warning",
+
+          confirmButtonText: "OK",
+          confirmButtonColor: "#33dd33",
+          customClass: {
+            confirmButton: "fwb",
+          },
+        });
+      }
+    });
   };
 
   const handleReset = () => {
@@ -483,6 +563,10 @@ const QuantumPizzaGame_lv4 = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
+      customClass: {
+        cancelButton: "fwb",
+        confirmButton: "fwb",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
@@ -534,8 +618,16 @@ const QuantumPizzaGame_lv4 = () => {
               />
             </div>
             <div className="flex flex-col items-center">
-              <QuantumCircuit circuit={circuit1} addGate={addGate1} />
-              <QuantumCircuit circuit={circuit2} addGate={addGate2} />
+              <QuantumCircuit
+                circuit={circuit1}
+                addGate={addGate1}
+                q_index={0}
+              />
+              <QuantumCircuit
+                circuit={circuit2}
+                addGate={addGate2}
+                q_index={1}
+              />
             </div>
             <div className="flex space-x-4 mt-4">
               <button
@@ -543,6 +635,12 @@ const QuantumPizzaGame_lv4 = () => {
                 onClick={handleReset}
               >
                 RESET
+              </button>
+              <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-2 px-4 rounded"
+                onClick={handleHint}
+              >
+                ヒント
               </button>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
