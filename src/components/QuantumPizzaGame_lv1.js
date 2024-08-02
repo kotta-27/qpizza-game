@@ -13,9 +13,11 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-// const COLORS = ["#D31727", "#FFCE56", "#36A2EB", "#4BC0C0"];
-// const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
-const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
+const T = "#D31727";
+const C = "#FFCE56";
+const B = "#60986C";
+const W = "#FAF0ED";
+const COLORS = [T, C, W, B];
 
 const ANSWERS_1 = [0, 100];
 
@@ -322,20 +324,29 @@ const QuantumPizzaGame_lv1 = () => {
             title: "Xゲート",
             html: `
             <div class="xgate-explanation">
-              <p class="xgate-description">Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つで、古典コンピューティングのNOTゲートに相当します。</p>
-              <p class="xgate-description">Xゲートは、量子ビットの状態を反転させる効果があります。</p>
-              <p class="xgate-description">今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。</p>
+              <hr >
+              <p class="xgate-description">Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つです。<br>
+              Xゲートは、量子ビットの状態を反転させる効果があります。<br>
+              今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。</p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
               </div>
             </div>
 
             <style>
+
+            hr{
+              border: 0;  
+              border-top: 1px solid black;
+              margin-bottom: 5px;
+            }
+
             .xgate-description {
               color: black;
               text-align: center;
               margin-bottom: 20px;
               padding: 0 50px;
+              line-height: 1.8;
             }
 
             .emp {
@@ -359,12 +370,19 @@ const QuantumPizzaGame_lv1 = () => {
                 title: "Xゲート",
                 html: `
                 <div class="xgate-explanation">
+                  <hr >
                   <p class="xgate-description">Xゲートは、2回かけると元の状態に戻ります。</p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
                 </div>
                 <style>
+                hr{
+                  border: 0;
+                  border-top: 1px solid black;
+                  margin-bottom: 5px;
+                }
+                  
                 .xgate-description {
                   color: black;
                   text-align: center;

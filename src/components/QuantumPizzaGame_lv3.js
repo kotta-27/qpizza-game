@@ -14,9 +14,11 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-// const COLORS = ["#D31727", "#FFCE56", "#60986C", "#f47a4d"];
-// const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
-const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
+const T = "#D31727";
+const C = "#FFCE56";
+const B = "#60986C";
+const W = "#FAF0ED";
+const COLORS = [T, C, W, B];
 
 const ANSWERS_3 = [25, 25, 25, 25];
 
@@ -267,23 +269,6 @@ const QuantumPizzaGame_lv3 = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // 正解条件の判定を行う
-  //   if (
-  //     distribution[0] === ANSWERS_3[0] &&
-  //     distribution[1] === ANSWERS_3[1] &&
-  //     distribution[2] === ANSWERS_3[2] &&
-  //     distribution[3] === ANSWERS_3[3]
-  //   ) {
-  //     // 正解時の処理：2秒後に正解画面を表示
-  //     setTimeout(() => {
-  //       setIsCorrect(true);
-  //     }, 2000);
-  //   } else {
-  //     setIsCorrect(false);
-  //   }
-  // }, [distribution]);
-
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
     newInputs[index] = Number(value);
@@ -300,10 +285,20 @@ const QuantumPizzaGame_lv3 = () => {
 
   const addGate1 = (gate) => {
     setCircuit1([...circuit1, gate]);
+    if (gate === "CX") {
+      setCircuit2([...circuit2, "CD"]);
+    } else {
+      setCircuit2([...circuit2, "I"]);
+    }
   };
 
   const addGate2 = (gate) => {
     setCircuit2([...circuit2, gate]);
+    if (gate === "CX") {
+      setCircuit1([...circuit1, "CD"]);
+    } else {
+      setCircuit1([...circuit1, "I"]);
+    }
   };
 
   const executeCircuit = (circuit1, circuit2) => {
@@ -369,18 +364,18 @@ const QuantumPizzaGame_lv3 = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Xゲート",
+            title: "Hゲート②",
             html: `
             <div class="xgate-explanation">
-              <p class="xgate-description">Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つで、古典コンピューティングのNOTゲートに相当します。</p>
+              <p class="xgate-description">Lv2で，Hゲートはピザをハーフ&ハーフにすると学びました。</p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
+                <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
               </div>
             </div>
 
             <style>
             .xgate-description {
-              text-align: left;
+              text-align: center;
               margin-bottom: 20px;
               padding: 0 50px;
             }
@@ -399,12 +394,14 @@ const QuantumPizzaGame_lv3 = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Xゲート",
+                title: "Hゲート②",
                 html: `
                 <div class="xgate-explanation">
-                  <p class="xgate-description">Xゲートは、2回かけると元の状態に戻ります。</p>
+                  <p class="xgate-description">
+                    上下のどちらにもHゲートをかけることで、ピザを4等分することができます。
+                  </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
+                    <img src="/hgate_image_3.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
                 </div>
                 <style>

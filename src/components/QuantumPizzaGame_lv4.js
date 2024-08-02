@@ -19,9 +19,7 @@ const T = "#D31727";
 const C = "#FFCE56";
 const B = "#60986C";
 const W = "#FAF0ED";
-// const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
-// const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
-const COLORS = [C, T, B, W];
+const COLORS = [T, C, W, B];
 
 const ANSWERS_4 = [50, 0, 0, 50];
 
@@ -343,7 +341,6 @@ const QuantumPizzaGame_lv4 = () => {
         newQstate = [newQstate[1], newQstate[0], newQstate[3], newQstate[2]];
       } else if (circuit1[i] === "CX") {
         newQstate = [newQstate[0], newQstate[1], newQstate[3], newQstate[2]];
-        // newQstate = [1, 1, 1, 1];
       }
 
       if (circuit2[i] === "H") {
@@ -356,7 +353,6 @@ const QuantumPizzaGame_lv4 = () => {
         newQstate = [newQstate[2], newQstate[3], newQstate[0], newQstate[1]];
       } else if (circuit2[i] === "CX") {
         newQstate = [newQstate[0], newQstate[3], newQstate[2], newQstate[1]];
-        // newQstate = [1, 1, 1, 2];
       }
     }
 
@@ -523,7 +519,7 @@ const QuantumPizzaGame_lv4 = () => {
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.4</h1>
             <p className="text-lg mb-4 font-bold">
-              🍕違う種類のハーフ&ハーフピザを作ってみよう！
+              トマト🍅とバジル🌿のハーフ&ハーフピザを作ってみよう！
             </p>
             <div className="flex items-center justify-center mb-4">
               <PizzaChart

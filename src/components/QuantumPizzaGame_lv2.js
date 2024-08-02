@@ -13,9 +13,11 @@ const TOPPINGS = [
   "🍄 ポルチーニ",
   "🍍 ハワイアン",
 ];
-// const COLORS = ["#D31727", "#FFCE56", "#36A2EB", "#4BC0C0"];
-// const COLORS = ["#FFCE56", "#D31727", "#60986C", "#faf0ed"];
-const COLORS = ["#D31727", "#FFCE56", "#60986C", "#faf0ed"];
+const T = "#D31727";
+const C = "#FFCE56";
+const B = "#60986C";
+const W = "#FAF0ED";
+const COLORS = [T, C, W, B];
 
 const ANSWERS_2 = [50, 50];
 
@@ -328,22 +330,37 @@ const QuantumPizzaGame_lv2 = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Hゲート",
+            title: "Hゲート①",
             html: `
             <div class="xgate-explanation">
-              <p class="xgate-description">Hゲートは、量子ビットを重ね合わせ状態にするゲートです。</p>
-              <p class="xgate-description">1種類のピザから、ハーフ&ハーフのピザを作れます。</p>
+              <hr />
+              <p class="xgate-description">
+                Hゲートは、量子ビットを重ね合わせ状態にするゲートです。<br>
+                1種類のピザから、<span class="emp">ハーフ&ハーフ</span>のピザを作れます。
+              </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
               </div>
             </div>
 
             <style>
+            hr{
+              border: 0;  
+              border-top: 1px solid black;
+              margin-bottom: 5px;
+            }
+          
+
             .xgate-description {
               color: black;
               text-align: center;
               margin-bottom: 20px;
               padding: 0 50px;
+              line-height: 1.8;
+            }
+
+            .emp{
+              font-weight: bold;
             }
             </style>
           `,
@@ -360,10 +377,10 @@ const QuantumPizzaGame_lv2 = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Hゲート",
+                title: "Hゲート①",
                 html: `
                 <div class="xgate-explanation">
-                  <p class="xgate-description">Hゲートは、2回かけると元の状態に戻ります。</p>
+                  <p class="xgate-description">Hゲートは、Xと同じように、2回かけると元の状態に戻ります。</p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/hgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
