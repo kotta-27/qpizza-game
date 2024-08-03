@@ -223,7 +223,7 @@ const QuantumCircuit = ({ circuit, addGate, q_index }) => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addGate("CX")}
         >
-          CNOT:{CNOT_str}
+          CX:{CNOT_str}
         </button>
       </div>
     </div>
@@ -297,6 +297,9 @@ const QuantumPizzaGame_lv4 = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const [isHintShowed, setIsHintShowed] = useState(false);
+  const [isHintConfirmed, setIsHintConfirmed] = useState(false);
 
   const navigate = useNavigate();
 
@@ -525,6 +528,7 @@ const QuantumPizzaGame_lv4 = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
+        setIsHintShowed(true);
         Swal.fire({
           title: "ヒント💡",
           html: `
@@ -547,6 +551,10 @@ const QuantumPizzaGame_lv4 = () => {
           customClass: {
             confirmButton: "fwb",
           },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setIsHintConfirmed(true);
+          }
         });
       }
     });
@@ -605,7 +613,10 @@ const QuantumPizzaGame_lv4 = () => {
             <p className="text-lg mb-4 font-bold">
               トマト🍅とバジル🌿のハーフ&ハーフピザを作ってみよう！
             </p>
-            <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
+              {isHintShowed && isHintConfirmed && (
+                <p className="text-sm text-red-500 font-bold py-2 flex-end w-1/3"></p>
+              )}
               <PizzaChart
                 distribution={distribution}
                 size={dynamicSize}
@@ -616,6 +627,12 @@ const QuantumPizzaGame_lv4 = () => {
                 size={dynamicSize}
                 isAnswer={true}
               />
+              {isHintShowed && isHintConfirmed && (
+                <p className="text-xl text-gray-700 font-bold  flex-end w-1/3 bg-white p-5 flex justify-center">
+                  CX↑： ホワイトソース🥛 ↔︎ バジル🌿<br></br>
+                  CX↓： チーズ🧀 ↔︎ バジル🌿
+                </p>
+              )}
             </div>
             <div className="flex flex-col items-center">
               <QuantumCircuit

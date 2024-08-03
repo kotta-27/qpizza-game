@@ -228,7 +228,7 @@ const DisplayCircuit = ({ circuits }) => {
             {circuit.map((gate, index) => (
               <div
                 key={index}
-                className="bg-gray-200 text-center py-1 px-2 rounded"
+                className="bg-gray-200 text-center py-1 px-2 rounded w-10"
               >
                 {gate}
               </div>
