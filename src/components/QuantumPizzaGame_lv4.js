@@ -405,9 +405,9 @@ const QuantumPizzaGame_lv4 = () => {
             <div class="xgate-explanation">
               <hr >
               <p class="xgate-description">
-                CNOTゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
-                CNOT：「↑」かCNOT：「↓」かで動きが変わります。<br><br>
-                CNOT：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。
+                CXゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
+                CX：「↑」かCX：「↓」かで動きが変わります。<br><br>
+                CX：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/bell_image_1.png" alt="Xゲート" class="xgate-image" style="width: 60%; max-width: 100%; height: auto;" />
@@ -505,7 +505,7 @@ const QuantumPizzaGame_lv4 = () => {
       title: "ヒント💡",
       html: `
       <p> 
-        新しく登場した<span class="emp">CNOTゲート</span>を使ってみましょう！<br>
+        新しく登場した<span class="emp">CXゲート</span>を使ってみましょう！<br>
         <span class="emp">量子ゲートの順番</span>も大切です。
       </p>
 
@@ -533,8 +533,8 @@ const QuantumPizzaGame_lv4 = () => {
           title: "ヒント💡",
           html: `
           <p> 
-            上のCNOT:↑ゲートは，<span class="emp">ホワイトソース🥛とバジル🌿</span>、<br>
-            下のCNOT:↓ゲートは，<span class="emp">チーズ🧀とバジル🌿</span> <br>
+            上のCX:↑ゲートは，<span class="emp">ホワイトソース🥛とバジル🌿</span>、<br>
+            下のCX:↓ゲートは，<span class="emp">チーズ🧀とバジル🌿</span> <br>
             を入れ替えます。
           </p>
     
