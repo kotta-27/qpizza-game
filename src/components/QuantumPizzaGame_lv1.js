@@ -503,7 +503,7 @@ const QuantumPizzaGame_lv1 = () => {
         </label>
       </div>
       {isCorrect && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bag-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded shadow-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               {language === "ja" ? "おめでとうございます！🎉" : "恭喜你！🎉"}
