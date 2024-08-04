@@ -407,7 +407,8 @@ const QuantumPizzaGame_lv4 = () => {
               <p class="xgate-description">
                 CXゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
                 CX：「↑」かCX：「↓」かで動きが変わります。<br><br>
-                CX：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。
+                CX：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。 <br>
+                CX：「↓」の場合、チーズ🧀とバジル🌿を入れ替えます。
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/bell_image_1.png" alt="Xゲート" class="xgate-image" style="width: 60%; max-width: 100%; height: auto;" />
@@ -447,7 +448,8 @@ const QuantumPizzaGame_lv4 = () => {
                 <div class="xgate-explanation">
                   <hr >
                   <p class="xgate-description">
-                    CNOT：「↓」の場合、チーズ🧀とバジル🌿を入れ替えます。
+                    先にHゲートを使ってハーフ&ハーフを作り、<br>
+                    その後に適切なCXゲートを使って具材を入れ替えます。<br>
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/bell_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
@@ -473,7 +475,7 @@ const QuantumPizzaGame_lv4 = () => {
                   popup: "my-swal-popup",
                   title: "my-swal-title",
                   htmlContainer: "my-swal-html",
-                  confirmButton: "my-swal-confirm-button-next",
+                  confirmButton: "my-swal-confirm-button-next-center",
                 },
                 // buttonsStyling: false,
                 width: "70%",

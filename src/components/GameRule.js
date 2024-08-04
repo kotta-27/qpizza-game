@@ -4,6 +4,7 @@ import { Goal, Target, Gift, Gamepad2 } from "lucide-react";
 // 各言語でのテキストを定義
 const texts = {
   ja: {
+    imagePath: "./game_rule_ja.png",
     gameTitle: "このゲームのルール",
     gameGoal: "ゲームの目的",
     goalDescription:
@@ -23,6 +24,7 @@ const texts = {
     startGame: "ゲームを始める",
   },
   en: {
+    imagePath: "./game_rule_en.png",
     gameTitle: "Game Rules",
     gameGoal: "Game Goal",
     goalDescription:
@@ -41,6 +43,7 @@ const texts = {
     startGame: "Start Game",
   },
   zh: {
+    imagePath: "./game_rule_zh.png",
     gameTitle: "游戏规则",
     gameGoal: "游戏目标",
     goalDescription: "使用量子门来调整比萨饼，使其与右上角显示的目标相匹配。",
@@ -57,7 +60,6 @@ const texts = {
     startGame: "开始游戏",
   },
 };
-
 
 const lanSet = { ja: "日本語", en: "English", zh: "中文" };
 
@@ -101,7 +103,7 @@ const GameRule = () => {
           </h2>
 
           <img
-            src="./game_image_4.png"
+            src={text.imagePath}
             style={{
               width: "35%",
               position: "absolute",

@@ -193,6 +193,15 @@ h3 {
     padding: 10px 20px;
     margin-left: 40px;
   }
+
+  .my-swal-confirm-button-next-center{
+    background-color: #10e36b !important;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+
+  }
   
   .my-swal-cancel-button {
     background-color: #e74c3c !important;

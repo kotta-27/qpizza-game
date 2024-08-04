@@ -72,6 +72,8 @@ const Congrats = () => {
                 体験<rt>たいけん</rt>
               </ruby>
               してみてね！
+              <br></br>
+              プレイしてくださり、ありがとうございました！😆
             </p>
             <div className="flex justify-center space-x-4">
               <motion.a
@@ -80,7 +82,7 @@ const Congrats = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
               >
-                <House className="mr-2" />
+                <House className="mr-2 w-10 h-7" />
                 ホームに戻る
               </motion.a>
             </div>
