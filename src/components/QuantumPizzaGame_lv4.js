@@ -223,7 +223,7 @@ const QuantumCircuit = ({ circuit, addGate, q_index }) => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addGate("CX")}
         >
-          CX:{CNOT_str}
+          CX {CNOT_str}
         </button>
       </div>
     </div>
@@ -628,7 +628,8 @@ const QuantumPizzaGame_lv4 = () => {
                 isAnswer={true}
               />
               {isHintShowed && isHintConfirmed && (
-                <p className="text-xl text-gray-700 font-bold  flex-end w-1/3 bg-white p-5 flex justify-center">
+                <p className="text-xl text-gray-700 font-bold  flex-end w-1/3 bg-white p-5 text-center">
+                  ヒント💡 <br></br>
                   CX↑： ホワイトソース🥛 ↔︎ バジル🌿<br></br>
                   CX↓： チーズ🧀 ↔︎ バジル🌿
                 </p>
