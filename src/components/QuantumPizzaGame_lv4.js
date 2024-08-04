@@ -577,7 +577,8 @@ const QuantumPizzaGame_lv4 = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.reload();
+        setCircuit1([]);
+        setCircuit2([]);
       }
     });
   };
