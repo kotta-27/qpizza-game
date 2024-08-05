@@ -7,12 +7,6 @@ import Swal from "sweetalert2";
 import Navbar from "./navbar";
 import "../stylesheets/QuantumPizzaGame.css";
 
-const TOPPINGS = [
-  "🍅 マルゲリータ",
-  "🧀 クワトロフォルマッジ",
-  "🍄 ポルチーニ",
-  "🍍 ハワイアン",
-];
 const T = "#D31727";
 const C = "#FFCE56";
 const B = "#60986C";
