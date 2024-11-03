@@ -221,6 +221,11 @@ h3 {
 .my-swal {
     font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
+    width: 100%;
+  }
+
+  .my-swal-popup{
+    background-color: #ffffff;
   }
   
   .my-swal-title {

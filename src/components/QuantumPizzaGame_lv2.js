@@ -211,10 +211,14 @@ const QuantumCircuit = ({ circuit, addGate }) => {
   );
 };
 
-const DisplayCircuit = ({ circuits }) => {
+const DisplayCircuit = ({ circuits, isMobile }) => {
   const { t } = useTranslation();
   return (
-    <div className="mt-4 w-3/6 flex flex-col items-center">
+    <div
+      className={`mt-4 ${
+        isMobile ? "w-5/6" : "w-3/6"
+      } flex flex-col items-center`}
+    >
       <h3 className="text-lg font-bold mb-2 ">
         {t("problem_common.quantum_circuit")}
       </h3>
@@ -285,7 +289,7 @@ const QuantumPizzaGame_lv2 = () => {
 
   const calculateSize = () => {
     const baseSize = 220;
-    const minSize = 100;
+    const minSize = 150;
     const maxSize = 300;
     const scaleFactor = Math.min(windowSize.width, windowSize.height) / 1000;
     return Math.max(minSize, Math.min(maxSize, baseSize * scaleFactor));
@@ -533,7 +537,7 @@ const QuantumPizzaGame_lv2 = () => {
               </button>
             </div>
             <div className="circuit-list-container">
-              <DisplayCircuit circuits={[circuit1]} />
+              <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
             </div>
           </>
         )}

@@ -219,9 +219,13 @@ const QuantumCircuit = ({ circuit, addGate }) => {
   );
 };
 
-const DisplayCircuit = ({ circuits }) => {
+const DisplayCircuit = ({ circuits, isMobile }) => {
   return (
-    <div className="mt-4 w-3/6 flex flex-col items-center">
+    <div
+      className={`mt-4 ${
+        isMobile ? "w-5/6" : "w-3/6"
+      } flex flex-col items-center`}
+    >
       <div className="flex flex-col space-y-2 w-full">
         {circuits.map((circuit, circuitIndex) => (
           <div
@@ -311,7 +315,7 @@ const QuantumPizzaGame_lv3 = () => {
 
   const calculateSize = () => {
     const baseSize = 220;
-    const minSize = 100;
+    const minSize = 150;
     const maxSize = 300;
     const scaleFactor = Math.min(windowSize.width, windowSize.height) / 1000;
     return Math.max(minSize, Math.min(maxSize, baseSize * scaleFactor));
@@ -601,8 +605,8 @@ const QuantumPizzaGame_lv3 = () => {
               {t("problem_common.quantum_circuit")}
             </h3>
             <div className="circuit-list-container">
-              <DisplayCircuit circuits={[circuit1]} />
-              <DisplayCircuit circuits={[circuit2]} />
+              <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
+              <DisplayCircuit circuits={[circuit2]} isMobile={isMobile} />
             </div>
           </>
         )}

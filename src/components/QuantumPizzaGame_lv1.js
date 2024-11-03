@@ -287,7 +287,7 @@ const QuantumPizzaGame_lv1 = () => {
 
   const calculateSize = () => {
     const baseSize = 220;
-    const minSize = 100;
+    const minSize = 150;
     const maxSize = 300;
     const scaleFactor = Math.min(windowSize.width, windowSize.height) / 1000;
     return Math.max(minSize, Math.min(maxSize, baseSize * scaleFactor));
@@ -328,26 +328,27 @@ const QuantumPizzaGame_lv1 = () => {
 
   const handleSubmit = () => {
     if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
+      const imageWidth = isMobile ? "100%" : "50%";
       Swal.fire({
-        title: "すばらしい！！🎉",
-        text: "正解です！次のレベルに進みましょう！",
+        title: t("problem_common.swal.confirm.correct_title"),
+        text: t("problem_common.swal.confirm.correct_message"),
         icon: "success",
-        confirmButtonText: "進む",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_next"),
         customClass: {
           container: "my-swal",
         },
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Xゲート",
+            title: t("problem_common.swal.confirm.X_gate.title"),
             html: `
             <div class="xgate-explanation">
               <hr >
-              <p class="xgate-description">Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つです。<br>
-              Xゲートは、量子ビットの状態を反転させる効果があります。<br>
-              今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。</p>
+              <p class="xgate-description">
+                ${t("problem_common.swal.confirm.X_gate.description_1")}
+              </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
+                <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth}; max-width: 100%; height: auto;" />
               </div>
             </div>
 
@@ -363,7 +364,7 @@ const QuantumPizzaGame_lv1 = () => {
               color: black;
               text-align: center;
               margin-bottom: 20px;
-              padding: 0 50px;
+              padding: 0 10px;
               line-height: 1.8;
             }
 
@@ -372,7 +373,9 @@ const QuantumPizzaGame_lv1 = () => {
             }
             </style>
           `,
-            confirmButtonText: "次へ",
+            confirmButtonText: t(
+              "problem_common.swal.confirm.confirm_button_next"
+            ),
             customClass: {
               container: "my-swal",
               popup: "my-swal-popup",
@@ -380,16 +383,17 @@ const QuantumPizzaGame_lv1 = () => {
               htmlContainer: "my-swal-html",
               confirmButton: "my-swal-confirm-button",
             },
-            // buttonsStyling: false,
-            width: "70%",
+            width: isMobile ? "100%" : "70%",
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Xゲート",
+                title: t("problem_common.swal.confirm.X_gate.title"),
                 html: `
                 <div class="xgate-explanation">
                   <hr >
-                  <p class="xgate-description">Xゲートは、2回かけると元の状態に戻ります。</p>
+                  <p class="xgate-description">
+                    ${t("problem_common.swal.confirm.X_gate.description_2")}
+                  </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
                   </div>
@@ -405,12 +409,16 @@ const QuantumPizzaGame_lv1 = () => {
                   color: black;
                   text-align: center;
                   margin-bottom: 20px;
-                }
+                } 
                 </style>
               `,
                 showCancelButton: true,
-                confirmButtonText: "次の問題へ進む",
-                cancelButtonText: "キャンセル",
+                confirmButtonText: t(
+                  "problem_common.swal.confirm.confirm_buttion_next_level"
+                ),
+                cancelButtonText: t(
+                  "problem_common.swal.confirm.cancel_button"
+                ),
                 customClass: {
                   container: "my-swal",
                   popup: "my-swal-popup",
@@ -433,10 +441,10 @@ const QuantumPizzaGame_lv1 = () => {
       });
     } else {
       Swal.fire({
-        title: "惜しい！",
-        text: "まだ正解ではありません。もう一度試してみましょう！",
+        title: t("problem_common.swal.confirm.incorrect_title"),
+        text: t("problem_common.swal.confirm.incorrect_message"),
         icon: "error",
-        confirmButtonText: "OK",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_ok"),
         customClass: {
           container: "my-swal",
         },
@@ -446,12 +454,12 @@ const QuantumPizzaGame_lv1 = () => {
 
   const handleReset = () => {
     Swal.fire({
-      title: "リセットしますか？",
-      text: "現在の進行状況が失われます。",
+      title: t("problem_common.swal.reset.title"),
+      text: t("problem_common.swal.reset.text"),
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "リセット",
-      cancelButtonText: "キャンセル",
+      confirmButtonText: t("problem_common.swal.reset.reset_button"),
+      cancelButtonText: t("problem_common.swal.reset.cancel_button"),
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,

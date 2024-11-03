@@ -1,4 +1,6 @@
 // i18n.js
+// 各言語の翻訳データを定義
+
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -24,6 +26,32 @@ const resources = {
         submit_button: "提出",
         tips_button: "ヒント",
         quantum_circuit: "量子回路",
+        swal: {
+          reset: {
+            title: "リセットしますか？",
+            text: "現在の進行状況が失われます。",
+            reset_button: "リセット",
+            cancel_button: "キャンセル",
+          },
+          confirm: {
+            correct_title: "素晴らしい！！🎉",
+            correct_message: "正解です”次のレベルに進みましょう！",
+            confirm_button_next: "次へ",
+            confirm_button_ok: "OK",
+            confirm_buttion_next_level: "次の問題へ進む",
+            cancel_button: "キャンセル",
+            incorrect_title: "惜しい！",
+            incorrect_message:
+              "まだ正解ではありません。もう一度試してみましょう！",
+            X_gate: {
+              title: "Xゲート",
+              description_1: `Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つです。<br>
+            Xゲートは、量子ビットの状態を反転させる効果があります。<br>
+            今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。`,
+              description_2: "Xゲートは、2回かけると元の状態に戻ります。",
+            },
+          },
+        },
       },
       lv1: {
         instruction: "🍕ピザにチーズをトッピングしてみよう！",
@@ -61,6 +89,32 @@ const resources = {
         submit_button: "Submit",
         tips_button: "Tips",
         quantum_circuit: "Quantum Circuit",
+        swal: {
+          reset: {
+            title: "Reset?",
+            text: "The current progress will be lost.",
+            reset_button: "Reset",
+            cancel_button: "Cancel",
+          },
+          confirm: {
+            correct_title: "Great!!🎉",
+            correct_message: "Correct! Let's move on to the next level!",
+            confirm_button_next: "Next",
+            confirm_button_ok: "OK",
+            confirm_buttion_next_level: "Next Level",
+            cancel_button: "Cancel",
+            incorrect_title: "Close!",
+            incorrect_message: "Not correct yet. Try again!",
+            X_gate: {
+              title: "X Gate",
+              description_1: `The X gate is one of the basic quantum gates in quantum computing.<br>
+              The X gate flips the state of a qubit.<br>
+              In this game, the X gate corresponds to <span class="emp">adding or removing cheese</span>.`,
+              description_2:
+                "The X gate returns to the original state when applied twice.",
+            },
+          },
+        },
       },
       lv1: {
         instruction: "🍕Try topping the pizza with cheese!",
@@ -98,6 +152,31 @@ const resources = {
         submit_button: "提交",
         tips_button: "提示",
         quantum_circuit: "量子电路",
+        swal: {
+          reset: {
+            title: "重置？",
+            text: "当前进度将会丢失。",
+            reset_button: "重置",
+            cancel_button: "取消",
+          },
+          confirm: {
+            correct_title: "太棒了！！🎉",
+            correct_message: "正确！让我们继续到下一级！",
+            confirm_button_next: "下一个",
+            confirm_button_ok: "好的",
+            confirm_buttion_next_level: "下一级",
+            cancel_button: "取消",
+            incorrect_title: "差一点！",
+            incorrect_message: "还不正确。再试一次！",
+            X_gate: {
+              title: "X 门",
+              description_1: `X 门是量子计算中的基本量子门之一。<br>
+              X 门会反转量子比特的状态。<br>
+              在这个游戏中，X 门对应着<span class="emp">加入或去除奶酪的操作</span>。`,
+              description_2: "连续两次应用 X 门会使量子比特恢复到原始状态。",
+            },
+          },
+        },
       },
       lv1: {
         instruction: "🍕试着给披萨加点奶酪吧！",
