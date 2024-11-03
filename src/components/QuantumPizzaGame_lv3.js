@@ -268,6 +268,7 @@ const QuantumPizzaGame_lv3 = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
@@ -288,6 +289,19 @@ const QuantumPizzaGame_lv3 = () => {
   }, []);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+      setIsMobile(window.innerWidth <= 640);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
@@ -503,27 +517,29 @@ const QuantumPizzaGame_lv3 = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex">
+      <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
         <div className="language-selector">
-          <button
-            onClick={() => changeLanguage("ja")}
-            className={`${language === "ja" ? "selected" : ""}`}
-          >
-            日本語
-          </button>
-          <button
-            onClick={() => changeLanguage("en")}
-            className={`${language === "en" ? "selected" : ""}`}
-          >
-            English
-          </button>
-          <button
-            onClick={() => changeLanguage("zh")}
-            className={`${language === "zh" ? "selected" : ""}`}
-          >
-            中文
-          </button>
+          <div className="language-buttons">
+            <button
+              onClick={() => changeLanguage("ja")}
+              className={`${language === "ja" ? "selected" : ""}`}
+            >
+              日本語
+            </button>
+            <button
+              onClick={() => changeLanguage("en")}
+              className={`${language === "en" ? "selected" : ""}`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => changeLanguage("zh")}
+              className={`${language === "zh" ? "selected" : ""}`}
+            >
+              中文
+            </button>
+          </div>
         </div>
       </div>
       {isCorrect && (

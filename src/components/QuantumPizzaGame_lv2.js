@@ -471,24 +471,26 @@ const QuantumPizzaGame_lv2 = () => {
       <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
         <div className="language-selector">
-          <button
-            onClick={() => changeLanguage("ja")}
-            className={`${language === "ja" ? "selected" : ""}`}
-          >
-            日本語
-          </button>
-          <button
-            onClick={() => changeLanguage("en")}
-            className={`${language === "en" ? "selected" : ""}`}
-          >
-            English
-          </button>
-          <button
-            onClick={() => changeLanguage("zh")}
-            className={`${language === "zh" ? "selected" : ""}`}
-          >
-            中文
-          </button>
+          <div className="language-buttons">
+            <button
+              onClick={() => changeLanguage("ja")}
+              className={`${language === "ja" ? "selected" : ""}`}
+            >
+              日本語
+            </button>
+            <button
+              onClick={() => changeLanguage("en")}
+              className={`${language === "en" ? "selected" : ""}`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => changeLanguage("zh")}
+              className={`${language === "zh" ? "selected" : ""}`}
+            >
+              中文
+            </button>
+          </div>
         </div>
       </div>
       <div
