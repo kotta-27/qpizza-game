@@ -1,27 +1,30 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../trans_resouces/trans_data";
 import "../stylesheets/Navbar.css";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   return (
     <nav className="nav">
       <ul>
         <li>
-          <a href="./">ホーム</a>
+          <a href="./">{t("navbar.home")}</a>
         </li>
         <li>
-          <a href="./rule">ゲームのルール</a>
+          <a href="./rule">{t("navbar.rules")}</a>
         </li>
         <li>
-          <a href="./lv1">Lv.1</a>
+          <a href="./lv1">{t("navbar.level1")}</a>
         </li>
         <li>
-          <a href="./lv2">Lv.2</a>
+          <a href="./lv2">{t("navbar.level2")}</a>
         </li>
         <li>
-          <a href="./lv3">Lv.3</a>
+          <a href="./lv3">{t("navbar.level3")}</a>
         </li>
         <li>
-          <a href="./lv4">Lv.4</a>
+          <a href="./lv4">{t("navbar.level4")}</a>
         </li>
       </ul>
     </nav>

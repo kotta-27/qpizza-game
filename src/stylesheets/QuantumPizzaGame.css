@@ -1,3 +1,32 @@
+.language-selector {
+  width: 15%;
+  display: flex; 
+  justify-content: space-around;
+  align-items: center;
+}
+
+.language-selector button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.language-selector button:hover {
+  color: #4CAF50; /* Hover時に文字色を変える */ 
+}
+
+.language-selector button.selected {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4CAF50; /* 選択時の背景色 */
+  border-radius: 3px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .circuit-container {
   display: flex;
   flex-direction: column;

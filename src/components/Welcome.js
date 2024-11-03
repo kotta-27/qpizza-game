@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ArrowRight, Book } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import i18n from "../trans_resouces/wel_tr"; // import the i18n setup
+import i18n from "../trans_resouces/trans_data"; // import the i18n setup
 import "../stylesheets/Welcome.css";
 
 const WelcomePage = () => {
@@ -38,24 +38,24 @@ const WelcomePage = () => {
       <div className="flex-grow flex items-center justify-center p-4 w-full max-w-3xl">
         <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-full border-2 border-white border-opacity-20">
           <h1 className="text-5xl font-bold text-white mb-6 flex items-center justify-center welcome-title">
-            {t("welcome")}
+            {t("welcome_page.welcome_message")}
           </h1>
           <p className="text-lg text-white mb-8 italic myRuby text-center ">
-            {t("description")}
+            {t("welcome_page.description")}
           </p>
           <div className="space-y-4 flex flex-col items-center justify-center">
             <a
               href="./rule"
               className="block w-3/6 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center "
             >
-              {t("rules")}
+              {t("welcome_page.rules_button")}
               <Book className="ml-2" />
             </a>
             <a
               href="./lv1"
               className="block w-3/6 bg-red-600 hover:bg-red-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center"
             >
-              {t("problem")}
+              {t("welcome_page.problem_button")}
               <ArrowRight className="ml-2" />
             </a>
           </div>

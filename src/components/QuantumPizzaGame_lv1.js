@@ -5,12 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Navbar from "./navbar";
+import { useTranslation } from "react-i18next";
+import i18n from "../trans_resouces/trans_data"; // import the i18n setup
 import "../stylesheets/QuantumPizzaGame.css";
 
-const T = "#D31727";
-const C = "#FFCE56";
-const B = "#60986C";
-const W = "#FAF0ED";
+const T = "#D31727"; // tomato
+const C = "#FFCE56"; // cheese
+const B = "#60986C"; // basil
+const W = "#FAF0ED"; // white
 const COLORS = [T, C, W, B];
 
 const ANSWERS_1 = [0, 100];
@@ -211,9 +213,12 @@ const QuantumCircuit = ({ circuit, addGate }) => {
 };
 
 const DisplayCircuit = ({ circuits }) => {
+  const { t } = useTranslation();
   return (
     <div className="mt-4 w-3/6 flex flex-col items-center">
-      <h3 className="text-lg font-bold mb-2 ">量子回路</h3>
+      <h3 className="text-lg font-bold mb-2 ">
+        {t("problem_common.quantum_circuit")}
+      </h3>
       <div className="flex flex-col space-y-2 w-full">
         {circuits.map((circuit, index) => (
           <div
@@ -246,30 +251,23 @@ const QuantumPizzaGame_lv1 = () => {
     height: window.innerHeight,
   });
 
-  const [language, setLanguage] = useState("ja");
+  const { t } = useTranslation();
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language") || "ja" // ローカルストレージから言語を取得．なければデフォルトはja
+  );
 
-  const handleLanguageChange = (event) => {
-    setLanguage(event.target.value);
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLanguage(lng);
+    localStorage.setItem("language", lng); // 言語をlocalStorageに保存
   };
 
-  const translations = {
-    ja: {
-      title: "🍕 Quantum Pizza Lv.1",
-      instruction: "🍕ピザにチーズをトッピングしてみよう！",
-      reset: "リセット",
-      submit: "提出",
-      footer: "無断転載禁止",
-    },
-    zh: {
-      title: "🍕 量子披萨 Lv.1",
-      instruction: "🍕给披萨加上奶酪吧！",
-      reset: "重置",
-      submit: "提交",
-      footer: "版权所有",
-    },
-  };
-
-  const t = translations[language];
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage); // ロード時に保存された言語を適用
+    }
+  }, []);
 
   const navigate = useNavigate();
 
@@ -310,7 +308,6 @@ const QuantumPizzaGame_lv1 = () => {
         continue;
       }
     }
-
     setQstate(newQstate);
   };
 
@@ -467,34 +464,28 @@ const QuantumPizzaGame_lv1 = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Navbar />
-      <div
-        className="language-switch"
-        style={{
-          position: "absolute",
-          top: "60px",
-          right: "20px",
-          zIndex: 1000,
-        }}
-      >
-        <label>
-          <input
-            type="radio"
-            value="ja"
-            checked={language === "ja"}
-            onChange={handleLanguageChange}
-          />
-          日本語
-        </label>
-        <label style={{ marginLeft: "10px" }}>
-          <input
-            type="radio"
-            value="zh"
-            checked={language === "zh"}
-            onChange={handleLanguageChange}
-          />
-          中文
-        </label>
+      <div className="flex">
+        <Navbar />
+        <div className="language-selector">
+          <button
+            onClick={() => changeLanguage("ja")}
+            className={`${language === "ja" ? "selected" : ""}`}
+          >
+            日本語
+          </button>
+          <button
+            onClick={() => changeLanguage("en")}
+            className={`${language === "en" ? "selected" : ""}`}
+          >
+            English
+          </button>
+          <button
+            onClick={() => changeLanguage("zh")}
+            className={`${language === "zh" ? "selected" : ""}`}
+          >
+            中文
+          </button>
+        </div>
       </div>
       {isCorrect && (
         <div className="fixed inset-0 flex items-center justify-center bag-black bg-opacity-50 z-50">
@@ -523,10 +514,7 @@ const QuantumPizzaGame_lv1 = () => {
         {!isCorrect && (
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.1</h1>
-            <p className="text-lg mb-4 font-bold">{t.instruction}</p>
-            {/* <p className="text-lg mb-4 font-bold">
-              🍕ピザにチーズをトッピングしてみよう！
-            </p> */}
+            <p className="text-lg mb-4 font-bold">{t("lv1.instruction")}</p>
             <div className="flex items-center justify-center mb-4 Pizza-chart-container">
               <PizzaChart
                 distribution={distribution}
@@ -547,13 +535,13 @@ const QuantumPizzaGame_lv1 = () => {
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 onClick={handleReset}
               >
-                {t.reset}
+                {t("problem_common.reset_button")}
               </button>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 onClick={handleSubmit}
               >
-                {t.submit}
+                {t("problem_common.submit_button")}
               </button>
             </div>
             <div className="circuit-list-container">
