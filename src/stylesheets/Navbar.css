@@ -1,10 +1,23 @@
 .nav {
-    /* 背景色設定 */
-    background-color: #a68f8f;
-    width: 85%;
+    display: flex;
+    background-color: #ea7878;
+    width: 55%;
 }
 
-.nav ul {
+.nav .nav-home-and-rules{
+    /* width: 90%; */
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    height: 40px;
+}
+
+.nav .nav-home-and-rules li{
+    width: 120px;
+    padding: 7px 0;
+}
+
+.nav .nav-problems {
     /* 表示幅を90%に */
     width: 90%;
     /* フレックスボックス化 */
@@ -17,13 +30,18 @@
     height: 40px;
 }
 
+.nav .nav-problems li{
+    width: 50px;
+    padding: 7px 0;
+}
+
 .nav a {
     /* アンダーライン削除 */
     text-decoration: none;
-    /* 文字色設定 */
+    text-align: center;
+    justify-content: center;
     color: #fff;
-    /* 内側余白を上右下左の順で設定 */
-    padding: 10px 20px 10px 0px;
+    height: 40px;
     /*ブロックにする */
     display: block;
     /* 文字を大き目に設定 */
@@ -40,15 +58,21 @@
 @media screen and (max-width: 640px) {
     .nav {
         background-color: #0183a0;
-        height: 150px;
-    }
-
-    .nav ul {
         flex-direction: column;
-        padding: 0;
+        width: 100%;
+        max-height: 150px; /* モバイル時の最大高さ */
+        overflow-y: auto; /* 高さを超えた部分をスクロール */
     }
 
-    .nav li {
-        border-bottom: solid 1px #fff;
+    .nav .nav-home-and-rules {
+        justify-content: space-around;
+    }
+
+    .nav .nav-problems {
+        justify-content: space-around;
+    }
+
+    .nav li:active{
+        font-weight: bold;
     }
 }

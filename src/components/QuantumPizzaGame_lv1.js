@@ -250,6 +250,7 @@ const QuantumPizzaGame_lv1 = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [isMobile, setIsMobile] = useState(windowSize.width < 640);
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
@@ -277,6 +278,7 @@ const QuantumPizzaGame_lv1 = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      setIsMobile(window.innerWidth <= 640);
     }
 
     window.addEventListener("resize", handleResize);
@@ -464,27 +466,29 @@ const QuantumPizzaGame_lv1 = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex">
+      <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
         <div className="language-selector">
-          <button
-            onClick={() => changeLanguage("ja")}
-            className={`${language === "ja" ? "selected" : ""}`}
-          >
-            日本語
-          </button>
-          <button
-            onClick={() => changeLanguage("en")}
-            className={`${language === "en" ? "selected" : ""}`}
-          >
-            English
-          </button>
-          <button
-            onClick={() => changeLanguage("zh")}
-            className={`${language === "zh" ? "selected" : ""}`}
-          >
-            中文
-          </button>
+          <div className="language-buttons">
+            <button
+              onClick={() => changeLanguage("ja")}
+              className={`${language === "ja" ? "selected" : ""}`}
+            >
+              日本語
+            </button>
+            <button
+              onClick={() => changeLanguage("en")}
+              className={`${language === "en" ? "selected" : ""}`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => changeLanguage("zh")}
+              className={`${language === "zh" ? "selected" : ""}`}
+            >
+              中文
+            </button>
+          </div>
         </div>
       </div>
       {isCorrect && (

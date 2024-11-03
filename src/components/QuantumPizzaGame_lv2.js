@@ -249,6 +249,7 @@ const QuantumPizzaGame_lv2 = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [isMobile, setIsMobile] = useState(windowSize.width < 640);
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
@@ -275,6 +276,7 @@ const QuantumPizzaGame_lv2 = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      setIsMobile(window.innerWidth <= 640);
     }
 
     window.addEventListener("resize", handleResize);
@@ -466,7 +468,7 @@ const QuantumPizzaGame_lv2 = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex">
+      <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
         <div className="language-selector">
           <button

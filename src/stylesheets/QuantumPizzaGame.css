@@ -1,13 +1,21 @@
 .language-selector {
-  width: 15%;
+  width: 45%;
+  background-color: #ea7878;;
   display: flex; 
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
+}
+
+.language-selector .language-buttons{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .language-selector button {
   padding: 8px 16px;
   font-size: 1rem;
+  width: 100px;
   cursor: pointer;
   border: none;
   background-color: transparent;
@@ -27,6 +35,27 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+@media screen and (max-width: 640px) {
+      /* 言語選択メニューを下に配置 */
+    .language-selector {
+        width: 70%;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 10px; /* ナビゲーションとの間隔 */
+        margin: 4px auto;
+    }
+
+    .language-selector .language-buttons{
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .language-selector button {
+        padding: 10px 20px;
+        width: 33.3%;
+    }
+}
 .circuit-container {
   display: flex;
   flex-direction: column;
