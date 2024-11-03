@@ -13,6 +13,26 @@ const resources = {
         rules_button: "ルールを確認する",
         problem_button: "問題へ進む",
       },
+      game_rule_page: {
+        image_path: "./game_rule_ja.png",
+        game_rule_title: "このゲームのルール",
+        game_goal: "ゲームの目的",
+        game_goal_description:
+          "量子ゲートを使って、右上に表示されるお題のピザと同じ割合になるように調整しましょう。",
+        game_play_method: "プレイ方法",
+        game_play_steps: [
+          "ボタンを押して、量子ゲートを追加して、ピザの割合を調整します。",
+          "右上に表示されるお題のピザと一致するように調整してください。",
+          "一致したら、次のレベルに進みます。",
+        ],
+        rewards: "報酬",
+        rewards_description:
+          "すべてのレベルをクリアして、量子ピザ職人を目指しましょう！👀",
+        game_rule_tips: "ヒント",
+        tips_description:
+          "量子ゲートの種類や配置順序によって、ピザの割合が変化します。様々な組み合わせを試してみましょう！👀",
+        game_start_button: "ゲームを始める",
+      },
       navbar: {
         home: "ホーム",
         rules: "ゲームのルール",
@@ -76,6 +96,26 @@ const resources = {
         rules_button: "Check Rules",
         problem_button: "Go to Problem",
       },
+      game_rule_page: {
+        image_path: "./game_rule_en.png",
+        game_rule_title: "Game Rules",
+        game_goal: "Game Goal",
+        game_goal_description:
+          "Use quantum gates to adjust the pizza to match the target shown in the upper right.",
+        game_play_method: "How to Play",
+        game_play_steps: [
+          "Press buttons to add quantum gates and adjust the pizza proportions.",
+          "Adjust to match the target pizza shown in the upper right.",
+          "When matched, proceed to the next level.",
+        ],
+        rewards: "Rewards",
+        rewards_description:
+          "Clear all levels to become a quantum pizza master! 👀",
+        game_rule_tips: "Hint",
+        tips_description:
+          "The type and order of quantum gates affect the pizza proportions. Try different combinations! 👀",
+        game_start_button: "Start Game",
+      },
       navbar: {
         home: "Home",
         rules: "Game Rules",
@@ -138,6 +178,25 @@ const resources = {
         description: "使用量子门来制作理想的披萨配比吧！",
         rules_button: "确认规则",
         problem_button: "前往问题",
+      },
+      game_rule_page: {
+        image_path: "./game_rule_zh.png",
+        game_rule_title: "游戏规则",
+        game_goal: "游戏目标",
+        game_goal_description:
+          "使用量子门调整披萨，使其与右上角显示的目标相匹配。",
+        game_play_method: "游戏玩法",
+        game_play_steps: [
+          "按下按钮添加量子门，调整披萨比例。",
+          "调整以匹配右上角显示的目标披萨。",
+          "匹配后，进入下一级。",
+        ],
+        rewards: "奖励",
+        rewards_description: "通过所有级别，成为量子披萨大师！👀",
+        game_rule_tips: "提示",
+        tips_description:
+          "量子门的类型和顺序会影响披萨的比例。尝试不同的组合！👀",
+        game_start_button: "开始游戏",
       },
       navbar: {
         home: "主页",

@@ -1,0 +1,31 @@
+.rule-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.rule-container .rule-description{
+    width: 70%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rule-container .image-container{
+    margin-top: 10px;
+    width: 500px;
+}
+
+.rule-container .image-container img{
+    margin-bottom: 100px;
+}
+
+@media screen and (max-width: 640px) {
+    .rule-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
