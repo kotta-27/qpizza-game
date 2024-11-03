@@ -344,12 +344,12 @@ const QuantumPizzaGame_lv1 = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: t("problem_common.swal.confirm.X_gate.title"),
+            title: t("lv1.swal.X_gate.title"),
             html: `
             <div class="xgate-explanation">
               <hr >
               <p class="xgate-description">
-                ${t("problem_common.swal.confirm.X_gate.description_1")}
+                ${t("lv1.swal.X_gate.description_1")}
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth}; max-width: 100%; height: auto;" />
@@ -391,12 +391,12 @@ const QuantumPizzaGame_lv1 = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: t("problem_common.swal.confirm.X_gate.title"),
+                title: t("lv1.swal.X_gate.title"),
                 html: `
                 <div class="xgate-explanation">
                   <hr >
                   <p class="xgate-description">
-                    ${t("problem_common.swal.confirm.X_gate.description_2")}
+                    ${t("lv1.swal.X_gate.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth}; max-width: 100%; height: auto;" />
@@ -418,7 +418,7 @@ const QuantumPizzaGame_lv1 = () => {
               `,
                 showCancelButton: true,
                 confirmButtonText: t(
-                  "problem_common.swal.confirm.confirm_buttion_next_level"
+                  "problem_common.swal.confirm.confirm_button_next_level"
                 ),
                 cancelButtonText: t(
                   "problem_common.swal.confirm.cancel_button"

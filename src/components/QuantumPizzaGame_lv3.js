@@ -392,21 +392,23 @@ const QuantumPizzaGame_lv3 = () => {
       distribution[3] === ANSWERS_3[3]
     ) {
       Swal.fire({
-        title: "すばらしい！！🎉",
-        text: "正解です！次のレベルに進みましょう！",
+        title: t("problem_common.swal.confirm.correct_title"),
+        text: t("problem_common.swal.confirm.correct_message"),
         icon: "success",
-        confirmButtonText: "進む",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_next"),
         customClass: {
           container: "my-swal",
         },
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Hゲート②",
+            title: t("lv3.swal.H_gate_2.title"),
             html: `
             <div class="xgate-explanation">
             <hr> 
-              <p class="xgate-description">Lv2で，Hゲートはピザをハーフ&ハーフにすると学びました。</p>
+              <p class="xgate-description">
+                ${t("lv3.swal.H_gate_2.description_1")}
+              </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
                 <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
               </div>
@@ -426,7 +428,9 @@ const QuantumPizzaGame_lv3 = () => {
             }
             </style>
           `,
-            confirmButtonText: "次へ",
+            confirmButtonText: t(
+              "problem_common.swal.confirm.confirm_button_next"
+            ),
             customClass: {
               container: "my-swal",
               popup: "my-swal-popup",
@@ -434,17 +438,16 @@ const QuantumPizzaGame_lv3 = () => {
               htmlContainer: "my-swal-html",
               confirmButton: "my-swal-confirm-button",
             },
-            // buttonsStyling: false,
-            width: "70%",
+            width: isMobile ? "100%" : "70%",
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Hゲート②",
+                title: t("lv3.swal.H_gate_2.title"),
                 html: `
                 <div class="xgate-explanation">
                   <hr >
                   <p class="xgate-description">
-                    上下のどちらにもHゲートをかけることで、ピザを4等分することができます。
+                    ${t("lv3.swal.H_gate_2.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
                     <img src="/hgate_image_3.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
@@ -464,8 +467,12 @@ const QuantumPizzaGame_lv3 = () => {
                 </style>
               `,
                 showCancelButton: true,
-                confirmButtonText: "次の問題へ進む",
-                cancelButtonText: "キャンセル",
+                confirmButtonText: t(
+                  "problem_common.swal.confirm.confirm_button_next_level"
+                ),
+                cancelButtonText: t(
+                  "problem_common.swal.confirm.cancel_button"
+                ),
                 customClass: {
                   container: "my-swal",
                   popup: "my-swal-popup",
@@ -474,8 +481,7 @@ const QuantumPizzaGame_lv3 = () => {
                   confirmButton: "my-swal-confirm-button-next",
                   cancelButton: "my-swal-cancel-button",
                 },
-                // buttonsStyling: false,
-                width: "70%",
+                width: isMobile ? "100%" : "70%",
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
@@ -488,10 +494,10 @@ const QuantumPizzaGame_lv3 = () => {
       });
     } else {
       Swal.fire({
-        title: "惜しい！",
-        text: "まだ正解ではありません。もう一度試してみましょう！",
+        title: t("problem_common.swal.confirm.incorrect_title"),
+        text: t("problem_common.swal.confirm.incorrect_message"),
         icon: "error",
-        confirmButtonText: "OK",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_ok"),
         customClass: {
           container: "my-swal",
         },
@@ -501,12 +507,12 @@ const QuantumPizzaGame_lv3 = () => {
 
   const handleReset = () => {
     Swal.fire({
-      title: "リセットしますか？",
-      text: "現在の進行状況が失われます。",
+      title: t("problem_common.swal.reset.title"),
+      text: t("problem_common.swal.reset.text"),
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "リセット",
-      cancelButtonText: "キャンセル",
+      confirmButtonText: t("problem_common.swal.reset.reset_button"),
+      cancelButtonText: t("problem_common.swal.reset.cancel_button"),
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
@@ -546,21 +552,6 @@ const QuantumPizzaGame_lv3 = () => {
           </div>
         </div>
       </div>
-      {isCorrect && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded shadow-lg text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              おめでとうございます！🎉
-            </h2>
-            <p className="text-lg">正解！次のレベルに進もう！</p>
-            <Link to="/lv2">
-              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                次へ
-              </button>
-            </Link>
-          </div>
-        </div>
-      )}
       <div
         className={`${
           isCorrect ? "blur-sm" : ""

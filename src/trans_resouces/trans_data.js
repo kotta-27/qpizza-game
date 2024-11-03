@@ -58,29 +58,49 @@ const resources = {
             correct_message: "正解です”次のレベルに進みましょう！",
             confirm_button_next: "次へ",
             confirm_button_ok: "OK",
-            confirm_buttion_next_level: "次の問題へ進む",
+            confirm_button_next_level: "次の問題へ進む",
             cancel_button: "キャンセル",
             incorrect_title: "惜しい！",
             incorrect_message:
               "まだ正解ではありません。もう一度試してみましょう！",
-            X_gate: {
-              title: "Xゲート",
-              description_1: `Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つです。<br>
-            Xゲートは、量子ビットの状態を反転させる効果があります。<br>
-            今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。`,
-              description_2: "Xゲートは、2回かけると元の状態に戻ります。",
-            },
           },
         },
       },
       lv1: {
         instruction: "🍕ピザにチーズをトッピングしてみよう！",
+        swal: {
+          X_gate: {
+            title: "Xゲート",
+            description_1: `Xゲートは量子コンピューティングにおける基本的な量子ゲートの一つです。<br>
+          Xゲートは、量子ビットの状態を反転させる効果があります。<br>
+          今回のゲームでは、<span class="emp">チーズを乗せたり抜いたりする操作</span>に対応します。`,
+            description_2: "Xゲートは、2回かけると元の状態に戻ります。",
+          },
+        },
       },
       lv2: {
         instruction: "🍕ハーフ&ハーフピザを作ってみよう！",
+        swal: {
+          H_gate_1: {
+            title: "Hゲート ①",
+            description_1: `Hゲートは、量子ビットを重ね合わせ状態にするゲートです。<br>
+            1種類のピザから、<span class="emp">ハーフ&ハーフ</span>のピザを作れます。`,
+            description_2:
+              "Hゲートは、Xと同じように、2回かけると元の状態に戻ります。",
+          },
+        },
       },
       lv3: {
         instruction: "🍕クォーターピザを作ってみよう！",
+        swal: {
+          H_gate_2: {
+            title: "Hゲート ②",
+            description_1:
+              "Lv2で，Hゲートはピザをハーフ&ハーフにすると学びました。",
+            description_2:
+              " 上下のどちらにもHゲートをかけることで、ピザを4等分することができます。",
+          },
+        },
       },
       lv4: {
         instruction: "トマト🍅とバジル🌿のハーフ&ハーフピザを作ってみよう！",
@@ -141,29 +161,49 @@ const resources = {
             correct_message: "Correct! Let's move on to the next level!",
             confirm_button_next: "Next",
             confirm_button_ok: "OK",
-            confirm_buttion_next_level: "Next Level",
+            confirm_button_next_level: "Next Level",
             cancel_button: "Cancel",
             incorrect_title: "Close!",
             incorrect_message: "Not correct yet. Try again!",
-            X_gate: {
-              title: "X Gate",
-              description_1: `The X gate is one of the basic quantum gates in quantum computing.<br>
-              The X gate flips the state of a qubit.<br>
-              In this game, the X gate corresponds to <span class="emp">adding or removing cheese</span>.`,
-              description_2:
-                "The X gate returns to the original state when applied twice.",
-            },
           },
         },
       },
       lv1: {
         instruction: "🍕Try topping the pizza with cheese!",
+        swal: {
+          X_gate: {
+            title: "X Gate",
+            description_1: `The X gate is one of the basic quantum gates in quantum computing.<br>
+            The X gate flips the state of a qubit.<br>
+            In this game, the X gate corresponds to <span class="emp">adding or removing cheese</span>.`,
+            description_2:
+              "The X gate returns to the original state when applied twice.",
+          },
+        },
       },
       lv2: {
         instruction: "🍕Let's make a half-and-half pizza!",
+        swal: {
+          H_gate_1: {
+            title: "H Gate①",
+            description_1: `The H gate is a gate that puts a qubit in a superposition state.<br>
+            You can make a <span class="emp">half-and-half</span> pizza from one type of pizza.`,
+            description_2:
+              "The H gate returns to the original state when applied twice, just like X.",
+          },
+        },
       },
       lv3: {
         instruction: "🍕Let's make a quarter pizza!",
+        swal: {
+          H_gate_2: {
+            title: "H Gate②",
+            description_1:
+              "In Lv2, you learned that the H gate makes a half-and-half pizza.",
+            description_2:
+              "By applying the H gate to both the top and bottom, you can divide the pizza into four.",
+          },
+        },
       },
       lv4: {
         instruction:
@@ -223,28 +263,47 @@ const resources = {
             correct_message: "正确！让我们继续到下一级！",
             confirm_button_next: "下一个",
             confirm_button_ok: "好的",
-            confirm_buttion_next_level: "下一级",
+            confirm_button_next_level: "下一级",
             cancel_button: "取消",
             incorrect_title: "差一点！",
             incorrect_message: "还不正确。再试一次！",
-            X_gate: {
-              title: "X 门",
-              description_1: `X 门是量子计算中的基本量子门之一。<br>
-              X 门会反转量子比特的状态。<br>
-              在这个游戏中，X 门对应着<span class="emp">加入或去除奶酪的操作</span>。`,
-              description_2: "连续两次应用 X 门会使量子比特恢复到原始状态。",
-            },
           },
         },
       },
       lv1: {
         instruction: "🍕试着给披萨加点奶酪吧！",
+        swal: {
+          X_gate: {
+            title: "X 门",
+            description_1: `X 门是量子计算中的基本量子门之一。<br>
+            X 门会反转量子比特的状态。<br>
+            在这个游戏中，X 门对应着<span class="emp">加入或去除奶酪的操作</span>。`,
+            description_2: "连续两次应用 X 门会使量子比特恢复到原始状态。",
+          },
+        },
       },
       lv2: {
         instruction: "🍕让我们制作一款半份半份的披萨！",
+        swal: {
+          H_gate_1: {
+            title: "H 门",
+            description_1: `H 门是将量子比特置于叠加态的门。<br>
+            你可以从一种披萨中制作<span class="emp">半份半份</span>的披萨。`,
+            description_2:
+              "连续两次应用 H 门会使量子比特恢复到原始状态，就像 X 门一样。",
+          },
+        },
       },
       lv3: {
         instruction: "🍕让我们制作一款四分之一的披萨！",
+        swal: {
+          H_gate_2: {
+            title: "H 门 ②",
+            description_1: "在 Lv2 中，您学到了 H 门可以制作半份半份的披萨。",
+            description_2:
+              "通过在上下两个位置都应用 H 门，您可以将披萨分成四份。",
+          },
+        },
       },
       lv4: {
         instruction: "让我们制作一款番茄🍅和罗勒🌿的半份半份披萨！",
