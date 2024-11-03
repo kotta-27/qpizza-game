@@ -212,10 +212,14 @@ const QuantumCircuit = ({ circuit, addGate }) => {
   );
 };
 
-const DisplayCircuit = ({ circuits }) => {
+const DisplayCircuit = ({ circuits, isMobile }) => {
   const { t } = useTranslation();
   return (
-    <div className="mt-4 w-3/6 flex flex-col items-center">
+    <div
+      className={`mt-4 ${
+        isMobile ? "w-5/6" : "w-3/6"
+      } flex flex-col items-center`}
+    >
       <h3 className="text-lg font-bold mb-2 ">
         {t("problem_common.quantum_circuit")}
       </h3>
@@ -395,7 +399,7 @@ const QuantumPizzaGame_lv1 = () => {
                     ${t("problem_common.swal.confirm.X_gate.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
+                    <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth}; max-width: 100%; height: auto;" />
                   </div>
                 </div>
                 <style>
@@ -427,8 +431,7 @@ const QuantumPizzaGame_lv1 = () => {
                   confirmButton: "my-swal-confirm-button-next",
                   cancelButton: "my-swal-cancel-button",
                 },
-                // buttonsStyling: false,
-                width: "70%",
+                width: isMobile ? "100%" : "70%",
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
@@ -557,7 +560,7 @@ const QuantumPizzaGame_lv1 = () => {
               </button>
             </div>
             <div className="circuit-list-container">
-              <DisplayCircuit circuits={[circuit1]} />
+              <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
             </div>
           </>
         )}
