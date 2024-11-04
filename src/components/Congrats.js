@@ -26,7 +26,7 @@ const Congrats = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
-        className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl w-full max-w-3xl border-2 border-white border-opacity-20"
+        className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 shadow-2xl border-2 border-white border-opacity-20 cong-container"
       >
         <motion.h1
           className="text-5xl font-bold text-white mb-6 text-center congrats-title"

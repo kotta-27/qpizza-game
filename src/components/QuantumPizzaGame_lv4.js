@@ -469,7 +469,7 @@ const QuantumPizzaGame_lv4 = () => {
             .xgate-description {
               text-align: center;
               margin-bottom: 20px;
-              padding: 0 50px;
+              padding: 0 5px;
             }
 
             </style>
@@ -729,6 +729,7 @@ const QuantumPizzaGame_lv4 = () => {
               <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
               <DisplayCircuit circuits={[circuit2]} isMobile={isMobile} />
             </div>
+            <div className="mb-10"></div>
           </>
         )}
       </div>

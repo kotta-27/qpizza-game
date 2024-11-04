@@ -6,3 +6,29 @@
 font-family: "Yellowtail", cursive;
 font-size: 4rem;
 }
+
+.cong-container{
+    width:60%;
+}
+
+@media screen and (max-width: 640px) {
+    .cong-container{
+        width: 90%;
+    }
+
+    .congrats-title {
+        font-family: "Yellowtail", cursive;
+        font-size: 55px;
+        }
+}
+
+@media screen and (max-width: 450px) {
+    .cong-container{
+        width: 90%;
+    }
+
+    .congrats-title {
+        font-family: "Yellowtail", cursive;
+        font-size: 45px;
+        }
+}
