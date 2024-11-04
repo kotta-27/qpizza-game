@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Award, Repeat, House } from "lucide-react";
 import confetti from "canvas-confetti";
+import { useTranslation } from "react-i18next";
+import i18n from "../trans_resouces/trans_data";
+import parse from "html-react-parser";
 import "../stylesheets/Congrats.css";
 
 const Congrats = () => {
   const [showMessage, setShowMessage] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => setShowMessage(true), 500);
@@ -39,41 +43,7 @@ const Congrats = () => {
             transition={{ delay: 0.7 }}
           >
             <p className="text-xl text-white mb-8 text-center">
-              <ruby>
-                全<rt>ぜん</rt>
-              </ruby>
-              <ruby>
-                問題<rt>もんだい</rt>
-              </ruby>
-              クリアおめでとうございます！
-              <br />
-              あなたは
-              <ruby>
-                立派<rt>りっぱ</rt>
-              </ruby>
-              な
-              <ruby>
-                量子<rt>りょうし</rt>
-              </ruby>
-              ピザ
-              <ruby>
-                職人<rt>しょくにん</rt>
-              </ruby>
-              です！
-              <br></br> <br></br>
-              <ruby>
-                他<rt>ほか</rt>
-              </ruby>
-              にもさまざまなゲームやクイズがあるので、
-              <ruby>
-                色々<rt>いろいろ</rt>
-              </ruby>
-              <ruby>
-                体験<rt>たいけん</rt>
-              </ruby>
-              してみてね！
-              <br></br>
-              プレイしてくださり、ありがとうございました！😆
+              {parse(t("congrats_page.congrats_message"))}
             </p>
             <div className="flex justify-center space-x-4">
               <motion.a
@@ -83,7 +53,7 @@ const Congrats = () => {
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
               >
                 <House className="mr-2 w-10 h-7" />
-                ホームに戻る
+                {t("congrats_page.button_back_home")}
               </motion.a>
             </div>
           </motion.div>

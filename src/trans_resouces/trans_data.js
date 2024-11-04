@@ -55,7 +55,8 @@ const resources = {
           },
           confirm: {
             correct_title: "素晴らしい！！🎉",
-            correct_message: "正解です”次のレベルに進みましょう！",
+            correct_message: "正解です! 次のレベルに進みましょう！",
+            correct_message_last: "正解です！",
             confirm_button_next: "次へ",
             confirm_button_ok: "OK",
             confirm_button_next_level: "次の問題へ進む",
@@ -104,6 +105,60 @@ const resources = {
       },
       lv4: {
         instruction: "トマト🍅とバジル🌿のハーフ&ハーフピザを作ってみよう！",
+        swal: {
+          CX_gate: {
+            title: "CNOT（CX）ゲート",
+            description_1: `
+                CXゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
+                CX：「↑」かCX：「↓」かで動きが変わります。<br><br>
+                CX：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。 <br>
+                CX：「↓」の場合、チーズ🧀とバジル🌿を入れ替えます。`,
+            description_2: `先にHゲートを使ってハーフ&ハーフを作り、<br>
+                    その後に適切なCXゲートを使って具材を入れ替えます。<br>`,
+          },
+          tips: {
+            title: "ヒント💡",
+            confirm_button_more_tips: "さらにヒントを見る",
+            cancel_button_back: "戻る",
+            description_1: `新しく登場した<span class="emp">CXゲート</span>を使ってみましょう！<br>
+            <span class="emp">量子ゲートの順番</span>も大切です。`,
+            description_2: `上のCX:↑ゲートは，<span class="emp">ホワイトソース🥛とバジル🌿</span>、<br>
+            下のCX:↓ゲートは，<span class="emp">チーズ🧀とバジル🌿</span> <br>
+            を入れ替えます。`,
+            supplement: "（このヒントは画面に固定されます）",
+          },
+        },
+        tips_display: {
+          title: "ヒント💡",
+          description_1: "CX↑： ホワイトソース🥛 ↔︎ バジル🌿",
+          description_2: "CX↓： チーズ🧀 ↔︎ バジル🌿",
+        },
+      },
+      congrats_page: {
+        congrats_message: ` <ruby>
+                全<rt>ぜん</rt>
+              </ruby>
+              <ruby>
+                問題<rt>もんだい</rt>
+              </ruby>
+              クリアおめでとうございます！
+              <br />
+              あなたは
+              <ruby>
+                立派<rt>りっぱ</rt>
+              </ruby>
+              な
+              <ruby>
+                量子<rt>りょうし</rt>
+              </ruby>
+              ピザ
+              <ruby>
+                職人<rt>しょくにん</rt>
+              </ruby>
+              です！
+              <br></br>
+              プレイしてくださり、ありがとうございました！😆`,
+        button_back_home: "ホームに戻る",
       },
     },
   },
@@ -159,6 +214,7 @@ const resources = {
           confirm: {
             correct_title: "Great!!🎉",
             correct_message: "Correct! Let's move on to the next level!",
+            correct_message_last: "Correct!",
             confirm_button_next: "Next",
             confirm_button_ok: "OK",
             confirm_button_next_level: "Next Level",
@@ -208,6 +264,38 @@ const resources = {
       lv4: {
         instruction:
           "Let's make a half-and-half pizza with tomato🍅 and basil🌿!",
+        swal: {
+          CX_gate: {
+            title: "CNOT (CX) Gate",
+            description_1: `
+                The CX gate is a very important quantum gate in quantum computing.<br>
+                CX: "↑" or CX: "↓" changes the movement.<br><br>
+                In the case of CX: "↑", the white sauce🥛 and basil🌿 are swapped.<br>
+                In the case of CX: "↓", the cheese🧀 and basil🌿 are swapped.`,
+            description_2: `First, use the H gate to make a half-and-half, and then use the appropriate CX gate to swap the ingredients.<br>`,
+          },
+          tips: {
+            title: "Tips💡",
+            confirm_button_more_tips: "More Tips",
+            cancel_button_back: "Back",
+            description_1: `Try using the new <span class="emp">CX gate</span>!<br>
+            The <span class="emp">order of quantum gates</span> is also important.`,
+            description_2: `The upper CX:↑ gate swaps <span class="emp">white sauce🥛 and basil🌿</span>,<br>
+            and the lower CX:↓ gate swaps <span class="emp">cheese🧀 and basil🌿</span>.`,
+            supplement: "(This tip is fixed on the screen.)",
+          },
+        },
+        tips_display: {
+          title: "Tips💡",
+          description_1: "CX↑: White Sauce🥛 ↔︎ Basil🌿",
+          description_2: "CX↓: Cheese🧀 ↔︎ Basil🌿",
+        },
+      },
+      congrats_page: {
+        congrats_message: `Congratulations on clearing all the problems! <br>
+              You are a great quantum pizza master! <br><br>
+              Thank you for playing!😆`,
+        button_back_home: "Back to Home",
       },
     },
   },
@@ -261,6 +349,7 @@ const resources = {
           confirm: {
             correct_title: "太棒了！！🎉",
             correct_message: "正确！让我们继续到下一级！",
+            correct_message_last: "正确！",
             confirm_button_next: "下一个",
             confirm_button_ok: "好的",
             confirm_button_next_level: "下一级",
@@ -307,6 +396,38 @@ const resources = {
       },
       lv4: {
         instruction: "让我们制作一款番茄🍅和罗勒🌿的半份半份披萨！",
+        swal: {
+          CX_gate: {
+            title: "CNOT（CX）门",
+            description_1: `
+                CX 门是量子计算中非常重要的量子门。<br>
+                CX：“↑”或 CX：“↓”会改变移动方式。<br><br>
+                在 CX：“↑” 的情况下，白酱🥛和罗勒🌿 会交换。<br>
+                在 CX：“↓” 的情况下，奶酪🧀和罗勒🌿 会交换。`,
+            description_2: `首先，使用 H 门制作半份半份，然后使用适当的 CX 门交换配料。<br>`,
+          },
+          tips: {
+            title: "提示💡",
+            confirm_button_more_tips: "更多提示",
+            cancel_button_back: "返回",
+            description_1: `尝试使用新的<span class="emp">CX 门</span>！<br>
+            量子门的<span class="emp">顺序</span>也很重要。`,
+            description_2: `上方的 CX:↑ 门交换 <span class="emp">白酱🥛和罗勒🌿</span>，<br>
+            下方的 CX:↓ 门交换 <span class="emp">奶酪🧀和罗勒🌿</span>。`,
+            supplement: "（此提示将固定在屏幕上）",
+          },
+        },
+        tips_display: {
+          title: "提示💡",
+          description_1: "CX↑: 白酱🥛 ↔︎ 罗勒🌿",
+          description_2: "CX↓: 奶酪🧀 ↔︎ 罗勒🌿",
+        },
+      },
+      congrats_page: {
+        congrats_message: `恭喜您通过所有问题！<br>
+              您是一个伟大的量子披萨大师！<br><br>
+              感谢您的参与！😆`,
+        button_back_home: "返回主页",
       },
     },
   },

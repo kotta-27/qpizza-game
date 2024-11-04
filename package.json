@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "canvas-confetti": "^1.9.3",
     "framer-motion": "^11.2.12",
+    "html-react-parser": "^5.1.18",
     "i18next": "^23.12.2",
     "js-yaml": "^4.1.0",
     "lucide-react": "^0.397.0",

@@ -65,11 +65,8 @@
 }
 
 .gate-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 20px;
+  max-width: full;
+  overflow: scroll;
 }
 
 .x-gate {
@@ -137,6 +134,56 @@
 .gate:hover {
   background-color: rgba(13, 177, 195, 0.5);
   transition: background-color 0.3s;
+}
+
+.circuit-gate-block{
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-bottom: 1.5px solid  rgb(112, 109, 109);
+}
+
+.circuit-gate-block-I{
+  width: 60px;
+  height: 20px;
+  text-align: center;
+  border-bottom: 1.5px solid  rgb(112, 109, 109);
+}
+
+.circuit-h-gate{
+  background-color: rgb(244, 85, 85);
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  padding: 6px 2px;
+  width: 40px;
+  border-radius: 10%;
+}
+
+.circuit-x-gate{
+  background-color: rgb(1, 90, 244);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  padding: 6px 2px;
+  width: 40px;
+  border-radius: 10%;
+}
+
+@media screen and (max-width: 640px) {
+  .circuit-gate-block{
+    width: 10px;
+    height: 20px;
+    text-align: center;
+    border-bottom: 1.5px solid  rgb(112, 109, 109);
+  }
+  
+  .circuit-gate-block-I{
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    border-bottom: 1.5px solid  rgb(112, 109, 109);
+  }
 }
 
 .PizzaChart{

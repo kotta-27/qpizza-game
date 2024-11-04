@@ -226,14 +226,19 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
         {circuits.map((circuit, index) => (
           <div
             key={index}
-            className="flex space-x-2 border p-2 rounded bg-white w-full h-14"
+            className="flex border p-2 rounded bg-white w-full h-14 gate-container"
           >
             {circuit.map((gate, index) => (
-              <div
-                key={index}
-                className="bg-gray-200 text-center py-1 px-2 rounded w-10"
-              >
-                {gate}
+              <div className="flex">
+                <div
+                  key={index}
+                  className={`${
+                    gate == "H" ? "circuit-h-gate" : "circuit-x-gate"
+                  }`}
+                >
+                  {gate}
+                </div>
+                <div className="circuit-gate-block"></div>
               </div>
             ))}
           </div>
@@ -331,6 +336,8 @@ const QuantumPizzaGame_lv2 = () => {
 
   const handleSubmit = () => {
     if (distribution[0] === ANSWERS_2[0] && distribution[1] === ANSWERS_2[1]) {
+      const imageWidth_1 = isMobile ? "100%" : "50%";
+      const imageWidth_2 = isMobile ? "100%" : "70%";
       Swal.fire({
         title: t("problem_common.swal.confirm.correct_title"),
         text: t("problem_common.swal.confirm.correct_message"),
@@ -350,7 +357,7 @@ const QuantumPizzaGame_lv2 = () => {
                 ${t("lv2.swal.H_gate_1.description_1")}
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: 50%; max-width: 100%; height: auto;" />
+                <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_1}; max-width: 100%; height: auto;" />
               </div>
             </div>
 
@@ -366,7 +373,7 @@ const QuantumPizzaGame_lv2 = () => {
               color: black;
               text-align: center;
               margin-bottom: 20px;
-              padding: 0 50px;
+              padding: 0 5px;
               line-height: 1.8;
             }
 
@@ -396,7 +403,7 @@ const QuantumPizzaGame_lv2 = () => {
                     ${t("lv2.swal.H_gate_1.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/hgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
+                    <img src="/hgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
                   </div>
                 </div>
                 <style>

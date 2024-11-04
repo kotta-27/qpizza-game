@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { motion, AnimatePresence } from "framer-motion";
@@ -243,43 +243,51 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
         {circuits.map((circuit, circuitIndex) => (
           <div
             key={circuitIndex}
-            className="flex space-x-2 border p-2 rounded bg-white w-full h-14"
+            className="flex border p-2 rounded bg-white w-full h-14 gate-container"
           >
-            {circuit.map((gate, gateIndex) => {
+            {circuit.map((gate, index) => {
               if (gate === "I") {
                 return (
-                  <div
-                    key={gateIndex}
-                    className="bg-white text-center py-1 px-2 rounded w-10"
-                  >
-                    {" "}
+                  <div className="flex">
+                    <div className="circuit-gate-block-I"></div>
                   </div>
                 );
               } else if (gate === "CX") {
                 return (
-                  <div
-                    key={gateIndex}
-                    className="bg-blue-200 text-center py-1 px-2 rounded border border-blue-400 w-10"
-                  >
-                    {gate}
+                  <div className="flex">
+                    <div
+                      key={index}
+                      className="bg-gray-200 text-center font-bold py-2 px-2 rounded w-10"
+                    >
+                      {gate}
+                    </div>
+                    <div className="circuit-gate-block"></div>
                   </div>
                 );
               } else if (gate === "CD") {
                 return (
-                  <div
-                    key={gateIndex}
-                    className="bg-blue-200 text-center py-1 px-2 rounded border border-blue-400 w-10"
-                  >
-                    {"・"}
+                  <div className="flex">
+                    <div
+                      key={index}
+                      className="bg-gray-200 text-center font-bold py-2 px-2 rounded w-10"
+                    >
+                      ・
+                    </div>
+                    <div className="circuit-gate-block"></div>
                   </div>
                 );
               } else {
                 return (
-                  <div
-                    key={gateIndex}
-                    className="bg-gray-200 text-center py-1 px-2 rounded border border-gray-300 w-10"
-                  >
-                    {gate}
+                  <div className="flex">
+                    <div
+                      key={index}
+                      className={`${
+                        gate == "H" ? "circuit-h-gate" : "circuit-x-gate"
+                      }`}
+                    >
+                      {gate}
+                    </div>
+                    <div className="circuit-gate-block"></div>
                   </div>
                 );
               }
@@ -426,29 +434,28 @@ const QuantumPizzaGame_lv4 = () => {
       distribution[2] === ANSWERS_4[2] &&
       distribution[3] === ANSWERS_4[3]
     ) {
+      const imageWidth_1 = isMobile ? "100%" : "50%";
+      const imageWidth_2 = isMobile ? "100%" : "70%";
       Swal.fire({
-        title: "すばらしい！！🎉",
-        text: "正解です！",
+        title: t("problem_common.swal.confirm.correct_title"),
+        text: t("problem_common.swal.confirm.correct_message_last"),
         icon: "success",
-        confirmButtonText: "進む",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_next"),
         customClass: {
           container: "my-swal",
         },
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "CNOT（CX）ゲート",
+            title: t("lv4.swal.CX_gate.title"),
             html: `
             <div class="xgate-explanation">
               <hr >
               <p class="xgate-description">
-                CXゲートは量子コンピューティングにおいてとても重要な量子ゲートです。<br>
-                CX：「↑」かCX：「↓」かで動きが変わります。<br><br>
-                CX：「↑」の場合、ホワイトソース🥛とバジル🌿を入れ替えます。 <br>
-                CX：「↓」の場合、チーズ🧀とバジル🌿を入れ替えます。
+                ${t("lv4.swal.CX_gate.description_1")}
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/bell_image_1.png" alt="Xゲート" class="xgate-image" style="width: 60%; max-width: 100%; height: auto;" />
+                <img src="/bell_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_1}; max-width: 100%; height: auto;" />
               </div>
             </div>
 
@@ -467,7 +474,9 @@ const QuantumPizzaGame_lv4 = () => {
 
             </style>
           `,
-            confirmButtonText: "次へ",
+            confirmButtonText: t(
+              "problem_common.swal.confirm.confirm_button_next"
+            ),
             customClass: {
               container: "my-swal",
               popup: "my-swal-popup",
@@ -475,21 +484,19 @@ const QuantumPizzaGame_lv4 = () => {
               htmlContainer: "my-swal-html",
               confirmButton: "my-swal-confirm-button",
             },
-            // buttonsStyling: false,
-            width: "70%",
+            width: isMobile ? "100%" : "70%",
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "CNOT（CX）ゲート",
+                title: t("lv4.swal.CX_gate.title"),
                 html: `
                 <div class="xgate-explanation">
                   <hr >
                   <p class="xgate-description">
-                    先にHゲートを使ってハーフ&ハーフを作り、<br>
-                    その後に適切なCXゲートを使って具材を入れ替えます。<br>
+                    ${t("lv4.swal.CX_gate.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/bell_image_2.png" alt="Xゲート" class="xgate-image" style="width: 70%; max-width: 100%; height: auto;" />
+                    <img src="/bell_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
                   </div>
                 </div>
 
@@ -506,7 +513,9 @@ const QuantumPizzaGame_lv4 = () => {
                 }
                 </style>
               `,
-                confirmButtonText: "進む",
+                confirmButtonText: t(
+                  "problem_common.swal.confirm.confirm_button_next"
+                ),
                 customClass: {
                   container: "my-swal",
                   popup: "my-swal-popup",
@@ -514,8 +523,7 @@ const QuantumPizzaGame_lv4 = () => {
                   htmlContainer: "my-swal-html",
                   confirmButton: "my-swal-confirm-button-next-center",
                 },
-                // buttonsStyling: false,
-                width: "70%",
+                width: isMobile ? "100%" : "70%",
               }).then((result) => {
                 if (result.isConfirmed) {
                   navigate("/congrats");
@@ -527,10 +535,10 @@ const QuantumPizzaGame_lv4 = () => {
       });
     } else {
       Swal.fire({
-        title: "惜しい！",
-        text: "まだ正解ではありません。もう一度試してみましょう！",
+        title: t("problem_common.swal.confirm.incorrect_title"),
+        text: t("problem_common.swal.confirm.incorrect_message"),
         icon: "error",
-        confirmButtonText: "OK",
+        confirmButtonText: t("problem_common.swal.confirm.confirm_button_ok"),
         customClass: {
           container: "my-swal",
           confirmButton: "fwb",
@@ -541,11 +549,10 @@ const QuantumPizzaGame_lv4 = () => {
 
   const handleHint = () => {
     Swal.fire({
-      title: "ヒント💡",
+      title: t("lv4.swal.tips.title"),
       html: `
       <p> 
-        新しく登場した<span class="emp">CXゲート</span>を使ってみましょう！<br>
-        <span class="emp">量子ゲートの順番</span>も大切です。
+        ${t("lv4.swal.tips.description_1")} 
       </p>
 
       <style>
@@ -556,8 +563,8 @@ const QuantumPizzaGame_lv4 = () => {
       `,
       icon: "warning",
       showCancelButton: true,
-      cancelButtonText: "戻る",
-      confirmButtonText: "さらにヒントを見る",
+      cancelButtonText: t("lv4.swal.tips.cancel_button_back"),
+      confirmButtonText: t("lv4.swal.tips.confirm_button_more_tips"),
       confirmButtonColor: "#33dd33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
@@ -569,12 +576,13 @@ const QuantumPizzaGame_lv4 = () => {
       if (result.isConfirmed) {
         setIsHintShowed(true);
         Swal.fire({
-          title: "ヒント💡",
+          title: t("lv4.swal.tips.title"),
           html: `
           <p> 
-            上のCX:↑ゲートは，<span class="emp">ホワイトソース🥛とバジル🌿</span>、<br>
-            下のCX:↓ゲートは，<span class="emp">チーズ🧀とバジル🌿</span> <br>
-            を入れ替えます。
+            ${t("lv4.swal.tips.description_2")}
+          </p>
+          <p> 
+            ${t("lv4.swal.tips.supplement")}
           </p>
     
           <style>
@@ -585,7 +593,7 @@ const QuantumPizzaGame_lv4 = () => {
           `,
           icon: "warning",
 
-          confirmButtonText: "OK",
+          confirmButtonText: t("problem_common.swal.confirm.confirm_button_ok"),
           confirmButtonColor: "#33dd33",
           customClass: {
             confirmButton: "fwb",
@@ -601,12 +609,12 @@ const QuantumPizzaGame_lv4 = () => {
 
   const handleReset = () => {
     Swal.fire({
-      title: "リセットしますか？",
-      text: "現在の進行状況が失われます。",
+      title: t("problem_common.swal.reset.title"),
+      text: t("problem_common.swal.reset.text"),
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "リセット",
-      cancelButtonText: "キャンセル",
+      confirmButtonText: t("problem_common.swal.reset.reset_button"),
+      cancelButtonText: t("problem_common.swal.reset.cancel_button"),
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
@@ -651,21 +659,6 @@ const QuantumPizzaGame_lv4 = () => {
           </div>
         </div>
       </div>
-      {isCorrect && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded shadow-lg text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              おめでとうございます！🎉
-            </h2>
-            <p className="text-lg">正解！次のレベルに進もう！</p>
-            <Link to="/lv2">
-              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                次へ
-              </button>
-            </Link>
-          </div>
-        </div>
-      )}
       <div
         className={`${
           isCorrect ? "blur-sm" : ""
@@ -691,9 +684,9 @@ const QuantumPizzaGame_lv4 = () => {
               />
               {isHintShowed && isHintConfirmed && (
                 <p className="text-xl text-gray-700 font-bold  flex-end w-1/3 bg-white p-5 text-center">
-                  ヒント💡 <br></br>
-                  CX↑： ホワイトソース🥛 ↔︎ バジル🌿<br></br>
-                  CX↓： チーズ🧀 ↔︎ バジル🌿
+                  {t("lv4.tips_display.title")} <br></br>
+                  {t("lv4.tips_display.description_1")} <br></br>
+                  {t("lv4.tips_display.description_2")}
                 </p>
               )}
             </div>
