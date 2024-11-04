@@ -668,22 +668,33 @@ const QuantumPizzaGame_lv4 = () => {
           <>
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.4</h1>
             <p className="text-lg mb-4 font-bold">{t("lv4.instruction")}</p>
-            <div className="flex items-center justify-center mb-4 w-full">
+            <div
+              className={`flex items-center justify-center mb-4 w-full
+              ${isMobile ? "flex-col" : ""}`}
+            >
               {isHintShowed && isHintConfirmed && (
-                <p className="text-sm text-red-500 font-bold py-2 flex-end w-1/3"></p>
+                <p
+                  className={`text-sm text-red-500 font-bold py-2 flex-end w-1/3`}
+                ></p>
               )}
-              <PizzaChart
-                distribution={distribution}
-                size={dynamicSize}
-                isAnswer={false}
-              />
-              <PizzaChart
-                distribution={ANSWERS_4}
-                size={dynamicSize}
-                isAnswer={true}
-              />
+              <div className="flex">
+                <PizzaChart
+                  distribution={distribution}
+                  size={dynamicSize}
+                  isAnswer={false}
+                />
+                <PizzaChart
+                  distribution={ANSWERS_4}
+                  size={dynamicSize}
+                  isAnswer={true}
+                />
+              </div>
               {isHintShowed && isHintConfirmed && (
-                <p className="text-xl text-gray-700 font-bold  flex-end w-1/3 bg-white p-5 text-center">
+                <p
+                  className={`text-xl text-gray-700 font-bold  flex-end bg-white p-2 text-center
+                    ${isMobile ? "w-5/6 mt-3" : "w-1/3"}
+                    `}
+                >
                   {t("lv4.tips_display.title")} <br></br>
                   {t("lv4.tips_display.description_1")} <br></br>
                   {t("lv4.tips_display.description_2")}
