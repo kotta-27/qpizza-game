@@ -34,7 +34,7 @@ const Congrats = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          Congratslations！🎉
+          Congratulations!🎉
         </motion.h1>
         {showMessage && (
           <motion.div

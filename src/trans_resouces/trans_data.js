@@ -166,29 +166,28 @@ const resources = {
     translation: {
       welcome_page: {
         welcome_message: "Welcome to Quantum Pizza! 🍕",
-        description:
-          "Use quantum gates to create the perfect pizza distribution!",
-        rules_button: "Check Rules",
-        problem_button: "Go to Problem",
+        description: "Create the perfect pizza using quantum gates!",
+        rules_button: "Rules & Instructions",
+        problem_button: "Start Problem",
       },
       game_rule_page: {
         image_path: "./rule_en_2.png",
-        game_rule_title: "Game Rules",
-        game_goal: "Game Goal",
+        game_rule_title: "Rules & Instructions",
+        game_goal: "Goal",
         game_goal_description:
-          "Use quantum gates to adjust the pizza to match the target shown in the upper right.",
+          "Clear all levels by using quantum gates to create pizza toppings that match the ones shown on the right.",
         game_play_method: "How to Play",
         game_play_steps: [
-          "Press buttons to add quantum gates and adjust the pizza proportions.",
-          "Adjust to match the target pizza shown in the upper right.",
+          "Press a button to add a quantum gate to change the pizza toppings.",
+          "Adjust to match the target pizza topping displayed in the right.",
           "When matched, proceed to the next level.",
         ],
-        rewards: "Rewards",
+        rewards: "Reward",
         rewards_description:
-          "Clear all levels to become a quantum pizza master! 👀",
+          "You are a Quatum Pizza Master!👀",
         game_rule_tips: "Hint",
         tips_description:
-          "The type and order of quantum gates affect the pizza proportions. Try different combinations! 👀",
+          "The pizza toppings will change if you adjust the types and order of quantum gates.  Try various combinations!",
         game_start_button: "Start Game",
       },
       navbar: {
@@ -225,7 +224,7 @@ const resources = {
         },
       },
       lv1: {
-        instruction: "🍕Try topping the pizza with cheese!",
+        instruction: "🍕Give the pizza a cheesy topping!",
         swal: {
           X_gate: {
             title: "X Gate",
@@ -233,7 +232,7 @@ const resources = {
             The X gate flips the state of a qubit.<br>
             In this game, the X gate corresponds to <span class="emp">adding or removing cheese</span>.`,
             description_2:
-              "The X gate returns to the original state when applied twice.",
+              "The X gate returns the qubit to the original state when applied twice.",
           },
         },
       },
@@ -243,9 +242,9 @@ const resources = {
           H_gate_1: {
             title: "H Gate①",
             description_1: `The H gate is a gate that puts a qubit in a superposition state.<br>
-            You can make a <span class="emp">half-and-half</span> pizza from one type of pizza.`,
+            You can make a <span class="emp">half-and-half</span> pizza from a single-topping pizza.`,
             description_2:
-              "The H gate returns to the original state when applied twice, just like X.",
+              "The H gate returns a qubit to its original state when applied twice, just like the X gate.",
           },
         },
       },
@@ -257,7 +256,7 @@ const resources = {
             description_1:
               "In Lv2, you learned that the H gate makes a half-and-half pizza.",
             description_2:
-              "By applying the H gate to both the top and bottom, you can divide the pizza into four.",
+              "By applying the H gate to both the top and bottom, you can make a quarter pizza. ",
           },
         },
       },
@@ -269,20 +268,20 @@ const resources = {
             title: "CNOT (CX) Gate",
             description_1: `
                 The CX gate is a very important quantum gate in quantum computing.<br>
-                CX: "↑" or CX: "↓" changes the movement.<br><br>
+                <br>
                 In the case of CX: "↑", the white sauce🥛 and basil🌿 are swapped.<br>
                 In the case of CX: "↓", the cheese🧀 and basil🌿 are swapped.`,
-            description_2: `First, use the H gate to make a half-and-half, and then use the appropriate CX gate to swap the ingredients.<br>`,
+            description_2: `First, use the H gate to make a half-and-half, and then use the appropriate CX gate to swap the toppings.<br>`,
           },
           tips: {
-            title: "Tips💡",
-            confirm_button_more_tips: "More Tips",
+            title: "Tip💡",
+            confirm_button_more_tips: "More Tip",
             cancel_button_back: "Back",
             description_1: `Try using the new <span class="emp">CX gate</span>!<br>
             The <span class="emp">order of quantum gates</span> is also important.`,
             description_2: `The upper CX:↑ gate swaps <span class="emp">white sauce🥛 and basil🌿</span>,<br>
             and the lower CX:↓ gate swaps <span class="emp">cheese🧀 and basil🌿</span>.`,
-            supplement: "(This tip is fixed on the screen.)",
+            supplement: "(This tip will be fixed on the screen. )",
           },
         },
         tips_display: {
@@ -294,7 +293,7 @@ const resources = {
       congrats_page: {
         congrats_message: `Congratulations on clearing all the problems! <br>
               You are a great quantum pizza master! <br><br>
-              Thank you for playing!😆`,
+              Thank you for playing! 😆`,
         button_back_home: "Back to Home",
       },
     },
