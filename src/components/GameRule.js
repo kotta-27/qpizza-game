@@ -41,7 +41,7 @@ const GameRule = () => {
           {t("game_rule_page.game_rule_title")}
         </h1>
 
-        <div className="rule-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl px-8 py-4 shadow-2xl">
+        <div className="rule-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-2xl">
           <div className="rule-description">
             <h2 className="text-2xl font-semibold mb-4 flex items-center leading-relaxed">
               <Goal className="mr-2 flex-shrink-0" />

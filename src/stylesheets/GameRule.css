@@ -3,29 +3,42 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding: 10px 30px;
 }
 
 .rule-container .rule-description{
-    width: 70%;
+    width: 60%;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
 .rule-container .image-container{
+    padding: 5px 5px;
     margin-top: 10px;
-    width: 500px;
+    width: 40%;
 }
 
 .rule-container .image-container img{
     margin-bottom: 100px;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 1025px) {
     .rule-container{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 1px 1px;
     }
-    
+
+    .rule-container .rule-description{
+        width: 90%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .rule-container .image-container{
+        margin-top: 10px;
+        width: 80%;
+    }
 }
