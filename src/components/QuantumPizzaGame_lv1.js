@@ -227,7 +227,7 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
         {circuits.map((circuit, index) => (
           <div
             key={index}
-            className="flex  border p-2 rounded bg-white w-full h-14 gate-container"
+            className="flex border p-2 rounded bg-white w-full h-14 gate-container"
           >
             {circuit.map((gate, index) => (
               <div className="flex">

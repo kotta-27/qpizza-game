@@ -66,8 +66,15 @@
 
 .gate-container {
   max-width: full;
-  overflow: scroll;
+  overflow: auto;
+  -ms-overflow-style: none;
+  /* Firefox 対応 */
+  scrollbar-width: none;
 }
+
+.gate-container::-webkit-scrollbar {
+  display:none;
+ }
 
 .x-gate {
   width: 60px;
