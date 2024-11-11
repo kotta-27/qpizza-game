@@ -436,6 +436,8 @@ const QuantumPizzaGame_lv4 = () => {
     ) {
       const imageWidth_1 = isMobile ? "100%" : "50%";
       const imageWidth_2 = isMobile ? "100%" : "70%";
+      const imageUrl =
+        language != "ja" ? "/bell_image_2_or.png" : "/bell_image_2.png";
       Swal.fire({
         title: t("problem_common.swal.confirm.correct_title"),
         text: t("problem_common.swal.confirm.correct_message_last"),
@@ -496,7 +498,7 @@ const QuantumPizzaGame_lv4 = () => {
                     ${t("lv4.swal.CX_gate.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/bell_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
+                    <img src=${imageUrl} alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
                   </div>
                 </div>
 

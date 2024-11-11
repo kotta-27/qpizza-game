@@ -157,7 +157,7 @@ const resources = {
               </ruby>
               です！
               <br></br>
-              プレイしてくださり、ありがとうございました！😆`,
+              プレイしてくださり、ありがとうございました！ 😆`,
         button_back_home: "ホームに戻る",
       },
     },
@@ -175,7 +175,7 @@ const resources = {
         game_rule_title: "Rules & Instructions",
         game_goal: "Goal",
         game_goal_description:
-          "Clear all levels by using quantum gates to create pizza toppings that match the ones shown on the right.",
+          "Clear all levels by using quantum gates to create pizza toppings that match the target shown on the right.",
         game_play_method: "How to Play",
         game_play_steps: [
           "Press a button to add a quantum gate to change the pizza toppings.",
@@ -183,9 +183,8 @@ const resources = {
           "When matched, proceed to the next level.",
         ],
         rewards: "Reward",
-        rewards_description:
-          "You are a Quatum Pizza Master!👀",
-        game_rule_tips: "Hint",
+        rewards_description: "You are a Quatum Pizza Master!👀",
+        game_rule_tips: "Tip",
         tips_description:
           "The pizza toppings will change if you adjust the types and order of quantum gates.  Try various combinations!",
         game_start_button: "Start Game",
@@ -291,8 +290,7 @@ const resources = {
         },
       },
       congrats_page: {
-        congrats_message: `Congratulations on clearing all the problems! <br>
-              You are a great quantum pizza master! <br><br>
+        congrats_message: `You are a great quantum pizza master! <br><br>
               Thank you for playing! 😆`,
         button_back_home: "Back to Home",
       },
