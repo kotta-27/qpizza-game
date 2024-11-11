@@ -46,14 +46,14 @@ const WelcomePage = () => {
           <div className="space-y-4 flex flex-col items-center justify-center">
             <a
               href="./rule"
-              className="block w-3/6 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center "
+              className="block w-3/6 min-w-60 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center "
             >
               {t("welcome_page.rules_button")}
               <Book className="ml-2" />
             </a>
             <a
               href="./lv1"
-              className="block w-3/6 bg-red-600 hover:bg-red-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center"
+              className="block w-3/6  min-w-60 bg-red-600 hover:bg-red-700 transition-all duration-300 text-white py-3 px-4 rounded-lg font-medium flex items-end justify-center"
             >
               {t("welcome_page.problem_button")}
               <ArrowRight className="ml-2" />
