@@ -14,7 +14,7 @@ const resources = {
         problem_button: "問題へ進む",
       },
       game_rule_page: {
-        image_path: "./game_rule_ja.png",
+        image_path: "./rule_ja_2.png",
         game_rule_title: "このゲームのルール",
         game_goal: "ゲームの目的",
         game_goal_description:
@@ -172,7 +172,7 @@ const resources = {
         problem_button: "Go to Problem",
       },
       game_rule_page: {
-        image_path: "./game_rule_en.png",
+        image_path: "./rule_en_2.png",
         game_rule_title: "Game Rules",
         game_goal: "Game Goal",
         game_goal_description:
@@ -308,7 +308,7 @@ const resources = {
         problem_button: "前往问题",
       },
       game_rule_page: {
-        image_path: "./game_rule_zh.png",
+        image_path: "./rule_zh_2.png",
         game_rule_title: "游戏规则",
         game_goal: "游戏目标",
         game_goal_description:
