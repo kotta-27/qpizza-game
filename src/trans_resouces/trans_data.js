@@ -430,9 +430,20 @@ const resources = {
   },
 };
 
+// i18n.use(initReactI18next).init({
+//   resources,
+//   lng: "ja", // default language
+//   fallbackLng: "ja",
+//   interpolation: {
+//     escapeValue: false,
+//   },
+// });
+
+const savedLanguage = localStorage.getItem("language") || "ja"; // 保存された言語またはデフォルト
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: "ja", // default language
+  lng: savedLanguage, // 保存された言語を初期値として設定
   fallbackLng: "ja",
   interpolation: {
     escapeValue: false,

@@ -6,10 +6,11 @@ import "../stylesheets/Welcome.css";
 
 const WelcomePage = () => {
   const { t } = useTranslation();
-  const [language, setLanguage] = useState("ja");
+  const [language, setLanguage] = useState(i18n.language);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng); // 言語を保存
     setLanguage(lng);
   };
 

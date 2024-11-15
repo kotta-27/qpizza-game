@@ -266,8 +266,8 @@ const QuantumPizzaGame_lv2 = () => {
   );
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng); // 言語を保存
     setLanguage(lng);
-    localStorage.setItem("language", lng); // 言語をlocalStorageに保存
   };
 
   useEffect(() => {
