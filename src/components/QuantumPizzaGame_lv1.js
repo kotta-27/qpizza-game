@@ -467,6 +467,11 @@ const QuantumPizzaGame_lv1 = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
+      customClass: {
+        title: `reset-title ${language === "zh" ? "zh" : ""}`,
+        container: `reset-text ${language === "zh" ? "zh" : ""}`,
+        confirmButton: `reset-button ${language === "zh" ? "zh" : ""}`,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
@@ -548,7 +553,8 @@ const QuantumPizzaGame_lv1 = () => {
             </div>
             <div className="flex space-x-4 mt-4">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button
+                  ${language === "zh" ? "zh" : ""}`}
                 onClick={handleReset}
               >
                 {t("problem_common.reset_button")}

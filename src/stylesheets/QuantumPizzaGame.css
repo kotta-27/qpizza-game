@@ -206,23 +206,38 @@ h3 {
   width: 220px;
   height: 220px;
 }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap');
 
-.reset-button {
-  background-color: #f0f0f0;
-  border: 2px solid #242424;
-  border-radius: 10%;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.reset-title{
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #242424;
 }
 
-.reset-button:hover {
-  background-color: #df1414c8;
+.reset-title.zh{
+    font-family: 'Noto Sans SC', sans-serif !important;
 }
 
-.reset-button:active {
-  transform: translateY(2px);
+.reset-text{
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #242424;
 }
+
+.reset-text.zh{
+    color: #10e36b;
+    font-family: 'Noto Sans SC', sans-serif !important;
+}
+
+.reset-button{
+    /* font-family: 'Noto Sans JP', sans-serif; */
+    font-weight: bold;
+    background-color: #d33 !important;
+  }
+
+.reset-button.zh{
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
 
 .QuantumPizzaGame {
   text-align: center;
@@ -278,6 +293,12 @@ h3 {
     width: 100%;
   }
 
+  .my-swal.zh{
+    font-family: 'Noto Sans SC', sans-serif !important;
+}
+
+
+
   .my-swal-popup{
     background-color: #ffffff;
   }
@@ -331,6 +352,11 @@ h3 {
   .my-swal-confirm-button:hover, .my-swal-cancel-button:hover {
     opacity: 0.8;
   }
+
+  /* .my-swal.h-1{
+    font-size: 24px;
+    font-weight: bold;
+  } */
 
   .circuit-list-container{
     display: flex;

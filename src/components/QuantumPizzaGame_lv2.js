@@ -344,7 +344,7 @@ const QuantumPizzaGame_lv2 = () => {
         icon: "success",
         confirmButtonText: t("problem_common.swal.confirm.confirm_button_next"),
         customClass: {
-          container: "my-swal",
+          container: `my-swal  ${language === "zh" ? "zh" : ""}`,
         },
       }).then((result) => {
         if (result.isConfirmed) {
@@ -367,10 +367,8 @@ const QuantumPizzaGame_lv2 = () => {
               border-top: 1px solid black;
               margin-bottom: 5px;
             }
-          
 
             .xgate-description {
-              color: black;
               text-align: center;
               margin-bottom: 20px;
               padding: 0 5px;
@@ -386,7 +384,7 @@ const QuantumPizzaGame_lv2 = () => {
               "problem_common.swal.confirm.confirm_button_next"
             ),
             customClass: {
-              container: "my-swal",
+              container:  `my-swal  ${language === "zh" ? "zh" : ""}`,
               popup: "my-swal-popup",
               title: "my-swal-title",
               htmlContainer: "my-swal-html",
@@ -421,7 +419,7 @@ const QuantumPizzaGame_lv2 = () => {
                   "problem_common.swal.confirm.cancel_button"
                 ),
                 customClass: {
-                  container: "my-swal",
+                  container: `my-swal  ${language === "zh" ? "zh" : ""}`,
                   popup: "my-swal-popup",
                   title: "my-swal-title",
                   htmlContainer: "my-swal-html",
@@ -463,6 +461,11 @@ const QuantumPizzaGame_lv2 = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
+      customClass: {
+        title: `reset-title ${language === "zh" ? "zh" : ""}`,
+        container: `reset-text ${language === "zh" ? "zh" : ""}`,
+        confirmButton: `reset-button ${language === "zh" ? "zh" : ""}`,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
@@ -526,7 +529,8 @@ const QuantumPizzaGame_lv2 = () => {
             </div>
             <div className="flex space-x-4 mt-4">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button
+                  ${language === "zh" ? "zh" : ""}`}
                 onClick={handleReset}
               >
                 {t("problem_common.reset_button")}

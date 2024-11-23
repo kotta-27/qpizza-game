@@ -583,7 +583,7 @@ const QuantumPizzaGame_lv4 = () => {
           <p> 
             ${t("lv4.swal.tips.description_2")}
           </p>
-          <p> 
+          <p class="tips-fix-text"> 
             ${t("lv4.swal.tips.supplement")}
           </p>
     
@@ -594,10 +594,10 @@ const QuantumPizzaGame_lv4 = () => {
           </style>  
           `,
           icon: "warning",
-
           confirmButtonText: t("problem_common.swal.confirm.confirm_button_ok"),
           confirmButtonColor: "#33dd33",
           customClass: {
+            container: `my-swal  ${language === "zh" ? "zh" : ""}`,
             confirmButton: "fwb",
           },
         }).then((result) => {
@@ -622,7 +622,9 @@ const QuantumPizzaGame_lv4 = () => {
       reverseButtons: true,
       customClass: {
         cancelButton: "fwb",
-        confirmButton: "fwb",
+        title: `reset-title ${language === "zh" ? "zh" : ""}`,
+        container: `reset-text ${language === "zh" ? "zh" : ""}`,
+        confirmButton: `reset-button ${language === "zh" ? "zh" : ""}`,
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -717,7 +719,8 @@ const QuantumPizzaGame_lv4 = () => {
             </div>
             <div className="flex space-x-4 mt-4">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button
+                  ${language === "zh" ? "zh" : ""}`}
                 onClick={handleReset}
               >
                 {t("problem_common.reset_button")}

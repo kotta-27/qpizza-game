@@ -317,7 +317,7 @@ const resources = {
           "匹配后，进入下一级。",
         ],
         rewards: "奖励",
-        rewards_description: "通过所有级别，成为量子披萨大师！👀",
+        rewards_description: "通关所有级别，成为量子披萨大师！👀",
         game_rule_tips: "提示",
         tips_description:
           "量子门的类型和顺序会影响披萨的比例。尝试不同的组合！👀",

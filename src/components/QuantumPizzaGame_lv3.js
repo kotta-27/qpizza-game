@@ -436,7 +436,7 @@ const QuantumPizzaGame_lv3 = () => {
               "problem_common.swal.confirm.confirm_button_next"
             ),
             customClass: {
-              container: "my-swal",
+              container: `my-swal  ${language === "zh" ? "zh" : ""}`,
               popup: "my-swal-popup",
               title: "my-swal-title",
               htmlContainer: "my-swal-html",
@@ -478,7 +478,7 @@ const QuantumPizzaGame_lv3 = () => {
                   "problem_common.swal.confirm.cancel_button"
                 ),
                 customClass: {
-                  container: "my-swal",
+                  container: `my-swal  ${language === "zh" ? "zh" : ""}`,
                   popup: "my-swal-popup",
                   title: "my-swal-title",
                   htmlContainer: "my-swal-html",
@@ -520,6 +520,11 @@ const QuantumPizzaGame_lv3 = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       reverseButtons: true,
+      customClass: {
+        title: `reset-title ${language === "zh" ? "zh" : ""}`,
+        container: `reset-text ${language === "zh" ? "zh" : ""}`,
+        confirmButton: `reset-button ${language === "zh" ? "zh" : ""}`,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
@@ -584,7 +589,8 @@ const QuantumPizzaGame_lv3 = () => {
             </div>
             <div className="flex space-x-4 mt-4">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button
+                  ${language === "zh" ? "zh" : ""}`}
                 onClick={handleReset}
               >
                 {t("problem_common.reset_button")}
