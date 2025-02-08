@@ -16,7 +16,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js'; // for testing
+} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
 Chart.register(
@@ -539,34 +539,36 @@ const QuantumPizzaGame_lv1 = () => {
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
             </div>
             <div className="w-full md:w-1/2">
-              <Bar
-                data={{
-                  labels: ['|0⟩', '|1⟩'],
-                  datasets: [
-                    {
-                      label: 'Probability Amplitude',
-                      data: distribution,
-                      backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                      ],
-                      borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                      ],
-                      borderWidth: 1,
+              {distribution && (
+                <Bar
+                  data={{
+                    labels: ['|0⟩', '|1⟩'],
+                    datasets: [
+                      {
+                        label: 'Probability Amplitude',
+                        data: distribution,
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                        ],
+                        borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                  options={{
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        max: 100,
+                      },
                     },
-                  ],
-                }}
-                options={{
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                      max: 100,
-                    },
-                  },
-                }}
-              />
+                  }}
+                />
+              )}
             </div>
             <div className="flex space-x-4 mt-4">
               <button
