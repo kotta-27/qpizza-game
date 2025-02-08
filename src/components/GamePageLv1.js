@@ -16,7 +16,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from 'chart.js'; // for testing
 import { Bar } from 'react-chartjs-2';
 
 Chart.register(
@@ -59,9 +59,8 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
     return (
       <g key={index}>
         <motion.path
-          d={`M ${size / 2} ${size / 2} L ${startX} ${startY} A ${size / 2.2} ${
-            size / 2.2
-          } 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
+          d={`M ${size / 2} ${size / 2} L ${startX} ${startY} A ${size / 2.2} ${size / 2.2
+            } 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
           fill={color}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -69,9 +68,8 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
           transition={{ duration: 1.5, type: "spring", stiffness: 100 }}
         />
         <motion.path
-          d={`M ${size / 2} ${size / 2} L ${startX} ${startY} A ${size / 2.2} ${
-            size / 2.2
-          } 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
+          d={`M ${size / 2} ${size / 2} L ${startX} ${startY} A ${size / 2.2} ${size / 2.2
+            } 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
           fill="none"
           stroke="#8B4513"
           strokeWidth="0"
@@ -92,9 +90,8 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
           <g>
             <circle cx={cx} cy={cy} r={size / 30} fill="#F5DEB3" />
             <path
-              d={`M ${cx - size / 60} ${cy + size / 60} L ${cx} ${
-                cy - size / 30
-              } L ${cx + size / 60} ${cy + size / 60}`}
+              d={`M ${cx - size / 60} ${cy + size / 60} L ${cx} ${cy - size / 30
+                } L ${cx + size / 60} ${cy + size / 60}`}
               stroke="#8B4513"
               strokeWidth="2"
               fill="none"
@@ -104,13 +101,10 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
       case "basil":
         return (
           <path
-            d={`M ${cx} ${cy - size / 20} C ${cx + size / 30} ${
-              cy - size / 30
-            }, ${cx + size / 30} ${cy + size / 30}, ${cx} ${cy + size / 20} C ${
-              cx - size / 30
-            } ${cy + size / 30}, ${cx - size / 30} ${cy - size / 30}, ${cx} ${
-              cy - size / 20
-            }`}
+            d={`M ${cx} ${cy - size / 20} C ${cx + size / 30} ${cy - size / 30
+              }, ${cx + size / 30} ${cy + size / 30}, ${cx} ${cy + size / 20} C ${cx - size / 30
+              } ${cy + size / 30}, ${cx - size / 30} ${cy - size / 30}, ${cx} ${cy - size / 20
+              }`}
             fill="#228B22"
             transform={`rotate(${angle}, ${cx}, ${cy})`}
           />
@@ -120,11 +114,9 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
       case "cheese":
         return (
           <path
-            d={`M ${cx - size / 30} ${cy - size / 30} L ${cx + size / 30} ${
-              cy + size / 30
-            } M ${cx - size / 30} ${cy + size / 30} L ${cx + size / 30} ${
-              cy - size / 30
-            }`}
+            d={`M ${cx - size / 30} ${cy - size / 30} L ${cx + size / 30} ${cy + size / 30
+              } M ${cx - size / 30} ${cy + size / 30} L ${cx + size / 30} ${cy - size / 30
+              }`}
             stroke="#FFD700"
             strokeWidth="3"
           />
@@ -235,9 +227,8 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
   const { t } = useTranslation();
   return (
     <div
-      className={`mt-4 ${
-        isMobile ? "w-5/6" : "w-3/6"
-      } flex flex-col items-center`}
+      className={`mt-4 ${isMobile ? "w-5/6" : "w-3/6"
+        } flex flex-col items-center`}
     >
       <h3 className="text-lg font-bold mb-2 ">
         {t("problem_common.quantum_circuit")}
@@ -525,9 +516,8 @@ const QuantumPizzaGame_lv1 = () => {
         </div>
       )}
       <div
-        className={`${
-          isCorrect ? "blur-sm" : ""
-        } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}
+        className={`${isCorrect ? "blur-sm" : ""
+          } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}
       >
         {!isCorrect && (
           <>
