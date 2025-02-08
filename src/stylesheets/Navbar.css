@@ -1,7 +1,7 @@
 .nav {
     display: flex;
     background-color: #ea7878;
-    width: 55%;
+    width: 100%;
 }
 
 .nav .nav-home-and-rules{
@@ -74,5 +74,65 @@
 
     .nav li:active{
         font-weight: bold;
+    }
+}
+
+
+.language-selector {
+  width: 45%;
+  background-color: #ea7878;;
+  display: flex; 
+  /* justify-content: space-around; */
+  align-items: center;
+}
+
+.language-selector .language-buttons{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.language-selector button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  width: 100px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.language-selector button:hover {
+  color: #4CAF50; /* Hover時に文字色を変える */ 
+}
+
+.language-selector button.selected {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4CAF50; /* 選択時の背景色 */
+  border-radius: 3px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+@media screen and (max-width: 640px) {
+      /* 言語選択メニューを下に配置 */
+    .language-selector {
+        width: 70%;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 10px; /* ナビゲーションとの間隔 */
+        margin: 4px auto;
+    }
+
+    .language-selector .language-buttons{
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .language-selector button {
+        padding: 10px 20px;
+        width: 33.3%;
     }
 }

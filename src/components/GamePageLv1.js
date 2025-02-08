@@ -6,23 +6,35 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Navbar from "./navbar";
 import { useTranslation } from "react-i18next";
-import i18n from "../trans_resouces/trans_data";
-import "../stylesheets/QuantumPizzaGame.css"; // Tailwind用のCSSに置き換えます
-import { Pizza } from "lucide-react";
+import i18n from "../trans_resouces/trans_data"; // import the i18n setup
+import "../stylesheets/QuantumPizzaGame.css";
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-const TOPPINGS = [
-  "🍅 マルゲリータ",
-  "🧀 クワトロフォルマッジ",
-  "🍄 ポルチーニ",
-  "🍍 ハワイアン",
-];
-const T = "#D31727";
-const C = "#FFCE56";
-const B = "#60986C";
-const W = "#FAF0ED";
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const T = "#D31727"; // tomato
+const C = "#FFCE56"; // cheese
+const B = "#60986C"; // basil
+const W = "#FAF0ED"; // white
 const COLORS = [T, C, W, B];
 
-const ANSWERS_3 = [25, 25, 25, 25];
+const ANSWERS_1 = [0, 100];
 
 const PizzaChart = ({ distribution, size, isAnswer }) => {
   const [animatedDistribution, setAnimatedDistribution] =
@@ -202,12 +214,12 @@ const QuantumCircuit = ({ circuit, addGate }) => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex space-x-2 mb-4">
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addGate("H")}
         >
           H
-        </button>
+        </button> */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addGate("X")}
@@ -220,41 +232,30 @@ const QuantumCircuit = ({ circuit, addGate }) => {
 };
 
 const DisplayCircuit = ({ circuits, isMobile }) => {
+  const { t } = useTranslation();
   return (
     <div
       className={`mt-4 ${
         isMobile ? "w-5/6" : "w-3/6"
       } flex flex-col items-center`}
     >
+      <h3 className="text-lg font-bold mb-2 ">
+        {t("problem_common.quantum_circuit")}
+      </h3>
       <div className="flex flex-col space-y-2 w-full">
-        {circuits.map((circuit, circuitIndex) => (
+        {circuits.map((circuit, index) => (
           <div
-            key={circuitIndex}
-            className="flex  border p-2 rounded bg-white w-full h-14 gate-container"
+            key={index}
+            className="flex border p-2 rounded bg-white w-full h-14 gate-container"
           >
-            {circuit.map((gate, index) => {
-              if (gate === "I") {
-                return (
-                  <div className="flex">
-                    <div className="circuit-gate-block-I"></div>
-                  </div>
-                );
-              } else {
-                return (
-                  <div className="flex">
-                    <div
-                      key={index}
-                      className={`${
-                        gate == "H" ? "circuit-h-gate" : "circuit-x-gate"
-                      }`}
-                    >
-                      {gate}
-                    </div>
-                    <div className="circuit-gate-block"></div>
-                  </div>
-                );
-              }
-            })}
+            {circuit.map((gate, index) => (
+              <div className="flex">
+                <div key={index} className={`circuit-x-gate`}>
+                  {gate}
+                </div>
+                <div className="circuit-gate-block"></div>
+              </div>
+            ))}
           </div>
         ))}
       </div>
@@ -262,19 +263,17 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
   );
 };
 
-const QuantumPizzaGame_lv3 = () => {
-  const [distribution, setDistribution] = useState([100, 0, 0, 0]);
-  const [qstate, setQstate] = useState([1, 0, 0, 0]);
-  const [inputs, setInputs] = useState([100, 0, 0, 0]);
+const QuantumPizzaGame_lv1 = () => {
+  const [distribution, setDistribution] = useState([100, 0]);
+  const [qstate, setQstate] = useState([1, 0]);
   const [submitAnimation, setSubmitAnimation] = useState(false);
   const [circuit1, setCircuit1] = useState([]);
-  const [circuit2, setCircuit2] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [isMobile, setIsMobile] = useState(windowSize.width < 640);
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
@@ -309,12 +308,6 @@ const QuantumPizzaGame_lv3 = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleInputChange = (index, value) => {
-    const newInputs = [...inputs];
-    newInputs[index] = Number(value);
-    setInputs(newInputs);
-  };
-
   const calculateSize = () => {
     const baseSize = 220;
     const minSize = 150;
@@ -325,48 +318,18 @@ const QuantumPizzaGame_lv3 = () => {
 
   const addGate1 = (gate) => {
     setCircuit1([...circuit1, gate]);
-    if (gate === "CX") {
-      setCircuit2([...circuit2, "CD"]);
-    } else {
-      setCircuit2([...circuit2, "I"]);
-    }
   };
 
-  const addGate2 = (gate) => {
-    setCircuit2([...circuit2, gate]);
-    if (gate === "CX") {
-      setCircuit1([...circuit1, "CD"]);
-    } else {
-      setCircuit1([...circuit1, "I"]);
-    }
-  };
-
-  const executeCircuit = (circuit1, circuit2) => {
-    let newQstate = [1, 0, 0, 0];
+  const executeCircuit = (circuit1) => {
+    let newQstate = [1, 0];
     for (let i = 0; i < circuit1.length; i++) {
       if (circuit1[i] === "H") {
         const new0 = (newQstate[0] + newQstate[1]) / Math.sqrt(2);
         const new1 = (newQstate[0] - newQstate[1]) / Math.sqrt(2);
-        const new2 = (newQstate[2] + newQstate[3]) / Math.sqrt(2);
-        const new3 = (newQstate[2] - newQstate[3]) / Math.sqrt(2);
-
-        newQstate = [new0, new1, new2, new3];
+        newQstate = [new0, new1];
       } else if (circuit1[i] === "X") {
-        newQstate = [newQstate[1], newQstate[0], newQstate[3], newQstate[2]];
+        newQstate = [newQstate[1], newQstate[0]];
       } else if (circuit1[i] === "I") {
-        continue;
-      }
-    }
-    for (let i = 0; i < circuit2.length; i++) {
-      if (circuit2[i] === "H") {
-        const new0 = (newQstate[0] + newQstate[2]) / Math.sqrt(2);
-        const new1 = (newQstate[1] + newQstate[3]) / Math.sqrt(2);
-        const new2 = (newQstate[0] - newQstate[2]) / Math.sqrt(2);
-        const new3 = (newQstate[1] - newQstate[3]) / Math.sqrt(2);
-        newQstate = [new0, new1, new2, new3];
-      } else if (circuit2[i] === "X") {
-        newQstate = [newQstate[2], newQstate[3], newQstate[0], newQstate[1]];
-      } else if (circuit2[i] === "I") {
         continue;
       }
     }
@@ -378,21 +341,16 @@ const QuantumPizzaGame_lv3 = () => {
   };
 
   useEffect(() => {
-    executeCircuit(circuit1, circuit2);
-  }, [circuit1, circuit2]);
+    executeCircuit(circuit1);
+  }, [circuit1]);
 
   useEffect(() => {
     const newDistribution = calculateDistribution(qstate);
     setDistribution(newDistribution);
-  }, [qstate, circuit1, circuit2]);
+  }, [qstate, circuit1]);
 
   const handleSubmit = () => {
-    if (
-      distribution[0] === ANSWERS_3[0] &&
-      distribution[1] === ANSWERS_3[1] &&
-      distribution[2] === ANSWERS_3[2] &&
-      distribution[3] === ANSWERS_3[3]
-    ) {
+    if (distribution[0] === ANSWERS_1[0] && distribution[1] === ANSWERS_1[1]) {
       const imageWidth_1 = isMobile ? "100%" : "50%";
       const imageWidth_2 = isMobile ? "100%" : "70%";
       Swal.fire({
@@ -406,29 +364,36 @@ const QuantumPizzaGame_lv3 = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: t("lv3.swal.H_gate_2.title"),
+            title: t("lv1.swal.X_gate.title"),
             html: `
             <div class="xgate-explanation">
-            <hr> 
+              <hr >
               <p class="xgate-description">
-                ${t("lv3.swal.H_gate_2.description_1")}
+                ${t("lv1.swal.X_gate.description_1")}
               </p>
               <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                <img src="/hgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_1}; max-width: 100%; height: auto;" />
+                <img src="/xgate_image_1.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_1}; max-width: 100%; height: auto;" />
               </div>
             </div>
 
             <style>
+
             hr{
               border: 0;  
               border-top: 1px solid black;
               margin-bottom: 5px;
-            }           
+            }
 
             .xgate-description {
+              color: black;
               text-align: center;
               margin-bottom: 20px;
-              padding: 0 50px;
+              padding: 0 5px;
+              line-height: 1.8;
+            }
+
+            .emp {
+              font-weight: bold;
             }
             </style>
           `,
@@ -436,7 +401,7 @@ const QuantumPizzaGame_lv3 = () => {
               "problem_common.swal.confirm.confirm_button_next"
             ),
             customClass: {
-              container: `my-swal  ${language === "zh" ? "zh" : ""}`,
+              container: "my-swal",
               popup: "my-swal-popup",
               title: "my-swal-title",
               htmlContainer: "my-swal-html",
@@ -446,28 +411,29 @@ const QuantumPizzaGame_lv3 = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: t("lv3.swal.H_gate_2.title"),
+                title: t("lv1.swal.X_gate.title"),
                 html: `
                 <div class="xgate-explanation">
                   <hr >
                   <p class="xgate-description">
-                    ${t("lv3.swal.H_gate_2.description_2")}
+                    ${t("lv1.swal.X_gate.description_2")}
                   </p>
                   <div class="xgate-image-container" style="display: flex; justify-content: center;">
-                    <img src="/hgate_image_3.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
+                    <img src="/xgate_image_2.png" alt="Xゲート" class="xgate-image" style="width: ${imageWidth_2}; max-width: 100%; height: auto;" />
                   </div>
                 </div>
-
                 <style>
                 hr{
-                  border: 0;  
+                  border: 0;
                   border-top: 1px solid black;
                   margin-bottom: 5px;
                 }
+                  
                 .xgate-description {
+                  color: black;
                   text-align: center;
                   margin-bottom: 20px;
-                }
+                } 
                 </style>
               `,
                 showCancelButton: true,
@@ -478,7 +444,7 @@ const QuantumPizzaGame_lv3 = () => {
                   "problem_common.swal.confirm.cancel_button"
                 ),
                 customClass: {
-                  container: `my-swal  ${language === "zh" ? "zh" : ""}`,
+                  container: "my-swal",
                   popup: "my-swal-popup",
                   title: "my-swal-title",
                   htmlContainer: "my-swal-html",
@@ -489,7 +455,7 @@ const QuantumPizzaGame_lv3 = () => {
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate("/lv4");
+                  navigate("/lv2");
                 }
               });
             }
@@ -538,29 +504,26 @@ const QuantumPizzaGame_lv3 = () => {
     <DndProvider backend={HTML5Backend}>
       <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
-        <div className="language-selector">
-          <div className="language-buttons">
-            <button
-              onClick={() => changeLanguage("ja")}
-              className={`${language === "ja" ? "selected" : ""}`}
-            >
-              日本語
-            </button>
-            <button
-              onClick={() => changeLanguage("en")}
-              className={`${language === "en" ? "selected" : ""}`}
-            >
-              English
-            </button>
-            <button
-              onClick={() => changeLanguage("zh")}
-              className={`${language === "zh" ? "selected" : ""}`}
-            >
-              中文
-            </button>
+      </div>
+      {isCorrect && (
+        <div className="fixed inset-0 flex items-center justify-center bag-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded shadow-lg text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              {language === "ja" ? "おめでとうございます！🎉" : "恭喜你！🎉"}
+            </h2>
+            <p className="text-lg">
+              {language === "ja"
+                ? "正解！次のレベルに進もう！"
+                : "答对了！让我们进入下一关！"}
+            </p>
+            <Link to="/lv2">
+              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {language === "ja" ? "次へ" : "下一关"}
+              </button>
+            </Link>
           </div>
         </div>
-      </div>
+      )}
       <div
         className={`${
           isCorrect ? "blur-sm" : ""
@@ -568,24 +531,52 @@ const QuantumPizzaGame_lv3 = () => {
       >
         {!isCorrect && (
           <>
-            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.3</h1>
-            <p className="text-lg mb-4 font-bold">{t("lv3.instruction")}</p>
-            <div className="flex items-center justify-center mb-4">
+            <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.1</h1>
+            <p className="text-lg mb-4 font-bold">{t("lv1.instruction")}</p>
+            <div className="flex items-center justify-center mb-4 Pizza-chart-container">
               <PizzaChart
                 distribution={distribution}
                 size={dynamicSize}
                 isAnswer={false}
               />
               <PizzaChart
-                distribution={ANSWERS_3}
+                distribution={ANSWERS_1}
                 size={dynamicSize}
                 isAnswer={true}
               />
             </div>
-
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
-              <QuantumCircuit circuit={circuit2} addGate={addGate2} />
+            </div>
+            <div className="w-full md:w-1/2">
+              <Bar
+                data={{
+                  labels: ['|0⟩', '|1⟩'],
+                  datasets: [
+                    {
+                      label: 'Probability Amplitude',
+                      data: distribution,
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                }}
+                options={{
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      max: 100,
+                    },
+                  },
+                }}
+              />
             </div>
             <div className="flex space-x-4 mt-4">
               <button
@@ -602,12 +593,8 @@ const QuantumPizzaGame_lv3 = () => {
                 {t("problem_common.submit_button")}
               </button>
             </div>
-            <h3 className="text-lg font-bold mt-5">
-              {t("problem_common.quantum_circuit")}
-            </h3>
             <div className="circuit-list-container">
               <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
-              <DisplayCircuit circuits={[circuit2]} isMobile={isMobile} />
             </div>
           </>
         )}
@@ -621,4 +608,4 @@ const QuantumPizzaGame_lv3 = () => {
   );
 };
 
-export default QuantumPizzaGame_lv3;
+export default QuantumPizzaGame_lv1;
