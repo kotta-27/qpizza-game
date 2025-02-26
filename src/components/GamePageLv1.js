@@ -538,7 +538,7 @@ const QuantumPizzaGame_lv1 = () => {
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
             </div>
-            <div className="w-full md:w-1/2">
+            {/* <div className="w-full md:w-1/2">
               {distribution && (
                 <Bar
                   data={{
@@ -569,7 +569,7 @@ const QuantumPizzaGame_lv1 = () => {
                   }}
                 />
               )}
-            </div>
+            </div> */}
             <div className="flex space-x-4 mt-4">
               <button
                 className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button
