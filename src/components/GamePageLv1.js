@@ -9,17 +9,17 @@ import { useTranslation } from "react-i18next";
 import i18n from "../trans_resouces/trans_data"; // import the i18n setup
 import "../stylesheets/QuantumPizzaGame.css";
 import {
-  Chart,
+  Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-Chart.register(
+ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
@@ -202,6 +202,63 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
   );
 };
 
+const ProbabilityChart = ({ distribution, size }) => {
+  const data = {
+    labels: ['|0⟩', '|1⟩'],
+    datasets: [
+      {
+        label: '確率分布',
+        data: distribution,
+        backgroundColor: [
+          'rgba(211, 23, 39, 0.7)',   // トマトソース色
+          'rgba(255, 206, 86, 0.7)',  // チーズ色
+        ],
+        borderColor: [
+          'rgba(211, 23, 39, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const { t } = useTranslation();
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: t("problem_common.probability_distribution"),
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          ticks: {
+            callback: function (value) {
+              return value + '%';
+            },
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div style={{ width: size, height: size }} >
+      <Bar data={data} options={options} />
+    </div >
+  );
+};
+
 const QuantumCircuit = ({ circuit, addGate }) => {
   return (
     <div className="flex flex-col items-center">
@@ -260,6 +317,9 @@ const QuantumPizzaGame_lv1 = () => {
   const [submitAnimation, setSubmitAnimation] = useState(false);
   const [circuit1, setCircuit1] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [showGraph, setShowGraph] = useState(
+    localStorage.getItem("showGraph") === "true"
+  );
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -268,19 +328,24 @@ const QuantumPizzaGame_lv1 = () => {
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
-    localStorage.getItem("language") || "ja" // ローカルストレージから言語を取得．なければデフォルトはja
+    localStorage.getItem("language") || "ja"
   );
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    localStorage.setItem("language", lng); // 言語を保存
+    localStorage.setItem("language", lng);
     setLanguage(lng);
+  };
+
+  const handleShowGraphChange = (show) => {
+    setShowGraph(show);
+    localStorage.setItem("showGraph", show);
   };
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage); // ロード時に保存された言語を適用
+      i18n.changeLanguage(savedLanguage);
     }
   }, []);
 
@@ -521,6 +586,36 @@ const QuantumPizzaGame_lv1 = () => {
       >
         {!isCorrect && (
           <>
+            <div className="absolute top-20 left-4 z-10">
+              <div className="flex items-center mx-auto">
+                <div className="text-sm w-full text-center">{t("problem_common.graph_display")}</div>
+              </div>
+              <label className="flex items-center cursor-pointer">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={showGraph}
+                    onChange={(e) => handleShowGraphChange(e.target.checked)}
+                  />
+                  <div className="flex items-center bg-white w-48 h-10 rounded-full shadow-md p-1">
+                    <div
+                      className={`flex items-center justify-center w-24 h-8 rounded-full transition-all duration-300 ${showGraph ? 'ml-24 bg-blue-500 text-white' : 'ml-0 bg-gray-200 text-gray-700'
+                        }`}
+                    >
+                      <span className="text-sm font-medium">
+                        {showGraph ? 'ON' : 'OFF'}
+                      </span>
+                    </div>
+                    <div className="absolute w-full flex justify-between px-3 pointer-events-none text-sm font-medium">
+                      <span className={`${showGraph ? 'text-gray-700' : 'text-transparent'}`}></span>
+                      <span className={`${showGraph ? 'text-transparent' : 'text-gray-700'}`}></span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.1</h1>
             <p className="text-lg mb-4 font-bold">{t("lv1.instruction")}</p>
             <div className="flex items-center justify-center mb-4 Pizza-chart-container">
@@ -529,6 +624,12 @@ const QuantumPizzaGame_lv1 = () => {
                 size={dynamicSize}
                 isAnswer={false}
               />
+              {showGraph && (
+                <ProbabilityChart
+                  distribution={distribution}
+                  size={dynamicSize}
+                />
+              )}
               <PizzaChart
                 distribution={ANSWERS_1}
                 size={dynamicSize}
@@ -538,38 +639,6 @@ const QuantumPizzaGame_lv1 = () => {
             <div className="flex flex-col items-center">
               <QuantumCircuit circuit={circuit1} addGate={addGate1} />
             </div>
-            {/* <div className="w-full md:w-1/2">
-              {distribution && (
-                <Bar
-                  data={{
-                    labels: ['|0⟩', '|1⟩'],
-                    datasets: [
-                      {
-                        label: 'Probability Amplitude',
-                        data: distribution,
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                        ],
-                        borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)',
-                        ],
-                        borderWidth: 1,
-                      },
-                    ],
-                  }}
-                  options={{
-                    scales: {
-                      y: {
-                        beginAtZero: true,
-                        max: 100,
-                      },
-                    },
-                  }}
-                />
-              )}
-            </div> */}
             <div className="flex space-x-4 mt-4">
               <button
                 className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded reset-button

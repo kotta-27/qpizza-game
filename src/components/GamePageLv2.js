@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,25 @@ import Navbar from "./navbar";
 import { useTranslation } from "react-i18next";
 import i18n from "../trans_resouces/trans_data";
 import "../stylesheets/QuantumPizzaGame.css";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const T = "#D31727";
 const C = "#FFCE56";
@@ -17,13 +36,21 @@ const COLORS = [T, C, W, B];
 
 const ANSWERS_2 = [50, 50];
 
-const PizzaChart = ({ distribution, size, isAnswer }) => {
-  const [animatedDistribution, setAnimatedDistribution] =
-    useState(distribution);
+const PizzaChart = ({ distribution, size, isAnswer, isMeasuring, onMeasurementComplete }) => {
+  const [animatedDistribution, setAnimatedDistribution] = useState(distribution);
+  const [rotationAngle, setRotationAngle] = useState(0);
+  const [measurementResult, setMeasurementResult] = useState(null);
+  const spinnerRef = useRef(null);
 
   useEffect(() => {
     setAnimatedDistribution(distribution);
   }, [distribution]);
+
+  useEffect(() => {
+    if (isMeasuring) {
+      startSpinAnimation();
+    }
+  }, [isMeasuring]);
 
   let startAngle = 0;
 
@@ -107,6 +134,52 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
     }
   };
 
+  const startSpinAnimation = () => {
+    let startTime;
+    let currentRotation = 0;
+    const totalDuration = 3000; // 3秒間
+    const initialSpeed = 4000; // 初期速度（度/秒）
+
+    const spin = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+
+      if (progress < totalDuration) {
+        // イージング関数を使用して徐々に減速
+        const easeOut = 1 - Math.pow(1 - progress / totalDuration, 3);
+        const currentSpeed = initialSpeed * (1 - easeOut);
+        currentRotation += currentSpeed / 60; // 60FPSを想定
+
+        setRotationAngle(currentRotation % 360);
+        requestAnimationFrame(spin);
+      } else {
+        // 測定完了時の処理
+        const finalAngle = currentRotation % 360;
+        const result = determineMeasurementResult(finalAngle, distribution);
+        setMeasurementResult(result);
+        if (onMeasurementComplete) {
+          onMeasurementComplete(result);
+        }
+      }
+    };
+
+    requestAnimationFrame(spin);
+  };
+
+  const determineMeasurementResult = (angle, distribution) => {
+    // 確率に基づいて結果を決定
+    const random = Math.random() * 100;
+    let accumulator = 0;
+
+    for (let i = 0; i < distribution.length; i++) {
+      accumulator += distribution[i];
+      if (random <= accumulator) {
+        return i;
+      }
+    }
+    return 0;
+  };
+
   return (
     <motion.svg
       width={size}
@@ -125,63 +198,88 @@ const PizzaChart = ({ distribution, size, isAnswer }) => {
           strokeWidth="5"
         />
       )}
-      {/* ピザの生地 */}
-      <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#F0E68C" />
-      {/* トッピング */}
-      <AnimatePresence initial={false}>
-        {animatedDistribution.map((value, index) => {
-          if (value === 0) return null;
-          const angle = (value / 100.0) * 359.9999;
-          const endAngle = startAngle + angle;
-          const slice = createPizzaSlice(
-            startAngle,
-            endAngle,
-            COLORS[index],
-            index
-          );
-          startAngle = endAngle;
-          return slice;
-        })}
-      </AnimatePresence>
-      {/* ピザのエッジ（クラスト） */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={size / 2.2}
-        fill="none"
-        stroke="#E8B661"
-        strokeWidth="10"
+      <g transform={`rotate(${rotationAngle}, ${size / 2}, ${size / 2})`}>
+        {/* ピザの生地 */}
+        <circle cx={size / 2} cy={size / 2} r={size / 2.2} fill="#F0E68C" />
+        {/* トッピング */}
+        <AnimatePresence initial={false}>
+          {animatedDistribution.map((value, index) => {
+            if (value === 0) return null;
+            const angle = (value / 100.0) * 359.9999;
+            const endAngle = startAngle + angle;
+            const slice = createPizzaSlice(
+              startAngle,
+              endAngle,
+              COLORS[index],
+              index
+            );
+            startAngle = endAngle;
+            return slice;
+          })}
+        </AnimatePresence>
+        {/* ピザのエッジ（クラスト） */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={size / 2.2}
+          fill="none"
+          stroke="#E8B661"
+          strokeWidth="10"
+        />
+        {/* 固定されたトッピング */}
+        {createTopping(size * 0.3, size * 0.3, "tomato")}
+        {createTopping(size * 0.5, size * 0.8, "tomato")}
+        {createTopping(size * 0.8, size * 0.4, "tomato")}
+        {createTopping(size * 0.3, size * 0.7, "tomato")}
+        {createTopping(size * 0.6, size * 0.18, "tomato")}
+
+        {createTopping(size * 0.7, size * 0.7, "basil", 30)}
+        {createTopping(size * 0.2, size * 0.45, "basil", 0)}
+        {createTopping(size * 0.6, size * 0.3, "basil", 45)}
+        {createTopping(size * 0.4, size * 0.68, "basil", 79)}
+
+        {createTopping(size * 0.6, size * 0.7, "olive")}
+        {createTopping(size * 0.2, size * 0.6, "olive")}
+        {createTopping(size * 0.5, size * 0.3, "olive")}
+
+        {/* ピザの中央 */}
+        <circle cx={size / 2} cy={size / 2} r={size / 7.33} fill="#FFF8DC" />
+        <text
+          x={size / 2}
+          y={size / 2}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize={size / 5.5}
+        >
+          🍕
+        </text>
+      </g>
+      {/* 測定の針 */}
+      {/* <line
+        x1={size / 2}
+        y1={0}
+        x2={size / 2}
+        y2={size / 10}
+        stroke="red"
+        strokeWidth="4"
+        markerEnd="url(#arrowhead)"
       />
-      {/* 固定されたトッピング */}
-      {createTopping(size * 0.3, size * 0.3, "tomato")}
-      {createTopping(size * 0.5, size * 0.8, "tomato")}
-      {createTopping(size * 0.8, size * 0.4, "tomato")}
-      {createTopping(size * 0.3, size * 0.7, "tomato")}
-      {createTopping(size * 0.6, size * 0.18, "tomato")}
-
-      {createTopping(size * 0.7, size * 0.7, "basil", 30)}
-      {createTopping(size * 0.2, size * 0.45, "basil", 0)}
-      {createTopping(size * 0.6, size * 0.3, "basil", 45)}
-      {createTopping(size * 0.4, size * 0.68, "basil", 79)}
-
-      {createTopping(size * 0.6, size * 0.7, "olive")}
-      {createTopping(size * 0.2, size * 0.6, "olive")}
-      {createTopping(size * 0.5, size * 0.3, "olive")}
-
-      {/* ピザの中央 */}
-      <circle cx={size / 2} cy={size / 2} r={size / 7.33} fill="#FFF8DC" />
-      <text
-        x={size / 2}
-        y={size / 2}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontSize={size / 5.5}
-      >
-        🍕
-      </text>
+      <defs>
+        <marker
+          id="arrowhead"
+          markerWidth="10"
+          markerHeight="7"
+          refX="9"
+          refY="3.5"
+          orient="auto"
+        >
+          <polygon points="0 0, 10 3.5, 0 7" fill="red" />
+        </marker>
+      </defs> */}
     </motion.svg>
   );
 };
+
 const QuantumCircuit = ({ circuit, addGate }) => {
   return (
     <div className="flex flex-col items-center">
@@ -238,6 +336,86 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
   );
 };
 
+const DisplayMeasurements = ({ measurements, isMobile }) => {
+  const { t } = useTranslation();
+  return (
+    <div className={`mt-4 ${isMobile ? "w-5/6" : "w-3/6"} flex flex-col items-center`}>
+      <h3 className="text-lg font-bold mb-2">
+        {t("problem_common.measurement_results")}
+      </h3>
+      <div className="flex flex-wrap gap-2 w-full max-h-40 overflow-y-auto p-2">
+        {measurements.map((result, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-between bg-white rounded px-3 py-2 shadow-sm"
+            style={{ minWidth: "120px" }}
+          >
+            <span className="font-mono text-sm">測定 #{index + 1}:</span>
+            <span className="font-bold ml-2">{`|${result}⟩`}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ProbabilityChart = ({ distribution, size }) => {
+  const { t } = useTranslation();
+  const data = {
+    labels: ['|0⟩', '|1⟩'],
+    datasets: [
+      {
+        label: '確率分布',
+        data: distribution,
+        backgroundColor: [
+          'rgba(211, 23, 39, 0.7)',   // トマトソース色
+          'rgba(255, 206, 86, 0.7)',  // チーズ色
+        ],
+        borderColor: [
+          'rgba(211, 23, 39, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: t("problem_common.probability_distribution"),
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          callback: function (value) {
+            return value + '%';
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div style={{ width: size, height: size }}>
+      <Bar data={data} options={options} />
+    </div>
+  );
+};
+
 const QuantumPizzaGame_lv2 = () => {
   const [distribution, setDistribution] = useState([100, 0]);
   const [qstate, setQstate] = useState([1, 0]);
@@ -249,21 +427,33 @@ const QuantumPizzaGame_lv2 = () => {
     height: window.innerHeight,
   });
   const [isMobile, setIsMobile] = useState(windowSize.width < 640);
+  const [isMeasuring, setIsMeasuring] = useState(false);
+  const [measurementResult, setMeasurementResult] = useState(null);
+  const [measurements, setMeasurements] = useState([]);
+  const [showGraph, setShowGraph] = useState(
+    localStorage.getItem("showGraph") === "true"
+  );
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
     localStorage.getItem("language") || "ja"
   );
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    localStorage.setItem("language", lng); // 言語を保存
+    localStorage.setItem("language", lng);
     setLanguage(lng);
+  };
+
+  const handleShowGraphChange = (show) => {
+    setShowGraph(show);
+    localStorage.setItem("showGraph", show);
   };
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage); // ロード時に保存された言語を適用
+      i18n.changeLanguage(savedLanguage);
     }
   }, []);
 
@@ -463,6 +653,18 @@ const QuantumPizzaGame_lv2 = () => {
     });
   };
 
+  const handleMeasure = () => {
+    setIsMeasuring(true);
+  };
+
+  const handleMeasurementComplete = (result) => {
+    setIsMeasuring(false);
+    setMeasurementResult(result);
+    // 測定結果をリストに追加
+    setMeasurements(prev => [...prev, result]);
+    // ピザの状態は変更しない
+  };
+
   const dynamicSize = calculateSize();
 
   return (
@@ -470,21 +672,55 @@ const QuantumPizzaGame_lv2 = () => {
       <div className={`flex ${isMobile ? "flex-col" : ""}`}>
         <Navbar />
       </div>
-      <div
-        className={`${isCorrect ? "blur-sm" : ""
-          } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}
-      >
+      <div className={`${isCorrect ? "blur-sm" : ""} flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}>
         {!isCorrect && (
           <>
+            <div className="absolute top-20 left-4 z-10">
+              <div className="flex items-center mx-auto">
+                <div className="text-sm w-full text-center">{t("problem_common.graph_display")}</div>
+              </div>
+              <label className="flex items-center cursor-pointer">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={showGraph}
+                    onChange={(e) => handleShowGraphChange(e.target.checked)}
+                  />
+                  <div className="flex items-center bg-white w-48 h-10 rounded-full shadow-md p-1">
+                    <div
+                      className={`flex items-center justify-center w-24 h-8 rounded-full transition-all duration-300 ${showGraph ? 'ml-24 bg-blue-500 text-white' : 'ml-0 bg-gray-200 text-gray-700'
+                        }`}
+                    >
+                      <span className="text-sm font-medium">
+                        {showGraph ? 'ON' : 'OFF'}
+                      </span>
+                    </div>
+                    <div className="absolute w-full flex justify-between px-3 pointer-events-none text-sm font-medium">
+                      <span className={`${showGraph ? 'text-gray-700' : 'text-transparent'}`}></span>
+                      <span className={`${showGraph ? 'text-transparent' : 'text-gray-700'}`}></span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.2</h1>
             <p className="text-lg mb-4 font-bold">{t("lv2.instruction")}</p>
-            <p> </p>
-            <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center mb-4 Pizza-chart-container">
               <PizzaChart
                 distribution={distribution}
                 size={dynamicSize}
                 isAnswer={false}
+                isMeasuring={isMeasuring}
+                onMeasurementComplete={handleMeasurementComplete}
               />
+              {showGraph && (
+                <ProbabilityChart
+                  distribution={distribution}
+                  size={dynamicSize}
+                />
+              )}
               <PizzaChart
                 distribution={ANSWERS_2}
                 size={dynamicSize}
@@ -502,6 +738,13 @@ const QuantumPizzaGame_lv2 = () => {
               >
                 {t("problem_common.reset_button")}
               </button>
+              {/* <button
+                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleMeasure}
+                disabled={isMeasuring}
+              >
+                {t("problem_common.measure_button")}
+              </button> */}
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 onClick={handleSubmit}
@@ -509,8 +752,17 @@ const QuantumPizzaGame_lv2 = () => {
                 {t("problem_common.submit_button")}
               </button>
             </div>
-            <div className="circuit-list-container">
-              <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
+            <div className="flex flex-col items-center w-full max-w-4xl mt-4">
+              <div className="circuit-list-container">
+                <DisplayCircuit circuits={[circuit1]} isMobile={isMobile} />
+              </div>
+              <div className="w-full mt-4">
+                {measurements.length > 0 && (
+                  <div className="w-full mt-4">
+                    <DisplayMeasurements measurements={measurements} isMobile={isMobile} />
+                  </div>
+                )}
+              </div>
             </div>
           </>
         )}

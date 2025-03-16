@@ -9,6 +9,25 @@ import { useTranslation } from "react-i18next";
 import i18n from "../trans_resouces/trans_data";
 import "../stylesheets/QuantumPizzaGame.css"; // Tailwind用のCSSに置き換えます
 import { Pizza } from "lucide-react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const TOPPINGS = [
   "🍅 マルゲリータ",
@@ -252,6 +271,67 @@ const DisplayCircuit = ({ circuits, isMobile }) => {
   );
 };
 
+const ProbabilityChart = ({ distribution, size }) => {
+  const { t } = useTranslation();
+  const data = {
+    labels: ['|00⟩', '|01⟩', '|10⟩', '|11⟩'],
+    datasets: [
+      {
+        label: '確率分布',
+        data: distribution,
+        backgroundColor: [
+          'rgba(211, 23, 39, 0.7)',   // トマトソース色
+          'rgba(255, 206, 86, 0.7)',  // チーズ色
+          'rgba(250, 240, 237, 0.7)', // ホワイト色
+          'rgba(96, 152, 108, 0.7)',  // バジル色
+        ],
+        borderColor: [
+          'rgba(211, 23, 39, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgb(189, 189, 189)',
+          'rgba(96, 152, 108, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: t("problem_common.probability_distribution"),
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          callback: function (value) {
+            return value + '%';
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div style={{ width: size, height: size }}>
+      <Bar data={data} options={options} />
+    </div>
+  );
+};
+
 const QuantumPizzaGame_lv3 = () => {
   const [distribution, setDistribution] = useState([100, 0, 0, 0]);
   const [qstate, setQstate] = useState([1, 0, 0, 0]);
@@ -265,22 +345,30 @@ const QuantumPizzaGame_lv3 = () => {
     height: window.innerHeight,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const [showGraph, setShowGraph] = useState(
+    localStorage.getItem("showGraph") === "true"
+  );
 
   const { t } = useTranslation();
   const [language, setLanguage] = useState(
-    localStorage.getItem("language") || "ja" // ローカルストレージから言語を取得．なければデフォルトはja
+    localStorage.getItem("language") || "ja"
   );
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    localStorage.setItem("language", lng); // 言語を保存
+    localStorage.setItem("language", lng);
     setLanguage(lng);
+  };
+
+  const handleShowGraphChange = (show) => {
+    setShowGraph(show);
+    localStorage.setItem("showGraph", show);
   };
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage); // ロード時に保存された言語を適用
+      i18n.changeLanguage(savedLanguage);
     }
   }, []);
 
@@ -535,6 +623,36 @@ const QuantumPizzaGame_lv3 = () => {
       >
         {!isCorrect && (
           <>
+            <div className="absolute top-20 left-4 z-10">
+              <div className="flex items-center mx-auto">
+                <div className="text-sm w-full text-center">{t("problem_common.graph_display")}</div>
+              </div>
+              <label className="flex items-center cursor-pointer">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={showGraph}
+                    onChange={(e) => handleShowGraphChange(e.target.checked)}
+                  />
+                  <div className="flex items-center bg-white w-48 h-10 rounded-full shadow-md p-1">
+                    <div
+                      className={`flex items-center justify-center w-24 h-8 rounded-full transition-all duration-300 ${showGraph ? 'ml-24 bg-blue-500 text-white' : 'ml-0 bg-gray-200 text-gray-700'
+                        }`}
+                    >
+                      <span className="text-sm font-medium">
+                        {showGraph ? 'ON' : 'OFF'}
+                      </span>
+                    </div>
+                    <div className="absolute w-full flex justify-between px-3 pointer-events-none text-sm font-medium">
+                      <span className={`${showGraph ? 'text-gray-700' : 'text-transparent'}`}></span>
+                      <span className={`${showGraph ? 'text-transparent' : 'text-gray-700'}`}></span>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <h1 className="text-4xl font-bold mb-4">🍕 Quantum Pizza Lv.3</h1>
             <p className="text-lg mb-4 font-bold">{t("lv3.instruction")}</p>
             <div className="flex items-center justify-center mb-4">
@@ -543,6 +661,12 @@ const QuantumPizzaGame_lv3 = () => {
                 size={dynamicSize}
                 isAnswer={false}
               />
+              {showGraph && (
+                <ProbabilityChart
+                  distribution={distribution}
+                  size={dynamicSize}
+                />
+              )}
               <PizzaChart
                 distribution={ANSWERS_3}
                 size={dynamicSize}

@@ -42,10 +42,14 @@ const resources = {
         level4: "Lv.4",
       },
       problem_common: {
+        probability_distribution: "確率分布",
+        graph_display: "グラフ表示",
         reset_button: "リセット",
         submit_button: "提出",
+        measure_button: "測定",
         tips_button: "ヒント",
         quantum_circuit: "量子回路",
+        measurement_results: "測定結果",
         swal: {
           reset: {
             title: "リセットしますか？",
@@ -198,10 +202,14 @@ const resources = {
         level4: "Lv.4",
       },
       problem_common: {
+        probability_distribution: "Probability Distribution",
+        graph_display: "Graph Display",
         reset_button: "Reset",
         submit_button: "Submit",
+        measure_button: "Measure",
         tips_button: "Tips",
         quantum_circuit: "Quantum Circuit",
+        measurement_results: "Measurement Results",
         swal: {
           reset: {
             title: "Reset?",
@@ -332,10 +340,14 @@ const resources = {
         level4: "Lv.4",
       },
       problem_common: {
+        probability_distribution: "概率分布",
+        graph_display: "显示",
         reset_button: "重置",
         submit_button: "提交",
+        measure_button: "测量",
         tips_button: "提示",
         quantum_circuit: "量子电路",
+        measurement_results: "测量结果",
         swal: {
           reset: {
             title: "重置？",
@@ -398,9 +410,9 @@ const resources = {
             title: "CNOT（CX）门",
             description_1: `
                 CX 门是量子计算中非常重要的量子门。<br>
-                CX：“↑”或 CX：“↓”会改变移动方式。<br><br>
-                在 CX：“↑” 的情况下，白酱🥛和罗勒🌿 会交换。<br>
-                在 CX：“↓” 的情况下，奶酪🧀和罗勒🌿 会交换。`,
+                CX："↑"或 CX："↓"会改变移动方式。<br><br>
+                在 CX："↑" 的情况下，白酱🥛和罗勒🌿 会交换。<br>
+                在 CX："↓" 的情况下，奶酪🧀和罗勒🌿 会交换。`,
             description_2: `首先，使用 H 门制作半份半份，然后使用适当的 CX 门交换配料。<br>`,
           },
           tips: {

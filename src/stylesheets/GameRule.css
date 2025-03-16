@@ -1,44 +1,61 @@
-.rule-container{
+.rule-container {
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rule-container .rule-description {
+    width: 100%;
+}
+
+/* .rule-container .image-container {
+    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 30px;
+} */
+
+.rule-container .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
 }
 
-.rule-container .rule-description{
-    width: 60%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.rule-container .image-container{
-    padding: 5px 5px;
-    margin-top: 10px;
-    width: 40%;
-}
-
-.rule-container .image-container img{
-    margin-bottom: 100px;
-}
-
-@media screen and (max-width: 1025px) {
-    .rule-container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 1px 1px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
 
-    .rule-container .rule-description{
-        width: 90%;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@media screen and (min-width: 1024px) {
+    .rule-container {
+        grid-template-columns: 3fr 2fr;
+        align-items: start;
     }
 
-    .rule-container .image-container{
-        margin-top: 10px;
-        width: 80%;
+    .rule-container .image-container {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .rule-container {
+        padding: 1rem;
+    }
+
+    .rule-container .rule-description,
+    .rule-container .image-container {
+        width: 100%;
     }
 }

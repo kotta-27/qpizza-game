@@ -19,19 +19,19 @@ const WelcomePage = () => {
       <nav className="w-full bg-black bg-opacity-50 text-white py-2 px-4 flex justify-end space-x-4">
         <button
           onClick={() => changeLanguage("ja")}
-          className={`${language === "ja" ? "font-bold" : ""}`}
+          className={`${language === "ja" ? "font-bold border-b-2 border-white" : ""}`}
         >
           日本語
         </button>
         <button
           onClick={() => changeLanguage("en")}
-          className={`${language === "en" ? "font-bold" : ""}`}
+          className={`${language === "en" ? "font-bold border-b-2 border-white" : ""}`}
         >
           English
         </button>
         <button
           onClick={() => changeLanguage("zh")}
-          className={`${language === "zh" ? "font-bold" : ""}`}
+          className={`${language === "zh" ? "font-bold border-b-2 border-white" : ""}`}
         >
           中文
         </button>
