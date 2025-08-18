@@ -172,7 +172,7 @@ const resources = {
         welcome_message: "Welcome to Quantum Pizza! 🍕",
         description: "Create the perfect pizza using quantum gates!",
         rules_button: "Rules & Instructions",
-        problem_button: "Start Problem",
+        problem_button: "Start",
       },
       game_rule_page: {
         image_path: "./rule_en_2.png",
@@ -187,7 +187,7 @@ const resources = {
           "When matched, proceed to the next level.",
         ],
         rewards: "Reward",
-        rewards_description: "You are a Quatum Pizza Master!👀",
+        rewards_description: "You are a Quantum Pizza Master!👀",
         game_rule_tips: "Tip",
         tips_description:
           "The pizza toppings will change if you adjust the types and order of quantum gates.  Try various combinations!",
@@ -281,8 +281,8 @@ const resources = {
             description_2: `First, use the H gate to make a half-and-half, and then use the appropriate CX gate to swap the toppings.<br>`,
           },
           tips: {
-            title: "Tip💡",
-            confirm_button_more_tips: "More Tip",
+            title: "Tips💡",
+            confirm_button_more_tips: "More Tips",
             cancel_button_back: "Back",
             description_1: `Try using the new <span class="emp">CX gate</span>!<br>
             The <span class="emp">order of quantum gates</span> is also important.`,
