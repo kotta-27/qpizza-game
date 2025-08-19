@@ -1,7 +1,7 @@
 .rule-container {
     gap: 2rem;
     max-width: 1700px;
-    margin: 0 auto;
+    margin: 0 0 0 40px;
 }
 
 .rule-container .rule-description {

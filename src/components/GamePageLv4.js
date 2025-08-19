@@ -816,11 +816,6 @@ const QuantumPizzaGame_lv4 = () => {
           </>
         )}
       </div>
-      <footer className="fixed-footer">
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} Kota Mizuno. All rights reserved.
-        </p>
-      </footer>
     </DndProvider>
   );
 };
