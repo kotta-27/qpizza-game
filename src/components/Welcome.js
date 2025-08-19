@@ -64,11 +64,11 @@ const WelcomePage = () => {
           <div className="mt-8 text-center"></div>
         </div>
       </div>
-      <footer className="w-full bg-black bg-opacity-50 text-white text-center py-2 px-4">
+      {/* <footer className="w-full bg-black bg-opacity-50 text-white text-center py-2 px-4">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Kota Mizuno. All rights reserved.
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 };

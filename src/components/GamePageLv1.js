@@ -582,7 +582,7 @@ const QuantumPizzaGame_lv1 = () => {
       )}
       <div
         className={`${isCorrect ? "blur-sm" : ""
-          } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-16`}
+          } flex flex-col items-center p-4 bg-yellow-100 min-h-screen-minus-40`}
       >
         {!isCorrect && (
           <>
@@ -660,11 +660,6 @@ const QuantumPizzaGame_lv1 = () => {
           </>
         )}
       </div>
-      <footer className="fixed-footer">
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} Kota Mizuno. All rights reserved.
-        </p>
-      </footer>
     </DndProvider>
   );
 };

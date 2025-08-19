@@ -8,19 +8,23 @@ import GamePageLv4 from "./GamePageLv4";
 import WelcomePage from "./Welcome";
 import GameRule from "./GameRule";
 import Congrats from "./Congrats";
+import Footer from "./Footer";
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route exact path="/" element={<WelcomePage />} />
-        <Route path="/lv1" element={<GamePageLv1 />} />
-        <Route path="/lv2" element={<GamePageLv2 />} />
-        <Route path="/lv3" element={<GamePageLv3 />} />
-        <Route path="/lv4" element={<GamePageLv4 />} />
-        <Route path="/rule" element={<GameRule />} />
-        <Route path="/congrats" element={<Congrats />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route exact path="/" element={<WelcomePage />} />
+          <Route path="/lv1" element={<GamePageLv1 />} />
+          <Route path="/lv2" element={<GamePageLv2 />} />
+          <Route path="/lv3" element={<GamePageLv3 />} />
+          <Route path="/lv4" element={<GamePageLv4 />} />
+          <Route path="/rule" element={<GameRule />} />
+          <Route path="/congrats" element={<Congrats />} />
+        </Routes>
+        <Footer />
+      </div>
     </Router>
   );
 };

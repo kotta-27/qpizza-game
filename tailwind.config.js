@@ -7,7 +7,9 @@ module.exports = {
         "screen-minus-16": "calc(100vh - 1rem)", // 4rem引く例
       },
       minHeight: {
-        "screen-minus-16": "calc(100vh - 5rem)", // min-heightにも適用
+        "screen-minus-16": "calc(100vh - 5rem)", // 
+        //min-heightにも適用
+        "screen-minus-40": "calc(100vh - 40px)", // 
       },
     },
   },
